@@ -3,43 +3,42 @@ package com.skowronsky.snkrs.ui.home;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.Shoes;
+import com.skowronsky.snkrs.Company;
 
 import java.util.ArrayList;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<ArrayList<Shoes>> shoesLiveData;
-    private ArrayList<Shoes> shoesArrayList;
+    private MutableLiveData<ArrayList<Company>> CompanyLiveData;
+    private MutableLiveData<Boolean> ShoesNav;
+    public ArrayList<Company> CompanyArrayList;
 
     public HomeViewModel() {
-        shoesLiveData = new MutableLiveData<>();
+        CompanyLiveData = new MutableLiveData<>();
     }
-    public MutableLiveData<ArrayList<Shoes>> getShoesLiveData()
+    public MutableLiveData<ArrayList<Company>> getCompanyLiveData()
     {
-        if (shoesLiveData == null)
-                shoesLiveData = new MutableLiveData<>();
-        return shoesLiveData;
+        if (CompanyLiveData == null)
+                CompanyLiveData = new MutableLiveData<>();
+        return CompanyLiveData;
     }
-    public void init(){
-        shoesList();
-        shoesLiveData.setValue(shoesArrayList);
-    }
-    public void shoesList(){
-        Shoes shoes = new Shoes();
-        shoes.setCompany_name("Nike");
-        shoes.setModel("Airmax 97");
-        shoes.setSize("42");
-        shoes.setPhoto_url("Brak");
 
-        shoesArrayList = new ArrayList<>();
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
-        shoesArrayList.add(shoes);
+    public void init(){
+        CompanyList();
+        CompanyLiveData.setValue(CompanyArrayList);
+    }
+    public void CompanyList(){
+        Company Company = new Company();
+        Company.setCompany_name("Nike");
+
+        CompanyArrayList = new ArrayList<>();
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
+        CompanyArrayList.add(Company);
     }
 }

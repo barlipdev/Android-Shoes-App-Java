@@ -6,20 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.skowronsky.snkrs.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Acitivity context;
-    ArrayList<Shoes> shoesArrayList;
+    ArrayList<Company> CompanyArrayList;
 
-    public RecyclerViewAdapter(Acitivity context, ArrayList<Shoes> shoesArrayList){
+    public RecyclerViewAdapter(Acitivity context, ArrayList<Company> CompanyArrayList){
         this.context = context;
-        this.shoesArrayList = shoesArrayList;
+        this.CompanyArrayList = CompanyArrayList;
     }
 
     @NonNull
@@ -33,31 +38,28 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Shoes shoes = shoesArrayList.get(position);
-        RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
-        viewHolder.shoe_company.setText(shoes.getCompany_name());
-        viewHolder.shoe_size.setText(shoes.getSize());
-        viewHolder.shoe_model.setText(shoes.getModel());
+        Company Company = CompanyArrayList.get(position);
+        final RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
+        viewHolder.shoe_company.setText(Company.getCompany_name());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return shoesArrayList.size();
+        return CompanyArrayList.size();
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
-        ImageView shoe_photo;
-        TextView shoe_model;
         TextView shoe_company;
-        TextView shoe_size;
 
         public RecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            shoe_photo = itemView.findViewById(R.id.shoe_photo);
-            shoe_model = itemView.findViewById(R.id.shoe_model);
             shoe_company = itemView.findViewById(R.id.shoe_company);
-            shoe_size = itemView.findViewById(R.id.shoe_size);
         }
     }
 }

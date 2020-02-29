@@ -1,23 +1,29 @@
 package com.skowronsky.snkrs.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.RecyclerViewAdapter;
-import com.skowronsky.snkrs.Shoes;
+import com.skowronsky.snkrs.Company;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
+import com.skowronsky.snkrs.ui.dashboard.DashboardFragment;
 
 import java.util.ArrayList;
 
@@ -30,22 +36,23 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-            homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false);
-            binding.setHomeViewModel(homeViewModel);
-            binding.setLifecycleOwner(this);
-            recyclerView = new RecyclerView(getContext());
-            recyclerView = binding.shoesView;
-            homeViewModel.init();
-            homeViewModel.getShoesLiveData().observe(getViewLifecycleOwner(),shoesListUpdateObserver);
-            return binding.getRoot();
-            }
-    final Observer<ArrayList<Shoes>> shoesListUpdateObserver = new Observer<ArrayList<Shoes>>() {
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        binding.setHomeViewModel(homeViewModel);
+        binding.setLifecycleOwner(this);
+        recyclerView = new RecyclerView(getContext());
+        recyclerView = binding.CompanyView;
+        homeViewModel.init();
+        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), CompanyListUpdateObserver);
+        return binding.getRoot();
+    }
+
+    final Observer<ArrayList<Company>> CompanyListUpdateObserver = new Observer<ArrayList<Company>>() {
         @Override
-        public void onChanged(ArrayList<Shoes> shoesArrayList) {
-            recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), shoesArrayList);
+        public void onChanged(ArrayList<Company> CompanyArrayList) {
+            recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(recyclerViewAdapter);
         }
     };
-}
+};
