@@ -4,35 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.skowronsky.snkrs.ui.home.HomeFragment;
 import com.skowronsky.snkrs.ui.home.HomeViewModel;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     Acitivity context;
     ArrayList<Company> CompanyArrayList;
+    HomeViewModel homeViewModel;
 
-    public RecyclerViewAdapter(Acitivity context, ArrayList<Company> CompanyArrayList){
+    public RecyclerViewAdapter(Acitivity context, ArrayList<Company> CompanyArrayList,HomeViewModel homeViewModel){
         this.context = context;
         this.CompanyArrayList = CompanyArrayList;
+        this.homeViewModel = homeViewModel;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         final RecyclerView.ViewHolder viewHolder = null;
         View rootView = LayoutInflater.from((Context) context).inflate(R.layout.item,parent,false);
         return new RecyclerViewViewHolder(rootView);
@@ -46,7 +42,8 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText((Context) context, "Numer: "+String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                Toast.makeText((Context) context, "Numer: "+ viewHolder.shoe_company.getText(), Toast.LENGTH_SHORT).show();
+                homeViewModel.eventNavToShoes();
             }
         });
     }

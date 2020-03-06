@@ -26,6 +26,7 @@ import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
 import com.skowronsky.snkrs.ui.dashboard.DashboardFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter<Context> recyclerViewAdapter;
+    private String ShoesCompany;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,13 +42,13 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setHomeViewModel(homeViewModel);
         binding.setLifecycleOwner(this);
-        recyclerView = new RecyclerView(getContext());
+        recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = binding.CompanyView;
         homeViewModel.init();
         homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Company>>() {
             @Override
             public void onChanged(ArrayList<Company> CompanyArrayList) {
-                recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList);
+                recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList,homeViewModel);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void navigateToShoes(){
-        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_navigation_profile);
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_shoesFragment22);
     }
 
 };

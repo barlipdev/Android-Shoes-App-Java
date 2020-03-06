@@ -11,8 +11,13 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            android:id="@+id/action_navigation_home_to_shoesFragment22"
+            app:destination="@id/shoesFragment2"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_enter" />
+        <argument
+            android:name="CompanyName"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -40,5 +45,14 @@
         android:name="com.skowronsky.snkrs.ui.profile.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/shoesFragment2"
+        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesFragment"
+        android:label="shoes_fragment"
+        tools:layout="@layout/shoes_fragment">
+        <argument
+            android:name="CompanyName"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
