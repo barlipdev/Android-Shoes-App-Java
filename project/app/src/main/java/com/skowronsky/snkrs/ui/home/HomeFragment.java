@@ -43,16 +43,30 @@ public class HomeFragment extends Fragment {
         recyclerView = new RecyclerView(getContext());
         recyclerView = binding.CompanyView;
         homeViewModel.init();
-        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), CompanyListUpdateObserver);
+        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Company>>() {
+            @Override
+            public void onChanged(ArrayList<Company> CompanyArrayList) {
+                recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(recyclerViewAdapter);
+            }
+        });
+
+        final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
+        navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    navigateToShoes();
+                    homeViewModel.eventNavToShoesFinished();
+                }
+            }
+        });
         return binding.getRoot();
     }
 
-    final Observer<ArrayList<Company>> CompanyListUpdateObserver = new Observer<ArrayList<Company>>() {
-        @Override
-        public void onChanged(ArrayList<Company> CompanyArrayList) {
-            recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.setAdapter(recyclerViewAdapter);
-        }
-    };
+    private void navigateToShoes(){
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_navigation_profile);
+    }
+
 };

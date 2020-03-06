@@ -14,10 +14,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.ui.home.HomeFragment;
+import com.skowronsky.snkrs.ui.home.HomeViewModel;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     Acitivity context;
     ArrayList<Company> CompanyArrayList;
@@ -31,7 +33,7 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        RecyclerView.ViewHolder viewHolder = null;
+        final RecyclerView.ViewHolder viewHolder = null;
         View rootView = LayoutInflater.from((Context) context).inflate(R.layout.item,parent,false);
         return new RecyclerViewViewHolder(rootView);
     }
@@ -44,7 +46,7 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText((Context) context, "Numer: "+String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
             }
         });
     }
