@@ -66,8 +66,10 @@ public class ShoesFragment extends Fragment {
         navInfo.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                navigateToShoesInfo();
-                shoesViewModel.eventNavToInfoFinished();
+                if(aBoolean) {
+                    navigateToShoesInfo();
+                    shoesViewModel.eventNavToInfoFinished();
+                }
             }
         });
 
