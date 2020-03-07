@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
@@ -33,9 +36,22 @@ public class SettingsFragment extends Fragment {
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
+        final LiveData<Boolean> natToProfile = viewModel.getEventNavToProfile();
+        natToProfile.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean nav) {
+                if(nav) {
+                    navigateToProfile();
+                    viewModel.eventNavToProfileFinished();
+                }
+            }
+        });
+
         return binding.getRoot();
     }
-
+    private void navigateToProfile(){
+        NavHostFragment.findNavController(this).navigate(R.id.action_settingsFragment_to_navigation_profile);
+    }
 
 
 }
