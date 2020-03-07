@@ -1,5 +1,7 @@
 package com.skowronsky.snkrs.ui.home.shoes;
 
+import android.icu.text.IDNA;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,6 +14,7 @@ public class ShoesViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
     public ArrayList<Shoes> ShoesArrayList;
     public ArrayList<Shoes> ShoesArrayListTmp;
+    private MutableLiveData<Boolean> InfoNav;
 
 
     public ShoesViewModel() {
@@ -25,9 +28,22 @@ public class ShoesViewModel extends ViewModel {
         return ShoesLiveData;
     }
 
+    public MutableLiveData<Boolean> getInfoNav(){
+        if (InfoNav == null)
+            InfoNav = new MutableLiveData<Boolean>();
+        return InfoNav;
+    }
+
     public void init(String company){
         ShoesList(company);
         ShoesLiveData.setValue(ShoesArrayList);
+    }
+
+    public void eventNavToInfo(){
+        InfoNav.setValue(true);
+    }
+    public void eventNavToInfoFinished(){
+        InfoNav.setValue(false);
     }
 
     public void ShoesList(String company){

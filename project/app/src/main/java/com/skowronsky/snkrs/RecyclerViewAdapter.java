@@ -42,6 +42,7 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                homeViewModel.eventCompanyName(viewHolder.shoe_company.getText().toString());
                 Toast.makeText((Context) context, "Numer: "+ viewHolder.shoe_company.getText(), Toast.LENGTH_SHORT).show();
                 homeViewModel.eventNavToShoes();
             }

@@ -13,8 +13,10 @@
         <action
             android:id="@+id/action_navigation_home_to_shoesFragment22"
             app:destination="@id/shoesFragment2"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_close_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="CompanyName"
             app:argType="string" />
@@ -50,9 +52,13 @@
         android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesFragment"
         android:label="shoes_fragment"
         tools:layout="@layout/shoes_fragment">
-        <argument
-            android:name="CompanyName"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_shoesFragment2_to_shoesInformationFragment2"
+            app:destination="@id/shoesInformationFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/shoesInformationFragment2"
+        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesInformationFragment"
+        android:label="ShoesInformationFragment" />
 
 </navigation>

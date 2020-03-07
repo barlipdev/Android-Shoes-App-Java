@@ -19,10 +19,12 @@ public class ShoesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
 
     Acitivity context;
     ArrayList<Shoes> ShoesArrayList;
+    ShoesViewModel shoesViewModel;
 
-    public ShoesRecyclerViewAdapter(Acitivity context, ArrayList<Shoes> ShoesArrayList){
+    public ShoesRecyclerViewAdapter(Acitivity context, ArrayList<Shoes> ShoesArrayList, ShoesViewModel shoesViewModel){
         this.context = context;
         this.ShoesArrayList = ShoesArrayList;
+        this.shoesViewModel = shoesViewModel;
     }
 
     @NonNull
@@ -39,6 +41,12 @@ public class ShoesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
         final RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
         viewHolder.shoe_company.setText(shoes.getShoe_company());
         viewHolder.shoe_model.setText(shoes.getModel());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shoesViewModel.eventNavToInfo();
+            }
+        });
     }
 
     @Override

@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter<Context> recyclerViewAdapter;
-    private String ShoesCompany;
+    private String ShoesCompany = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +54,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        homeViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                ShoesCompany = s;
+            }
+        });
+
         final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
         navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -68,7 +75,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void navigateToShoes(){
-        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_shoesFragment22);
+        Bundle bundle = new Bundle();
+        bundle.putString("key",ShoesCompany.toString());
+        Log.i("NameCompany",ShoesCompany);
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_shoesFragment22,bundle);
     }
 
 };

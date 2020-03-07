@@ -12,8 +12,8 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Company>> CompanyLiveData;
     private MutableLiveData<Boolean> ShoesNav;
+    private MutableLiveData<String> CompanyName;
     public ArrayList<Company> CompanyArrayList;
-    private String CompanyName;
 
     public HomeViewModel() {
         CompanyLiveData = new MutableLiveData<>();
@@ -32,12 +32,19 @@ public class HomeViewModel extends ViewModel {
         return ShoesNav;
     }
 
+    public MutableLiveData<String> getEventCompanyName(){
+        if (CompanyName == null)
+            CompanyName = new MutableLiveData<String>();
+        return CompanyName;
+    }
+
     public void eventNavToShoes(){
         ShoesNav.setValue(true);
     }
     public void eventNavToShoesFinished(){
         ShoesNav.setValue(false);
     }
+    public void eventCompanyName(String name){ CompanyName.setValue(name);}
 
     public void init(){
         CompanyList();
@@ -51,10 +58,6 @@ public class HomeViewModel extends ViewModel {
 
         CompanyArrayList = new ArrayList<>();
         CompanyArrayList.add(Company);
-        CompanyArrayList.add(Company);
-        CompanyArrayList.add(Company2);
-        CompanyArrayList.add(Company2);
-        CompanyArrayList.add(Company2);
         CompanyArrayList.add(Company2);
     }
 }
