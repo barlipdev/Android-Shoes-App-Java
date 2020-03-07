@@ -24,15 +24,14 @@ public class SettingsFragment extends Fragment {
     private UserManager userManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
-        binding.setSettingsViewModel(viewModel);
-        binding.setLifecycleOwner(this);
 
         appState = ((MyApplication)this.getActivity().getApplication());
         userManager = appState.userManager;
 
-        viewModel.username = userManager.getUsername();
+        viewModel = new ViewModelProvider(this, new SettingViewModelFactory(userManager)).get(SettingsViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
+        binding.setSettingsViewModel(viewModel);
+        binding.setLifecycleOwner(this);
 
         return binding.getRoot();
     }
