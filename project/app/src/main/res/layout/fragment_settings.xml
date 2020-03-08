@@ -24,16 +24,6 @@
             app:layout_constraintStart_toEndOf="@+id/arrow_back_button"
             app:layout_constraintTop_toTopOf="@+id/arrow_back_button" />
 
-        <TextView
-            android:id="@+id/userTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            android:text="@={settingsViewModel.username}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageView
             android:id="@+id/arrow_back_button"
             android:layout_width="wrap_content"
@@ -61,19 +51,19 @@
             app:layout_constraintTop_toBottomOf="@+id/arrow_back_button" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/username"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
+        android:id="@+id/userTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/username"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/userEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -81,10 +71,49 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@={settingsViewModel.username}"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/userTxt" />
+
+        <TextView
+            android:id="@+id/emailTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/email"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/userTxt"
+            app:layout_constraintTop_toBottomOf="@+id/userEditText" />
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:text="@={settingsViewModel.email}"
+            android:textColor="@color/greyText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/userEditText"
+            app:layout_constraintStart_toStartOf="@+id/userEditText"
+            app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
+
+        <Button
+            android:id="@+id/login_btn_login"
+            style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="52dp"
+            android:text="@string/log_out"
+            app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+            app:layout_constraintStart_toStartOf="@+id/emailEditText"
+            app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

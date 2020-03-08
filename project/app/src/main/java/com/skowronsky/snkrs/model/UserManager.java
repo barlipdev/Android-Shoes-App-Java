@@ -10,4 +10,5 @@ public class UserManager{
         return user.getUsername();
     }
 
+    public String getEmail() {return  user.getEmail(); }
 }
