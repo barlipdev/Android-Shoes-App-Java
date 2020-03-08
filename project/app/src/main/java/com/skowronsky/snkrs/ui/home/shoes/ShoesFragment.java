@@ -34,6 +34,7 @@ public class ShoesFragment extends Fragment {
     private ShoesFragmentBinding shoesFragmentBinding;
     private RecyclerView recyclerView;
     private ShoesRecyclerViewAdapter<Context> recyclerViewAdapter;
+    private Shoes shoe_info;
     private String company;
 
     public static ShoesFragment newInstance() {
@@ -62,6 +63,13 @@ public class ShoesFragment extends Fragment {
             }
         });
 
+        shoesViewModel.getEventShoeInfo().observe(getViewLifecycleOwner(), new Observer<Shoes>() {
+            @Override
+            public void onChanged(Shoes s) {
+                shoe_info = s;
+            }
+        });
+
         final LiveData<Boolean> navInfo = shoesViewModel.getInfoNav();
         navInfo.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -77,9 +85,10 @@ public class ShoesFragment extends Fragment {
     }
 
     private void navigateToShoesInfo(){
-        //Bundle bundle = new Bundle();
-        //bundle.putString("key",ShoesCompany.toString());
-        NavHostFragment.findNavController(this).navigate(R.id.action_shoesFragment2_to_shoesInformationFragment2);
+        Bundle bundle_info = new Bundle();
+        bundle_info.putString("model",shoe_info.getModel().toString());
+        bundle_info.putString("company",shoe_info.getShoe_company().toString());
+        NavHostFragment.findNavController(this).navigate(R.id.action_shoesFragment2_to_shoesInformationFragment2,bundle_info);
     }
 
 }

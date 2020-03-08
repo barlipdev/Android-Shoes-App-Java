@@ -21,6 +21,8 @@ public class ShoesInformationFragment extends Fragment {
 
     private ShoesInformationViewModel shoesInformationViewModel;
     private ShoesInformationFragmentBinding shoesInformationFragmentBinding;
+    private String shoe_company;
+    private String shoe_model;
 
     public static ShoesInformationFragment newInstance() {
         return new ShoesInformationFragment();
@@ -33,6 +35,15 @@ public class ShoesInformationFragment extends Fragment {
         shoesInformationFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.shoes_information_fragment, container, false);
         shoesInformationFragmentBinding.setShoesInfoViewModel(shoesInformationViewModel);
         shoesInformationFragmentBinding.setLifecycleOwner(this);
+
+        shoe_model = getArguments().getString("model");
+        shoe_company = getArguments().getString("company");
+
+        shoesInformationFragmentBinding.modelInfo.setText(shoe_model);
+        shoesInformationFragmentBinding.preferNumber.setText(shoe_company);
+
+
+
 
         return shoesInformationFragmentBinding.getRoot();
     }

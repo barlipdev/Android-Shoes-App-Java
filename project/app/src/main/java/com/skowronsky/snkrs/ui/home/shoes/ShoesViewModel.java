@@ -14,6 +14,7 @@ public class ShoesViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
     public ArrayList<Shoes> ShoesArrayList;
     public ArrayList<Shoes> ShoesArrayListTmp;
+    public MutableLiveData<Shoes> shoe_info;
     private MutableLiveData<Boolean> InfoNav;
 
 
@@ -34,6 +35,12 @@ public class ShoesViewModel extends ViewModel {
         return InfoNav;
     }
 
+    public MutableLiveData<Shoes> getEventShoeInfo(){
+        if (shoe_info == null)
+            shoe_info = new MutableLiveData<Shoes>();
+        return shoe_info;
+    }
+
     public void init(String company){
         ShoesList(company);
         ShoesLiveData.setValue(ShoesArrayList);
@@ -45,6 +52,7 @@ public class ShoesViewModel extends ViewModel {
     public void eventNavToInfoFinished(){
         InfoNav.setValue(false);
     }
+    public void eventSendShoe(Shoes shoe){shoe_info.setValue(shoe);}
 
     public void ShoesList(String company){
         Shoes shoes = new Shoes();

@@ -12,8 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf5116fa-370a-4d5a-bb35-a4b74494e411" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesInformationFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesInformationFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesRecyclerViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesRecyclerViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/home/shoes/ShoesViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/mobile_navigation.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +29,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="LGK580DI6S7PPF" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_XL_API_29" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

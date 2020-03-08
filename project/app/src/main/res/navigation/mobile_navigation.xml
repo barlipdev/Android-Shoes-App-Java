@@ -55,6 +55,7 @@
         <action
             android:id="@+id/action_shoesFragment2_to_shoesInformationFragment2"
             app:destination="@id/shoesInformationFragment2" />
+        <argument android:name="shoe_info" />
     </fragment>
     <fragment
         android:id="@+id/shoesInformationFragment2"
