@@ -12,14 +12,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf5116fa-370a-4d5a-bb35-a4b74494e411" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_btn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/androidTest/java/com/skowronsky/snkrsserver/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/java/com/skowronsky/snkrsserver/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/app/src/test/java/com/skowronsky/snkrsserver/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SnkrsServer/settings.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/model/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/model/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/profile/settings/SettingsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/skowronsky/snkrs/ui/profile/settings/SettingsViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +61,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="ce061716220e090d01" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="5.5_10" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
