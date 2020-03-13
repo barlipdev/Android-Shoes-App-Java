@@ -21,6 +21,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
 
 import java.util.Objects;
@@ -37,6 +38,7 @@ public class DashboardFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
         binding.setDashboardViewModel(viewModel);
         binding.setLifecycleOwner(this);
+
 
 
         final LiveData<Boolean> navigation = viewModel.getEventNav();
@@ -56,6 +58,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void navigateToHome(){
-        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_dashboard_to_navigation_home);
+
+        //NavHostFragment.findNavController(this).navigate(R.id.action_navigation_dashboard_to_navigation_home);
     }
 }
