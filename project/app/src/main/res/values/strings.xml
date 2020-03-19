@@ -7,4 +7,6 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="log_out">Log out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="connect">Connect</string>
 </resources>

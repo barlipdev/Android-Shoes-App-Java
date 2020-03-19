@@ -11,13 +11,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-@SuppressLint("SetTextI18n")
+
 public class SnkrsClient {
     Thread Thread1 = null;
-
+    Socket socket;
     String SERVER_IP = "192.168.21.1";
     int SERVER_PORT = 4444;
-    boolean closeConnection = false;
 
     private Activity activity;
 
@@ -26,13 +25,12 @@ public class SnkrsClient {
     }
 
     public void connect(){
-        closeConnection = false;
         Thread1 = new Thread(new Thread1());
         Thread1.start();
     }
 
-    public void disconnect(){
-        closeConnection = true;
+    public void disconnect() throws IOException {
+        socket.close();
     }
 
     private PrintWriter output;
@@ -41,7 +39,7 @@ public class SnkrsClient {
     class Thread1 implements Runnable {
 
         public void run() {
-            Socket socket;
+
             try {
                 socket = new Socket(SERVER_IP, SERVER_PORT);
                 output = new PrintWriter(socket.getOutputStream());
@@ -63,7 +61,7 @@ public class SnkrsClient {
     class Thread2 implements Runnable {
         @Override
         public void run() {
-            while (!closeConnection) {
+            while (true) {
                 try {
                     final String message = input.readLine();
                     if (message != null) {

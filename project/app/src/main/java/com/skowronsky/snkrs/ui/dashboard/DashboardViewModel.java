@@ -1,27 +1,38 @@
 package com.skowronsky.snkrs.ui.dashboard;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class DashboardViewModel extends ViewModel {
 
-    private MutableLiveData<Boolean> eventNav;
+    private MutableLiveData<Boolean> eventConnect;
+    private MutableLiveData<Boolean> eventDisconnect;
 
     public String siema = "siema";
 
-    public MutableLiveData<Boolean> getEventNav(){
-        if(eventNav == null)
-            eventNav = new MutableLiveData<Boolean>();
-        return eventNav;
+    public MutableLiveData<Boolean> getEventConnect(){
+        if(eventConnect == null)
+            eventConnect = new MutableLiveData<Boolean>();
+        return eventConnect;
     }
 
-    public void setEventNav(){
-        eventNav.setValue(true);
+    public void setEventConnect(){
+        eventConnect.setValue(true);
     }
-    public void navFinished(){
-        eventNav.setValue(false);
+    public void connectFinished(){
+        eventConnect.setValue(false);
+    }
+
+    public MutableLiveData<Boolean> getEventDisconnect() {
+        if(eventDisconnect == null)
+            eventDisconnect = new MutableLiveData<Boolean>();
+        return eventDisconnect;
+    }
+
+    public void setEventDisconnect(){
+        eventConnect.setValue(true);
+    }
+    public void disconnectFinished(){
+        eventConnect.setValue(false);
     }
 }

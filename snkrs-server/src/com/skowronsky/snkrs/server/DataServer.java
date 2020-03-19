@@ -1,12 +1,9 @@
 package com.skowronsky.snkrs.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Date;
 import java.util.concurrent.Executors;
 
 public class DataServer {
@@ -33,6 +30,7 @@ public class DataServer {
             e.printStackTrace();
         }
     }
+
 
 
 
