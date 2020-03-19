@@ -7,11 +7,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.concurrent.Executors;
 
 public class DataServer {
 
     final static int portNumber = 4444;
-    static String SERVER_IP = "";
     static InetAddress inetAddress;
 
     public static void main(String[] args) {
@@ -23,13 +23,11 @@ public class DataServer {
 
         try (var serverSocket = new ServerSocket(portNumber)){
             System.out.println("Server IP: " + inetAddress.getHostAddress());
-            System.out.println("The date server is running...");
+            System.out.println("Data server is running...");
 
-            while (true){
-                try (Socket clientSocket = serverSocket.accept()){
-                    var out = new PrintWriter(clientSocket.getOutputStream(),true);
-                    out.println(new Date().toString());
-                }
+            var pool = Executors.newFixedThreadPool(20);
+            while (true) {
+                pool.execute(new Capitalizer(serverSocket.accept()));
             }
         } catch (IOException e) {
             e.printStackTrace();

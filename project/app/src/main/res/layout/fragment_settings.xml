@@ -109,9 +109,10 @@
             style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
             android:layout_width="0dp"
             android:layout_height="28dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="152dp"
             android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="@+id/emailEditText"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/emailEditText"
             app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 

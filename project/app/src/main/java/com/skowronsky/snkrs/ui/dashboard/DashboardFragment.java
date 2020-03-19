@@ -40,7 +40,6 @@ public class DashboardFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
 
-
         final LiveData<Boolean> navigation = viewModel.getEventNav();
         navigation.observe(getViewLifecycleOwner(), new Observer<Boolean>(){
             @Override
@@ -58,6 +57,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void navigateToHome(){
+        SnkrsClient client = new SnkrsClient(getActivity());
+        client.connect();
 
         //NavHostFragment.findNavController(this).navigate(R.id.action_navigation_dashboard_to_navigation_home);
     }

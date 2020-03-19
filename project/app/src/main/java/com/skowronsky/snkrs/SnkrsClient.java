@@ -17,6 +17,7 @@ public class SnkrsClient {
 
     String SERVER_IP = "192.168.21.1";
     int SERVER_PORT = 4444;
+    boolean closeConnection = false;
 
     private Activity activity;
 
@@ -25,8 +26,13 @@ public class SnkrsClient {
     }
 
     public void connect(){
+        closeConnection = false;
         Thread1 = new Thread(new Thread1());
         Thread1.start();
+    }
+
+    public void disconnect(){
+        closeConnection = true;
     }
 
     private PrintWriter output;
@@ -57,7 +63,7 @@ public class SnkrsClient {
     class Thread2 implements Runnable {
         @Override
         public void run() {
-            while (true) {
+            while (!closeConnection) {
                 try {
                     final String message = input.readLine();
                     if (message != null) {
