@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class DataServer {
 
-    final static int portNumber = 4444;
+    final static int portNumber = 59898;
     static InetAddress inetAddress;
 
     public static void main(String[] args) {

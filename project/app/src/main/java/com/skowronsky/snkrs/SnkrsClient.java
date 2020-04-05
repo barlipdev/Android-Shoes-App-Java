@@ -1,7 +1,7 @@
 package com.skowronsky.snkrs;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -9,79 +9,69 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
 
 public class SnkrsClient {
-    Thread Thread1 = null;
-    Socket socket;
-    String SERVER_IP = "192.168.21.1";
-    int SERVER_PORT = 4444;
+    Thread connectionThread = null;
 
-    private Activity activity;
+    String SERVER_IP = "192.168.1.12";
+    int SERVER_PORT = 59898;
 
-    public SnkrsClient(Activity activity){
-        this.activity = activity;
+    private Context context;
+
+    public SnkrsClient(){}
+    public SnkrsClient(Context context){
+        this.context = context;
     }
 
     public void connect(){
-        Thread1 = new Thread(new Thread1());
-        Thread1.start();
+        connectionThread = new Thread(new ConnectionThread());
+        connectionThread.start();
     }
 
-    public void disconnect() throws IOException {
-        socket.close();
-    }
 
     private PrintWriter output;
     private BufferedReader input;
 
-    class Thread1 implements Runnable {
+    class ConnectionThread implements Runnable {
 
+        Socket socket;
+
+        @SuppressLint("RestrictedApi")
         public void run() {
-
             try {
-                socket = new Socket(SERVER_IP, SERVER_PORT);
-                output = new PrintWriter(socket.getOutputStream());
+                socket = new Socket(SERVER_IP,SERVER_PORT);
+                output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String message = "";
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("SnkrsServer","Connected");
-                    }
-                });
-                new Thread(new Thread2()).start();
+
+                Log.i("SnkrsServer","Connected");
+
+                output.println("Hello!!!");
+                output.println("Whats Up?");
+
+                output.println("QQQ");
+
+                do{
+                    message = input.readLine();
+                    Log.i("SnkrsServer","Messege: "+ message);
+
+                }while (!message.equals("QQQ"));
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    class Thread2 implements Runnable {
-        @Override
-        public void run() {
-            while (true) {
+            finally {
                 try {
-                    final String message = input.readLine();
-                    if (message != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i("SnkrsServer","server: " + message + "\n");
-                            }
-                        });
-                    } else {
-                        Thread1 = new Thread(new Thread1());
-                        Thread1.start();
-                        return;
-                    }
+                    output.close();
+                    socket.close();
+                    Log.i("SnkrsServer","Connection Closed");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
+        }//run
+    }//ConnectionThread
 
 }

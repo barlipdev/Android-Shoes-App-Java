@@ -30,9 +30,9 @@ public class DashboardViewModel extends ViewModel {
     }
 
     public void setEventDisconnect(){
-        eventConnect.setValue(true);
+        eventDisconnect.setValue(true);
     }
     public void disconnectFinished(){
-        eventConnect.setValue(false);
+        eventDisconnect.setValue(false);
     }
 }

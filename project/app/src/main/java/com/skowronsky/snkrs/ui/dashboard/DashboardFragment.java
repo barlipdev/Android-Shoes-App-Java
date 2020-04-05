@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
@@ -25,9 +26,13 @@ public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
 
     SnkrsClient client;
+    private MyApplication appState;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        appState = ((MyApplication)this.getActivity().getApplication());
+        client = appState.snkrsClient;
+
         viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false);
@@ -41,7 +46,7 @@ public class DashboardFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     Log.i("myTag", "This is my message");
-                    navigateToHome();
+                    connectToDataServer();
                     viewModel.connectFinished();
                 }
             }
@@ -53,11 +58,7 @@ public class DashboardFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
                     viewModel.disconnectFinished();
-                    try {
-                        client.disconnect();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    disconnectFromDataServer();
                 }
             }
         });
@@ -65,10 +66,11 @@ public class DashboardFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void navigateToHome(){
-        client = new SnkrsClient(getActivity());
+    private void connectToDataServer(){
         client.connect();
+    }
 
-        //NavHostFragment.findNavController(this).navigate(R.id.action_navigation_dashboard_to_navigation_home);
+    private void disconnectFromDataServer(){
+//            client.disconnect();
     }
 }
