@@ -30,10 +30,11 @@ public class Capitalizer implements Runnable {
             do{
                 message = in.nextLine();
                 System.out.println(message);
-                out.println("response to messege: "+ message);
+                //out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
 
             out.println("QQQ");
+
 
         } catch (Exception e) {
             System.out.println("I/O Error:" + socket);

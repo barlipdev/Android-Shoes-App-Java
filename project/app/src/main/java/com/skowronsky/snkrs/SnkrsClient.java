@@ -2,13 +2,19 @@ package com.skowronsky.snkrs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
+
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SnkrsClient {
     Thread connectionThread = null;
@@ -36,6 +42,7 @@ public class SnkrsClient {
 
         Socket socket;
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint("RestrictedApi")
         public void run() {
             try {
@@ -47,8 +54,16 @@ public class SnkrsClient {
 
                 Log.i("SnkrsServer","Connected");
 
-                output.println("Hello!!!");
-                output.println("Whats Up?");
+                int time = LocalDateTime.now().getSecond();
+
+                for (int i = 0; i < 100000; i++) {
+
+                    output.println(i+" Hello!!!");
+
+                }
+
+                int time2 = LocalDateTime.now().getSecond();
+                Log.i("SnkrsServer","Time: "+ (time2-time));
 
                 output.println("QQQ");
 
