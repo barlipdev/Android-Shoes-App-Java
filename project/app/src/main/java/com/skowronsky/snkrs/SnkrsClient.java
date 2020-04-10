@@ -62,8 +62,6 @@ public class SnkrsClient {
 
                 }
 
-                int time2 = LocalDateTime.now().getSecond();
-                Log.i("SnkrsServer","Time: "+ (time2-time));
 
                 output.println("QQQ");
 
@@ -72,6 +70,8 @@ public class SnkrsClient {
                     Log.i("SnkrsServer","Messege: "+ message);
 
                 }while (!message.equals("QQQ"));
+                int time2 = LocalDateTime.now().getSecond();
+                Log.i("SnkrsServer","Time: "+ (time2-time));
 
 
             } catch (IOException e) {
