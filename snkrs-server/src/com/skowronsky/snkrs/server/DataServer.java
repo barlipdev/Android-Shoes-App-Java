@@ -1,5 +1,6 @@
 package com.skowronsky.snkrs.server;
 
+import com.skowronsky.snkrs.server.data.Storage;
 import com.skowronsky.snkrs.server.db.DataBase;
 import org.w3c.dom.CDATASection;
 
@@ -16,17 +17,10 @@ public class DataServer {
     static InetAddress inetAddress;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DataBase dataBase = null;
-        try {
-            dataBase = new DataBase();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //dataBase.close();
+        dataBase = new DataBase();
+        Storage storage = new Storage(dataBase);
 
         try {
             inetAddress = InetAddress.getLocalHost();
@@ -41,10 +35,12 @@ public class DataServer {
             var pool = Executors.newFixedThreadPool(20);
 
             while (true)
-                pool.execute(new Capitalizer(serverSocket.accept()));
+                pool.execute(new Capitalizer(serverSocket.accept(),storage));
 
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            dataBase.close();
         }
     }
 

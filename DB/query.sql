@@ -4,6 +4,7 @@ create table brands
 (
     id_brand int auto_increment,
     name varchar(15) not null,
+	image varchar(100) not null,
     constraint brands_pk
         primary key (id_brand)
 );
@@ -29,3 +30,4 @@ create table shoes
 );
 
 insert into shoes(id_brand, model_name, factor, image) VALUES (1,'M2K TEKNO',0,'0');
+

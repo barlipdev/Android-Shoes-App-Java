@@ -7,19 +7,23 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.skowronsky.snkrs.model.Brand;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class SnkrsClient {
     Thread connectionThread = null;
 
-    String SERVER_IP = "192.168.1.12";
+    String SERVER_IP = "192.168.21.1";
     int SERVER_PORT = 59898;
 
     private Context context;
@@ -38,6 +42,7 @@ public class SnkrsClient {
     private PrintWriter output;
     private BufferedReader input;
 
+
     class ConnectionThread implements Runnable {
 
         Socket socket;
@@ -54,31 +59,31 @@ public class SnkrsClient {
 
                 Log.i("SnkrsServer","Connected");
 
-                int time = LocalDateTime.now().getSecond();
+//                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-                for (int i = 0; i < 100000; i++) {
+//                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
+//
+//                for (int i = 0; i < brandList.size(); i++) {
+//                    Log.i("SnkrsServer","Obj: "+ brandList.get(i));
+//                }
+//
 
-                    output.println(i+" Hello!!!");
-
-                }
+                output.println("Siema");
 
 
                 output.println("QQQ");
-
                 do{
                     message = input.readLine();
                     Log.i("SnkrsServer","Messege: "+ message);
 
                 }while (!message.equals("QQQ"));
-                int time2 = LocalDateTime.now().getSecond();
-                Log.i("SnkrsServer","Time: "+ (time2-time));
-
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             finally {
                 try {
+
                     output.close();
                     socket.close();
                     Log.i("SnkrsServer","Connection Closed");

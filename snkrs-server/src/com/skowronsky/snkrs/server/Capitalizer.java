@@ -1,15 +1,20 @@
 package com.skowronsky.snkrs.server;
 
+import com.skowronsky.snkrs.server.data.Storage;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Capitalizer implements Runnable {
     private Socket socket;
+    private Storage storage;
 
-    public Capitalizer(Socket socket) {
+    public Capitalizer(Socket socket, Storage storage) {
         this.socket = socket;
+        this.storage = storage;
     }
 
     @Override
@@ -18,19 +23,16 @@ public class Capitalizer implements Runnable {
         try {
             var in = new Scanner(socket.getInputStream());
             var out = new PrintWriter(socket.getOutputStream(), true);
-
+//            ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
             String message = "";
 
-
-            out.println("Siema Co ram");
-            out.println("a Co ram");
-            out.println("Essa");
+//            objOut.writeObject(storage.getBrandList());
 
 
             do{
                 message = in.nextLine();
                 System.out.println(message);
-                //out.println("response to messege: "+ message);
+                out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
 
             out.println("QQQ");

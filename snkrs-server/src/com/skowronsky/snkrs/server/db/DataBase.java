@@ -1,6 +1,11 @@
 package com.skowronsky.snkrs.server.db;
 
+import com.skowronsky.snkrs.server.model.Brand;
+import com.skowronsky.snkrs.server.model.Shoes;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase {
 
@@ -22,25 +27,43 @@ public class DataBase {
             connect = DriverManager
                     .getConnection(url,user,password);
 
-            // Statements allow to issue SQL queries to the database
-            statement = connect.createStatement();
-            // Result set get the result of the SQL query
-            resultSet = statement
-                    .executeQuery("select * from shoes");
-
-            while (resultSet.next()){
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(3);
-
-                System.out.println(id + " " + name);
-
-            }
-
-
         } catch (Exception e) {
             throw e;
         } finally {
             //close();
+        }
+    }
+
+    public void getBrands(List<Brand> brandList) throws SQLException {
+        // Statements allow to issue SQL queries to the database
+        statement = connect.createStatement();
+        // Result set get the result of the SQL query
+        resultSet = statement
+                .executeQuery("select * from brands");
+
+        while (resultSet.next()){
+            int id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            String image = resultSet.getString(3);
+            brandList.add(id-1, new Brand(id,name,"image"));
+        }
+    }
+
+    public void getShoes(List<Shoes> shoesList) throws SQLException {
+        // Statements allow to issue SQL queries to the database
+        statement = connect.createStatement();
+        // Result set get the result of the SQL query
+        resultSet = statement
+            .executeQuery("select s.id_shoes, b.name, s.model_name, s.factor, s.image from shoes s join brands b on s.id_brand = b.id_brand;");
+
+        while (resultSet.next()){
+            int id = resultSet.getInt(1);
+            String brandName = resultSet.getString(2);
+            String modelName = resultSet.getString(3);
+            double factor = resultSet.getDouble(4);
+            String image = resultSet.getString(5);
+
+            shoesList.add(id-1, new Shoes(id,brandName,modelName,factor,image));
         }
     }
 
