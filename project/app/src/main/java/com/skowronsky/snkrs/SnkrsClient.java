@@ -8,6 +8,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -26,26 +28,31 @@ public class SnkrsClient {
     String SERVER_IP = "192.168.21.1";
     int SERVER_PORT = 59898;
 
-    private Context context;
+    private Storage storage;
 
-    public SnkrsClient(){}
-    public SnkrsClient(Context context){
-        this.context = context;
+    public SnkrsClient(Storage storage){
+        this.storage = storage;
+        connect();
     }
 
     public void connect(){
-        connectionThread = new Thread(new ConnectionThread());
+        connectionThread = new Thread(new ConnectionThread(storage));
         connectionThread.start();
     }
 
 
-    private PrintWriter output;
-    private BufferedReader input;
-    private ObjectInputStream objectInputStream;
-
     class ConnectionThread implements Runnable {
 
+        private PrintWriter output;
+        private BufferedReader input;
+        private ObjectInputStream objectInputStream;
+
         Socket socket;
+        Storage storage;
+
+        public ConnectionThread(Storage storage){
+            this.storage = storage;
+        }
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint("RestrictedApi")
@@ -60,11 +67,13 @@ public class SnkrsClient {
                 Log.i("SnkrsServer","Connected");
 
 
-                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
-
-                for (int i = 0; i < brandList.size(); i++) {
-                    Log.i("SnkrsServer","Obj: "+ brandList.get(i).getName());
-                }
+                storage.setBrandList((List<Brand>) objectInputStream.readObject());
+                storage.setShoesList((List<Shoes>) objectInputStream.readObject());
+//                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
+//
+//                for (int i = 0; i < storage.getBrandList().size(); i++) {
+//                    Log.i("SnkrsServer","Obj: "+ storage.getBrandList().get(i).getName());
+//                }
 
                 output.println("QQQ");
                 do{

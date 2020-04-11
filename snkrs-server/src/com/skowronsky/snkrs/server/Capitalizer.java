@@ -27,6 +27,7 @@ public class Capitalizer implements Runnable {
             String message = "";
 
             objOut.writeObject(storage.getBrandList());
+            objOut.writeObject(storage.getShoesList());
 
 
             do{
