@@ -1,10 +1,9 @@
-package com.skowronsky.snkrs.server.db;
+package com.skowronsky.snkrs.db;
 
-import com.skowronsky.snkrs.server.model.Brand;
-import com.skowronsky.snkrs.server.model.Shoes;
+import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.model.Shoes;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataBase {
@@ -45,7 +44,7 @@ public class DataBase {
             int id = resultSet.getInt(1);
             String name = resultSet.getString(2);
             String image = resultSet.getString(3);
-            brandList.add(id-1, new Brand(id,name,"image"));
+            brandList.add(id-1, new Brand(id,name,image));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.skowronsky.snkrs.server.model;
+package com.skowronsky.snkrs.model;
 
 import java.io.Serializable;
 

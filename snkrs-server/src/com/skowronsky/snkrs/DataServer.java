@@ -1,8 +1,8 @@
-package com.skowronsky.snkrs.server;
+package com.skowronsky.snkrs;
 
-import com.skowronsky.snkrs.server.data.Storage;
-import com.skowronsky.snkrs.server.db.DataBase;
-import org.w3c.dom.CDATASection;
+import com.skowronsky.snkrs.data.Storage;
+import com.skowronsky.snkrs.db.DataBase;
+import com.skowronsky.snkrs.server.Capitalizer;
 
 import java.io.IOException;
 import java.net.InetAddress;

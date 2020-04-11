@@ -1,6 +1,6 @@
 package com.skowronsky.snkrs.server;
 
-import com.skowronsky.snkrs.server.data.Storage;
+import com.skowronsky.snkrs.data.Storage;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -23,16 +23,16 @@ public class Capitalizer implements Runnable {
         try {
             var in = new Scanner(socket.getInputStream());
             var out = new PrintWriter(socket.getOutputStream(), true);
-//            ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
+            var objOut = new ObjectOutputStream(socket.getOutputStream());
             String message = "";
 
-//            objOut.writeObject(storage.getBrandList());
+            objOut.writeObject(storage.getBrandList());
 
 
             do{
                 message = in.nextLine();
                 System.out.println(message);
-                out.println("response to messege: "+ message);
+//                out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
 
             out.println("QQQ");

@@ -41,7 +41,7 @@ public class SnkrsClient {
 
     private PrintWriter output;
     private BufferedReader input;
-
+    private ObjectInputStream objectInputStream;
 
     class ConnectionThread implements Runnable {
 
@@ -54,22 +54,17 @@ public class SnkrsClient {
                 socket = new Socket(SERVER_IP,SERVER_PORT);
                 output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+
                 String message = "";
-
-
                 Log.i("SnkrsServer","Connected");
 
-//                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-//                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
-//
-//                for (int i = 0; i < brandList.size(); i++) {
-//                    Log.i("SnkrsServer","Obj: "+ brandList.get(i));
-//                }
-//
+                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
 
-                output.println("Siema");
-
+                for (int i = 0; i < brandList.size(); i++) {
+                    Log.i("SnkrsServer","Obj: "+ brandList.get(i).getName());
+                }
 
                 output.println("QQQ");
                 do{
@@ -78,7 +73,7 @@ public class SnkrsClient {
 
                 }while (!message.equals("QQQ"));
 
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
             finally {

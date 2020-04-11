@@ -1,12 +1,13 @@
-package com.skowronsky.snkrs.server.model;
+package com.skowronsky.snkrs.model;
 
-public class Shoes {
+import java.io.Serializable;
+
+public class Shoes implements Serializable {
     private int id;
     private String brandName;
     private String modelName;
     private double factor;
     private String image;
-
 
     public Shoes(
             int id, String brandName,
