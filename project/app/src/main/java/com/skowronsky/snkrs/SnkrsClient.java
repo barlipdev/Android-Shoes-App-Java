@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class SnkrsClient {
 
     public SnkrsClient(Storage storage){
         this.storage = storage;
-        //connect();
+        connect();
     }
 
     public void connect(){
@@ -67,8 +68,8 @@ public class SnkrsClient {
                 Log.i("SnkrsServer","Connected");
 
 
-                storage.setBrandList((List<Brand>) objectInputStream.readObject());
-                storage.setShoesList((List<Shoes>) objectInputStream.readObject());
+                storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
+                storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
 //                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
 //
 //                for (int i = 0; i < storage.getBrandList().size(); i++) {

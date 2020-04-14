@@ -14,18 +14,6 @@ public class ProfileViewModel extends ViewModel {
 
     public ProfileViewModel(Storage storage){
         this.storage = storage;
-
-        for (int i = 0; i < this.storage.getBrandList().size(); i++) {
-            brandsListText += "\n"+this.storage.getBrandList().get(i).getName()+
-                " "+this.storage.getBrandList().get(i).getImage();
-        }
-
-        for (int i = 0; i < this.storage.getShoesList().size(); i++) {
-            shoesListText += "\n"+ this.storage.getShoesList().get(i).getBrandName()+
-                " " +this.storage.getShoesList().get(i).getModelName()+
-                " "+ this.storage.getShoesList().get(i).getFactor()+
-                " " + this.storage.getShoesList().get(i).getImage();
-        }
     }
 
 
@@ -35,6 +23,21 @@ public class ProfileViewModel extends ViewModel {
         return settingsNav;
     }
 
+    public void showData(){
+        if(storage.getBrandList() != null)
+            for (int i = 0; i < this.storage.getBrandList().size(); i++) {
+                brandsListText += "\n"+this.storage.getBrandList().get(i).getName()+
+                        " "+this.storage.getBrandList().get(i).getImage();
+            }
+
+        if(storage.getShoesList() != null)
+            for (int i = 0; i < this.storage.getShoesList().size(); i++) {
+                shoesListText += "\n"+ this.storage.getShoesList().get(i).getBrandName()+
+                        " " +this.storage.getShoesList().get(i).getModelName()+
+                        " "+ this.storage.getShoesList().get(i).getFactor()+
+                        " " + this.storage.getShoesList().get(i).getImage();
+            }
+    }
     public void eventNavToSettings(){
         settingsNav.setValue(true);
     }

@@ -36,6 +36,8 @@ public class ProfileFragment extends Fragment {
         binding.setProfileViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
+        viewModel.showData();
+
         final LiveData<Boolean> natToSettings = viewModel.getEventSettingsNav();
         natToSettings.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
