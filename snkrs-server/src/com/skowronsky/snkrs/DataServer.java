@@ -18,8 +18,7 @@ public class DataServer {
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        DataBase dataBase = null;
-        dataBase = new DataBase();
+        DataBase dataBase = dataBase = new DataBase();
         Storage storage = new Storage(dataBase);
 
         try {

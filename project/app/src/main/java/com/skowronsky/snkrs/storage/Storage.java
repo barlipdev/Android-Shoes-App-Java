@@ -4,6 +4,7 @@ import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Storage {
@@ -18,11 +19,11 @@ public class Storage {
     }
 
     public void setBrandList(List<Brand> brandList) {
-        this.brandList = new ArrayList<Brand>(brandList);
+        this.brandList = brandList;
     }
 
     public void setShoesList(List<Shoes> shoesList) {
-        this.shoesList = new ArrayList<Shoes>(shoesList);
+        this.shoesList = shoesList;
     }
 
 }

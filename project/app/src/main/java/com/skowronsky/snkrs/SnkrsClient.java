@@ -25,7 +25,7 @@ import java.util.List;
 public class SnkrsClient {
     Thread connectionThread = null;
 
-    String SERVER_IP = "192.168.21.1";
+    String SERVER_IP = "192.168.1.12";
     int SERVER_PORT = 59898;
 
     private Storage storage;
