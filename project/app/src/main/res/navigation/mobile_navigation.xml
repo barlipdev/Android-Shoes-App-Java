@@ -9,7 +9,18 @@
         android:id="@+id/navigation_home"
         android:name="com.skowronsky.snkrs.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_shoesFragment22"
+            app:destination="@id/shoesFragment2"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="CompanyName"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -35,10 +46,27 @@
         android:id="@+id/settingsFragment"
         android:name="com.skowronsky.snkrs.ui.profile.settings.SettingsFragment"
         android:label="fragment_settings"
+
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_navigation_profile"
             app:destination="@id/navigation_profile" />
     </fragment>
+      tools:layout="@layout/fragment_settings"
+    <fragment
+        android:id="@+id/shoesFragment2"
+        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesFragment"
+        android:label="shoes_fragment"
+        tools:layout="@layout/shoes_fragment">
+        <action
+            android:id="@+id/action_shoesFragment2_to_shoesInformationFragment2"
+            app:destination="@id/shoesInformationFragment2" />
+        <argument android:name="shoe_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoesInformationFragment2"
+        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesInformationFragment"
+        android:label="ShoesInformationFragment" />
+
 
 </navigation>

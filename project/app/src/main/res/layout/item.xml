@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:backgroundTint="@color/cardview_dark_background">
+
+        <ImageView
+            android:id="@+id/shoe_photo"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:src="@drawable/city"
+            android:paddingTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/shoe_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/shoe_photo"
+            android:layout_alignTop="@+id/shoe_photo"
+            android:layout_alignRight="@+id/shoe_photo"
+            android:layout_alignBottom="@+id/shoe_photo"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:text="Hello"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
