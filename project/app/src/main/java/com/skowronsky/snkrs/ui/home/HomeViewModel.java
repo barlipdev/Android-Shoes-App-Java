@@ -4,8 +4,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.skowronsky.snkrs.Company;
+import com.skowronsky.snkrs.MyApplication;
+import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 public class HomeViewModel extends ViewModel {
@@ -14,9 +18,18 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
     public ArrayList<Company> CompanyArrayList;
+    private Storage storage;
 
-    public HomeViewModel() {
+    public HomeViewModel(Storage storage){
+        this.storage = storage;
         CompanyLiveData = new MutableLiveData<>();
+        CompanyArrayList = new ArrayList<>();
+
+        for(int i=0;i<this.storage.getBrandList().size();i++) {
+            Company com = new Company();
+            com.setCompany_name(this.storage.getBrandList().get(i).getName());
+            CompanyArrayList.add(com);
+        }
     }
 
     public MutableLiveData<ArrayList<Company>> getCompanyLiveData()
@@ -47,17 +60,6 @@ public class HomeViewModel extends ViewModel {
     public void eventCompanyName(String name){ CompanyName.setValue(name);}
 
     public void init(){
-        CompanyList();
         CompanyLiveData.setValue(CompanyArrayList);
-    }
-    public void CompanyList(){
-        Company Company = new Company();
-        Company Company2 = new Company();
-        Company.setCompany_name("Nike");
-        Company2.setCompany_name("Adidas");
-
-        CompanyArrayList = new ArrayList<>();
-        CompanyArrayList.add(Company);
-        CompanyArrayList.add(Company2);
     }
 }

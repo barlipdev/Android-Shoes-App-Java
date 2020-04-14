@@ -1,28 +1,52 @@
 package com.skowronsky.snkrs.ui.home.shoes;
 
 import android.icu.text.IDNA;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.skowronsky.snkrs.Company;
+import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoesViewModel extends ViewModel {
 
-    private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
+    private MutableLiveData<ArrayList<com.skowronsky.snkrs.model.Shoes>> ShoesLiveData;
     public ArrayList<Shoes> ShoesArrayList;
+    public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesListTmp;
+    public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesList;
     public ArrayList<Shoes> ShoesArrayListTmp;
-    public MutableLiveData<Shoes> shoe_info;
+    public MutableLiveData<com.skowronsky.snkrs.model.Shoes> shoe_info;
     private MutableLiveData<Boolean> InfoNav;
+    private Storage storage;
+    private String name;
+    private String company;
 
 
-    public ShoesViewModel() {
+    public ShoesViewModel(Storage storage,String company) {
+        this.storage = storage;
+        this.company = company;
         ShoesLiveData = new MutableLiveData<>();
+
+        shoesList = new ArrayList<>();
+        shoesListTmp = new ArrayList<>();
+
+        for(int i=0;i<storage.getShoesList().size();i++){
+            shoesListTmp.add(storage.getShoesList().get(i));
+        }
+        for(int i=0;i<shoesListTmp.size();i++){
+            this.name = shoesListTmp.get(i).getBrandName();
+            if (name.equals(company)){
+                shoesList.add(shoesListTmp.get(i));
+            }
+        }
+
     }
 
-    public MutableLiveData<ArrayList<Shoes>> getShoesLiveData()
+    public MutableLiveData<ArrayList<com.skowronsky.snkrs.model.Shoes>> getShoesLiveData()
     {
         if (ShoesLiveData == null)
             ShoesLiveData = new MutableLiveData<>();
@@ -35,15 +59,16 @@ public class ShoesViewModel extends ViewModel {
         return InfoNav;
     }
 
-    public MutableLiveData<Shoes> getEventShoeInfo(){
+    public MutableLiveData<com.skowronsky.snkrs.model.Shoes> getEventShoeInfo(){
         if (shoe_info == null)
-            shoe_info = new MutableLiveData<Shoes>();
+            shoe_info = new MutableLiveData<com.skowronsky.snkrs.model.Shoes>();
         return shoe_info;
     }
 
     public void init(String company){
-        ShoesList(company);
-        ShoesLiveData.setValue(ShoesArrayList);
+        //ShoesList(company);
+        Log.i("NameCompany3",company);
+        ShoesLiveData.setValue(shoesList);
     }
 
     public void eventNavToInfo(){
@@ -52,12 +77,12 @@ public class ShoesViewModel extends ViewModel {
     public void eventNavToInfoFinished(){
         InfoNav.setValue(false);
     }
-    public void eventSendShoe(Shoes shoe){shoe_info.setValue(shoe);}
+    public void eventSendShoe(com.skowronsky.snkrs.model.Shoes shoe){shoe_info.setValue(shoe);}
 
     public void ShoesList(String company){
         Shoes shoes = new Shoes();
         Shoes shoes2 = new Shoes();
-        String name;
+
 
         shoes.setModel("AirMax");
         shoes.setNumber(40);
@@ -79,6 +104,9 @@ public class ShoesViewModel extends ViewModel {
                 ShoesArrayList.add(ShoesArrayListTmp.get(i));
             }
         }
+
+
+
 
     }
 

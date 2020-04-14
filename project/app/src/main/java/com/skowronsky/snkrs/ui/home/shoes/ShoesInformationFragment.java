@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.databinding.ShoesInformationFragmentBinding;
+import com.squareup.picasso.Picasso;
 
 public class ShoesInformationFragment extends Fragment {
 
@@ -23,6 +24,7 @@ public class ShoesInformationFragment extends Fragment {
     private ShoesInformationFragmentBinding shoesInformationFragmentBinding;
     private String shoe_company;
     private String shoe_model;
+    private String shoe_image;
 
     public static ShoesInformationFragment newInstance() {
         return new ShoesInformationFragment();
@@ -38,12 +40,12 @@ public class ShoesInformationFragment extends Fragment {
 
         shoe_model = getArguments().getString("model");
         shoe_company = getArguments().getString("company");
+        shoe_image = getArguments().getString("image");
 
         shoesInformationFragmentBinding.modelInfo.setText(shoe_model);
         shoesInformationFragmentBinding.preferNumber.setText(shoe_company);
-
-
-
+        Picasso.with(getContext()).load(shoe_image).into(
+                shoesInformationFragmentBinding.imageView);
 
         return shoesInformationFragmentBinding.getRoot();
     }

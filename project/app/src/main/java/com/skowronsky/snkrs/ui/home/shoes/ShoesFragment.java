@@ -21,8 +21,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.databinding.ShoesFragmentBinding;
+import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.storage.Storage;
 import com.skowronsky.snkrs.ui.home.HomeViewModel;
 
 import java.util.ArrayList;
@@ -34,8 +37,10 @@ public class ShoesFragment extends Fragment {
     private ShoesFragmentBinding shoesFragmentBinding;
     private RecyclerView recyclerView;
     private ShoesRecyclerViewAdapter<Context> recyclerViewAdapter;
-    private Shoes shoe_info;
+    private com.skowronsky.snkrs.model.Shoes shoe_info;
     private String company;
+    private MyApplication appState;
+    private Storage storage;
 
     public static ShoesFragment newInstance() {
         return new ShoesFragment();
@@ -44,26 +49,29 @@ public class ShoesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        shoesViewModel = new ViewModelProvider(this).get(ShoesViewModel.class);
+        appState = ((MyApplication)this.getActivity().getApplication());
+        storage = appState.storage;
+        company = getArguments().getString("key");
+        shoesViewModel = new ViewModelProvider(this, new ShoesViewModelFactory(storage,company)).get(ShoesViewModel.class);
         shoesFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.shoes_fragment, container, false);
         shoesFragmentBinding.setShoesViewModel(shoesViewModel);
         shoesFragmentBinding.setLifecycleOwner(this);
-        company = getArguments().getString("key");
+
 
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = shoesFragmentBinding.ShoesView;
         shoesViewModel.init(company);
         Log.i("NameCompany2",company);
-        shoesViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Shoes>>() {
+        shoesViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<com.skowronsky.snkrs.model.Shoes>>() {
             @Override
-            public void onChanged(ArrayList<Shoes> CompanyArrayList) {
+            public void onChanged(ArrayList<com.skowronsky.snkrs.model.Shoes> CompanyArrayList) {
                 recyclerViewAdapter = new ShoesRecyclerViewAdapter<>(getContext(), CompanyArrayList,shoesViewModel);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
         });
 
-        shoesViewModel.getEventShoeInfo().observe(getViewLifecycleOwner(), new Observer<Shoes>() {
+        shoesViewModel.getEventShoeInfo().observe(getViewLifecycleOwner(), new Observer<com.skowronsky.snkrs.model.Shoes>() {
             @Override
             public void onChanged(Shoes s) {
                 shoe_info = s;
@@ -86,8 +94,9 @@ public class ShoesFragment extends Fragment {
 
     private void navigateToShoesInfo(){
         Bundle bundle_info = new Bundle();
-        bundle_info.putString("model",shoe_info.getModel().toString());
-        bundle_info.putString("company",shoe_info.getShoe_company().toString());
+        bundle_info.putString("model",shoe_info.getModelName().toString());
+        bundle_info.putString("company",shoe_info.getBrandName().toString());
+        bundle_info.putString("image",shoe_info.getImage().toString());
         NavHostFragment.findNavController(this).navigate(R.id.action_shoesFragment2_to_shoesInformationFragment2,bundle_info);
     }
 

@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/shoe_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:padding="3dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:src="@drawable/ic_launcher_background" />
 
     <LinearLayout

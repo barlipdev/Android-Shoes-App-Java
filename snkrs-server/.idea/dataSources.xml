@@ -7,7 +7,7 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/sneakers</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="sneakers@snkrs-do-user-7351749-0.a.db.ondigitalocean.com" uuid="4b73c069-86d6-445b-92df-cc6b906fffa5">
+    <data-source source="LOCAL" name="MySQL - sneakers@snkrs-do-user-7351749-0.a.db.ondigitalocean.com" uuid="4b73c069-86d6-445b-92df-cc6b906fffa5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

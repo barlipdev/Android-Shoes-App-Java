@@ -21,11 +21,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.RecyclerViewAdapter;
 import com.skowronsky.snkrs.Company;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
+import com.skowronsky.snkrs.storage.Storage;
 import com.skowronsky.snkrs.ui.dashboard.DashboardFragment;
+import com.skowronsky.snkrs.ui.profile.ProfileViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -37,10 +40,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter<Context> recyclerViewAdapter;
     private String ShoesCompany = "";
+    private MyApplication appState;
+    private Storage storage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        appState = ((MyApplication)this.getActivity().getApplication());
+        storage = appState.storage;
+        homeViewModel = new ViewModelProvider(this,new HomeViewModelFactory(storage)).get(HomeViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setHomeViewModel(homeViewModel);
         binding.setLifecycleOwner(this);

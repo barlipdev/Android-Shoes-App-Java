@@ -32,7 +32,7 @@ public class SnkrsClient {
 
     public SnkrsClient(Storage storage){
         this.storage = storage;
-        //connect();
+        connect();
     }
 
     public void connect(){
