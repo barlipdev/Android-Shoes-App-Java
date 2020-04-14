@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/project-Snkrs.iml" filepath="$PROJECT_DIR$/project-Snkrs.iml" group="Snkrs" />
       <module fileurl="file://$PROJECT_DIR$/app/project-app.iml" filepath="$PROJECT_DIR$/app/project-app.iml" group="Snkrs/app" />
+      <module fileurl="file://$PROJECT_DIR$/snkrs-size-project-Snkrs.iml" filepath="$PROJECT_DIR$/snkrs-size-project-Snkrs.iml" group="Snkrs" />
+      <module fileurl="file://$PROJECT_DIR$/app/snkrs-size-project-app.iml" filepath="$PROJECT_DIR$/app/snkrs-size-project-app.iml" group="Snkrs/app" />
     </modules>
   </component>
 </project>
