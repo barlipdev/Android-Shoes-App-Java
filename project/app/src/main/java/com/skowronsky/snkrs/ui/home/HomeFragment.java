@@ -26,6 +26,7 @@ import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.RecyclerViewAdapter;
 import com.skowronsky.snkrs.Company;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
+import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.storage.Storage;
 import com.skowronsky.snkrs.ui.dashboard.DashboardFragment;
 import com.skowronsky.snkrs.ui.profile.ProfileViewModelFactory;
@@ -54,9 +55,9 @@ public class HomeFragment extends Fragment {
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = binding.CompanyView;
         homeViewModel.init();
-        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Company>>() {
+        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Brand>>() {
             @Override
-            public void onChanged(ArrayList<Company> CompanyArrayList) {
+            public void onChanged(ArrayList<Brand> CompanyArrayList) {
                 recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList,homeViewModel);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(recyclerViewAdapter);

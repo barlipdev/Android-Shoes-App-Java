@@ -14,10 +14,10 @@ import java.util.concurrent.ConcurrentMap;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<ArrayList<Company>> CompanyLiveData;
+    private MutableLiveData<ArrayList<Brand>> CompanyLiveData;
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
-    public ArrayList<Company> CompanyArrayList;
+    public ArrayList<Brand> CompanyArrayList;
     private Storage storage;
 
     public HomeViewModel(Storage storage){
@@ -25,14 +25,15 @@ public class HomeViewModel extends ViewModel {
         CompanyLiveData = new MutableLiveData<>();
         CompanyArrayList = new ArrayList<>();
 
-        for(int i=0;i<this.storage.getBrandList().size();i++) {
-            Company com = new Company();
-            com.setCompany_name(this.storage.getBrandList().get(i).getName());
-            CompanyArrayList.add(com);
-        }
+            for(int i=0;i<this.storage.getBrandList().size();i++) {
+                Brand com = new Brand(this.storage.getBrandList().get(i).getId(),this.storage.getBrandList().get(i).getName(),this.storage.getBrandList().get(i).getImage());
+                CompanyArrayList.add(com);
+            }
+
+
     }
 
-    public MutableLiveData<ArrayList<Company>> getCompanyLiveData()
+    public MutableLiveData<ArrayList<Brand>> getCompanyLiveData()
     {
         if (CompanyLiveData == null)
                 CompanyLiveData = new MutableLiveData<>();

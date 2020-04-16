@@ -13,14 +13,17 @@ import java.util.concurrent.Executors;
 
 public class DataServer {
 
-    final static int portNumber = 59898;
+    final static int portNumber = 59899;
     static InetAddress inetAddress;
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DataBase dataBase = dataBase = new DataBase();
         Storage storage = new Storage(dataBase);
-
+        for (var i:storage.getBrandList()
+             ) {
+            System.out.println(i.getImage());
+        }
         try {
             inetAddress = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
