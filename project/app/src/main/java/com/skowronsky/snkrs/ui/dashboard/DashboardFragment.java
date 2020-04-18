@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.SnkrsClient;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class DashboardFragment extends Fragment {
 
@@ -71,6 +73,12 @@ public class DashboardFragment extends Fragment {
     }
 
     private void disconnectFromDataServer(){
-//            client.disconnect();
+        for (int i = 1; i < 10; i++) {
+            Brand brand = new Brand();
+            brand.id_brand = i;
+            brand.brand_name = "Nike";
+            brand.image = "ASDAS";
+            viewModel.insert(brand);
+        }
     }
 }

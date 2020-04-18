@@ -1,21 +1,34 @@
 package com.skowronsky.snkrs.ui.profile;
 
+import android.app.Application;
+import android.util.Log;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.storage.Storage;
+import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.repository.Repository;
 
-public class ProfileViewModel extends ViewModel {
-    private Storage storage;
+import java.util.List;
+
+public class ProfileViewModel extends AndroidViewModel {
+    private Repository repository;
+
+    private LiveData<List<Brand>> allBrands;
+
     private MutableLiveData<Boolean> settingsNav;
+    public String title = "Chuj";
     public String brandsListText ="Brands:";
     public String shoesListText = "\n\nShoes:";
 
-    public ProfileViewModel(Storage storage){
-        this.storage = storage;
+    public ProfileViewModel(Application application){
+        super(application);
+        repository = new Repository(application);
+        allBrands = repository.getAllBrands();
     }
 
+    LiveData<List<Brand>> getAllBrands() { return allBrands; }
 
     public MutableLiveData<Boolean> getEventSettingsNav(){
         if(settingsNav == null)
@@ -23,21 +36,13 @@ public class ProfileViewModel extends ViewModel {
         return settingsNav;
     }
 
-    public void showData(){
-        if(storage.getBrandList() != null)
-            for (int i = 0; i < this.storage.getBrandList().size(); i++) {
-                brandsListText += "\n"+this.storage.getBrandList().get(i).getName()+
-                        " "+this.storage.getBrandList().get(i).getImage();
-            }
-
-        if(storage.getShoesList() != null)
-            for (int i = 0; i < this.storage.getShoesList().size(); i++) {
-                shoesListText += "\n"+ this.storage.getShoesList().get(i).getBrandName()+
-                        " " +this.storage.getShoesList().get(i).getModelName()+
-                        " "+ this.storage.getShoesList().get(i).getFactor()+
-                        " " + this.storage.getShoesList().get(i).getImage();
-            }
+    public void showData(List<Brand> brandList){
+       brandsListText = "Chuj jebay";
     }
+    public void deleteBrands(){
+        repository.deleteAllBrands();
+    }
+
     public void eventNavToSettings(){
         settingsNav.setValue(true);
     }

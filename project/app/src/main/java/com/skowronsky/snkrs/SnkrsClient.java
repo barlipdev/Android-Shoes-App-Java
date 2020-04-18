@@ -1,7 +1,6 @@
 package com.skowronsky.snkrs;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -12,15 +11,12 @@ import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.storage.Storage;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class SnkrsClient {
