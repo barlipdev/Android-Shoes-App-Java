@@ -47,6 +47,9 @@ public class DashboardViewModel extends AndroidViewModel {
     public void insert(Brand brand){
         repository.insertBrand(brand);
     }
+    public void deleteBrand(Brand brand){
+        repository.delete(brand);
+    }
 
     public void setEventDisconnect(){
         eventDisconnect.setValue(true);

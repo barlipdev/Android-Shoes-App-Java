@@ -7,6 +7,9 @@
         <variable
             name="profileViewModel"
             type="com.skowronsky.snkrs.ui.profile.ProfileViewModel" />
+        <import type="androidx.databinding.ObservableMap"/>
+        <variable name="list" type="ObservableMap&lt;String, Object>"/>
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +25,7 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:text="@{profileViewModel.title}"
+            android:text="@{profileViewModel.title.toString()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@={profileViewModel.brandsListText}"
+            android:text="@{profileViewModel.brandsListText.toString()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button2" />
 

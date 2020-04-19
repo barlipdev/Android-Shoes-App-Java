@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final List<Brand> brands) {
                 viewModel.showData(brands);
-                viewModel.title += "Jebany";
 
                 Log.i("WWW", String.valueOf(brands.size()));
 

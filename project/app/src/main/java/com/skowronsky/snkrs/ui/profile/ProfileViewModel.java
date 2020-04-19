@@ -16,10 +16,11 @@ public class ProfileViewModel extends AndroidViewModel {
     private Repository repository;
 
     private LiveData<List<Brand>> allBrands;
+    private String _brandListText = "Brands:\n";
 
     private MutableLiveData<Boolean> settingsNav;
-    public String title = "Chuj";
-    public String brandsListText ="Brands:";
+    public MutableLiveData<String> title = new MutableLiveData<String>("Chuj") ;
+    public MutableLiveData<String> brandsListText = new MutableLiveData<String>("Brands:");
     public String shoesListText = "\n\nShoes:";
 
     public ProfileViewModel(Application application){
@@ -37,7 +38,12 @@ public class ProfileViewModel extends AndroidViewModel {
     }
 
     public void showData(List<Brand> brandList){
-       brandsListText = "Chuj jebay";
+        _brandListText = "Brands:\n";
+        for (int i = 0; i < brandList.size(); i++) {
+            _brandListText += brandList.get(i).id_brand + " " +
+                brandList.get(i).brand_name + "\n";
+        }
+        brandsListText.setValue(_brandListText);
     }
     public void deleteBrands(){
         repository.deleteAllBrands();

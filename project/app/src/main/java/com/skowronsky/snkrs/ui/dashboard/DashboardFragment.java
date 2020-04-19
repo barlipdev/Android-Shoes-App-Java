@@ -73,12 +73,12 @@ public class DashboardFragment extends Fragment {
     }
 
     private void disconnectFromDataServer(){
-        for (int i = 1; i < 10; i++) {
+
+        for (int i = 6; i < 10; i++) {
+            
             Brand brand = new Brand();
             brand.id_brand = i;
-            brand.brand_name = "Nike";
-            brand.image = "ASDAS";
-            viewModel.insert(brand);
+            viewModel.deleteBrand(brand);
         }
     }
 }
