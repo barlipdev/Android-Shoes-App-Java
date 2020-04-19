@@ -17,6 +17,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Brand>> CompanyLiveData;
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
+
     public ArrayList<Brand> CompanyArrayList;
     private Storage storage;
 
@@ -39,6 +40,7 @@ public class HomeViewModel extends ViewModel {
                 CompanyLiveData = new MutableLiveData<>();
         return CompanyLiveData;
     }
+
 
     public MutableLiveData<Boolean> getEventShoesNav(){
         if(ShoesNav == null)

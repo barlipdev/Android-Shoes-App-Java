@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_dashboard">
+    app:startDestination="@id/homeBase">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.skowronsky.snkrs.ui.home.HomeFragment"
-        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_shoesFragment22"
@@ -28,10 +27,8 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:launchSingleTop="false"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_navigation_dashboard_to_homeBase"
+            app:destination="@id/homeBase" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -66,7 +63,23 @@
     <fragment
         android:id="@+id/shoesInformationFragment2"
         android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesInformationFragment"
-        android:label="ShoesInformationFragment" />
+        android:label="ShoesInformationFragment" >
+        <action
+            android:id="@+id/action_shoesInformationFragment2_to_homeBase"
+            app:destination="@id/homeBase" />
+        <argument
+            android:name="Shoeinfo"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeBase"
+        android:name="com.skowronsky.snkrs.ui.base.HomeBase"
+        android:label="@string/title_home">
+        <action
+            android:id="@+id/action_homeBase_to_navigation_home"
+            app:destination="@id/navigation_home" />
+
+    </fragment>
 
 
 </navigation>

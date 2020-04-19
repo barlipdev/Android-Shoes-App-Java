@@ -4,31 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="homeViewModel"
-            type="com.skowronsky.snkrs.ui.home.HomeViewModel" />
+            name="baseViewModel"
+            type="com.skowronsky.snkrs.ui.base.HomeBaseViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/addBase"
+            style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose a brand"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/Company_view"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:text="+Add Shoe Base"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Company_view"
+            android:id="@+id/baselist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/addBase" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

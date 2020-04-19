@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,35 +53,37 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setHomeViewModel(homeViewModel);
         binding.setLifecycleOwner(this);
-        recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
-        recyclerView = binding.CompanyView;
-        homeViewModel.init();
-        homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Brand>>() {
-            @Override
-            public void onChanged(ArrayList<Brand> CompanyArrayList) {
-                recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList,homeViewModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-        });
 
-        homeViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                ShoesCompany = s;
-            }
-        });
+                recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
+                recyclerView = binding.CompanyView;
+                homeViewModel.init();
+                homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Brand>>() {
+                    @Override
+                    public void onChanged(ArrayList<Brand> CompanyArrayList) {
+                        recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList,homeViewModel);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        recyclerView.setAdapter(recyclerViewAdapter);
+                    }
+                });
+                homeViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        ShoesCompany = s;
+                    }
+                });
 
-        final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
-        navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
-                    navigateToShoes();
-                    homeViewModel.eventNavToShoesFinished();
-                }
-            }
-        });
+                final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
+                navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if(aBoolean){
+                            navigateToShoes();
+                            homeViewModel.eventNavToShoesFinished();
+                        }
+                    }
+                });
+
+
         return binding.getRoot();
     }
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeBase"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 

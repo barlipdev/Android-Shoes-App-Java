@@ -41,4 +41,5 @@ public class Shoes implements Serializable {
     public String getImage() {
         return image;
     }
+
 }
