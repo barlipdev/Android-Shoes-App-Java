@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentProfileBinding;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class ProfileFragment extends Fragment {
         viewModel.getAllBrands().observe(getViewLifecycleOwner(), new Observer<List<Brand>>() {
             @Override
             public void onChanged(@Nullable final List<Brand> brands) {
-                viewModel.showData(brands);
+                viewModel.showBrandsData(brands);
 
                 Log.i("WWW", String.valueOf(brands.size()));
 
@@ -45,6 +45,13 @@ public class ProfileFragment extends Fragment {
                     Log.i("WWW", String.valueOf(brands.get(i).id_brand));
                     Log.i("WWW", String.valueOf(brands.get(i).brand_name));
                 }
+            }
+        });
+
+        viewModel.getAllShoes().observe(getViewLifecycleOwner(), new Observer<List<Shoes>>() {
+            @Override
+            public void onChanged(List<Shoes> shoes) {
+                viewModel.showShoesData(shoes);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.skowronsky.snkrs;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -8,6 +10,7 @@ import androidx.annotation.RequiresApi;
 
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.Storage;
 
 import java.io.BufferedReader;
@@ -25,11 +28,26 @@ public class SnkrsClient {
     String SERVER_IP = "192.168.1.12";
     int SERVER_PORT = 59898;
 
+    private Repository repo;
     private Storage storage;
+    private Context application;
 
-    public SnkrsClient(Storage storage){
+    private SnkrsClient(Storage storage, Context application){
         this.storage = storage;
+        this.application = application;
+        repo = new Repository((Application) application.getApplicationContext());
         connect();
+    }
+
+    private static volatile SnkrsClient INSTANCE;
+    public static SnkrsClient getInstance(Storage storage, Context context){
+        if (INSTANCE == null){
+            synchronized (SnkrsClient.class){
+                if (INSTANCE == null)
+                    INSTANCE = new SnkrsClient(storage,context);
+            }
+        }
+        return INSTANCE;
     }
 
     public void connect(){
@@ -68,8 +86,28 @@ public class SnkrsClient {
                 storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
 //                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
 //
-//                for (int i = 0; i < storage.getBrandList().size(); i++) {
-//                    Log.i("SnkrsServer","Obj: "+ storage.getBrandList().get(i).getName());
+//                repo.deleteAllBrands();
+                com.skowronsky.snkrs.database.Brand brand = null;
+                for (int i = 0; i < storage.getBrandList().size(); i++) {
+                    Log.i("SnkrsServer","Obj: "+ storage.getBrandList().get(i).getName());
+                    brand = new com.skowronsky.snkrs.database.Brand();
+                    brand.id_brand = storage.getBrandList().get(i).getId();
+                    brand.brand_name = storage.getBrandList().get(i).getName();
+                    brand.image = storage.getBrandList().get(i).getImage();
+                    repo.insertBrand(brand);
+                }
+                com.skowronsky.snkrs.database.Shoes shoes = null;
+                for (int i = 0; i < storage.getShoesList().size(); i++) {
+                    shoes = new com.skowronsky.snkrs.database.Shoes();
+                    shoes.id_shoes = storage.getShoesList().get(i).getId();
+                    shoes.brand_name = storage.getShoesList().get(i).getBrandName();
+                    shoes.factor = storage.getShoesList().get(i).getFactor();
+                    shoes.image = storage.getShoesList().get(i).getImage();
+                    shoes.modelName = storage.getShoesList().get(i).getModelName();
+                    repo.insertShoes(shoes);
+                }
+//                for (int i = 0; i < repo.getAllBrands().getValue().size(); i++) {
+//                    Log.i("SnkrsServer","SQLite: "+ repo.getAllBrands().getValue().get(i).brand_name);
 //                }
 
                 output.println("QQQ");
@@ -84,9 +122,10 @@ public class SnkrsClient {
             }
             finally {
                 try {
-
-                    output.close();
-                    socket.close();
+                    if(output != null)
+                        output.close();
+                    if(socket != null)
+                        socket.close();
                     Log.i("SnkrsServer","Connection Closed");
                 } catch (IOException e) {
                     e.printStackTrace();

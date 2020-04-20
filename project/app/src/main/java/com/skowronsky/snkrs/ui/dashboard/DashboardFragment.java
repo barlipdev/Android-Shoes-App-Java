@@ -73,12 +73,7 @@ public class DashboardFragment extends Fragment {
     }
 
     private void disconnectFromDataServer(){
-
-        for (int i = 6; i < 10; i++) {
-            
-            Brand brand = new Brand();
-            brand.id_brand = i;
-            viewModel.deleteBrand(brand);
-        }
+        viewModel.deleteAllBrand();
+        viewModel.deleteAllShoes();
     }
 }

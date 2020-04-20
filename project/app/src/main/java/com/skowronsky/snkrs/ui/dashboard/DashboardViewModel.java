@@ -21,8 +21,6 @@ public class DashboardViewModel extends AndroidViewModel {
     public DashboardViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
-
-
     }
 
     public MutableLiveData<Boolean> getEventConnect(){
@@ -49,6 +47,14 @@ public class DashboardViewModel extends AndroidViewModel {
     }
     public void deleteBrand(Brand brand){
         repository.delete(brand);
+    }
+
+    public void deleteAllBrand(){
+        repository.deleteAllBrands();
+    }
+
+    public void deleteAllShoes(){
+        repository.deleteAllShoes();
     }
 
     public void setEventDisconnect(){
