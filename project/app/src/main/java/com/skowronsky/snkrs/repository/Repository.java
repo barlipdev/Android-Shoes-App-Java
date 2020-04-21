@@ -4,12 +4,15 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseDao;
+import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.BaseShoesDao;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandDao;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.ShoesDao;
 import com.skowronsky.snkrs.database.SneakersDatabase;
-import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.List;
 
@@ -20,6 +23,14 @@ public class Repository {
     private ShoesDao mShoesDao;
     private LiveData<List<Shoes>> mAllShoes;
 
+    private BaseDao mBaseDao;
+    private LiveData<List<Base>> mAllBase;
+
+    private BaseShoesDao mBaseShoesDao;
+    private LiveData<List<BaseShoes>> mAllBaseShoes;
+
+
+
     public Repository(Application application){
         SneakersDatabase db = SneakersDatabase.getDatabase(application);
         mBrandDao = db.brandDao();
@@ -27,6 +38,16 @@ public class Repository {
 
         mShoesDao = db.shoesDao();
         mAllShoes = mShoesDao.getAll();
+
+        mBaseDao = db.baseDao();
+        mAllBase = mBaseDao.getAll();
+
+        mBaseShoesDao = db.baseShoesDao();
+        mAllBaseShoes = mBaseShoesDao.getAllBaseShoes();
+    }
+
+    public LiveData<List<BaseShoes>> getAllBaseShoes(){
+        return mAllBaseShoes;
     }
 
     public LiveData<List<Brand>> getAllBrands(){
@@ -60,6 +81,10 @@ public class Repository {
         return mAllShoes;
     }
 
+    public LiveData<Shoes> getShoes(int idShoes){
+        return mShoesDao.getShoes(idShoes);
+    }
+
     public void insertShoes(Shoes shoes){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.insert(shoes);
@@ -80,6 +105,22 @@ public class Repository {
     public void deleteAllShoes(){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.deleteAll();
+        });
+    }
+
+    public LiveData<List<Base>> getmAllBase(){
+        return mAllBase;
+    }
+
+    public void insertBase(Base base){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mBaseDao.insert(base);
+        });
+    }
+
+    public void delete(Base base){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mBaseDao.delete(base);
         });
     }
 

@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentProfileBinding;
@@ -52,6 +54,33 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(List<Shoes> shoes) {
                 viewModel.showShoesData(shoes);
+            }
+        });
+
+        viewModel.getAllBase().observe(getViewLifecycleOwner(), new Observer<List<Base>>() {
+            @Override
+            public void onChanged(List<Base> bases) {
+                for (int i = 0; i < bases.size(); i++) {
+                    Log.i("ROOM123",bases.get(i).id_base+ " "+bases.get(i).id_shoes);
+                }
+            }
+        });
+
+        viewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<BaseShoes>>() {
+            @Override
+            public void onChanged(List<BaseShoes> baseShoes) {
+                    Log.i("ROOM111", String.valueOf("Id: "+baseShoes.size()));
+//                for (int i = 0; i < baseShoes.size(); i++) {
+//                    Log.i("ROOM111", String.valueOf("Size: "+baseShoes.get(i).base.size));
+//                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
+////                    for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
+//                        Log.i("ROOM111", String.valueOf("Brand Name: "+baseShoes.get(i).shoes.get(j).brand_name));
+//                        Log.i("ROOM111", String.valueOf("Model Name: "+baseShoes.get(i).shoes.get(j).modelName));
+//                        Log.i("ROOM111", String.valueOf("Factor: "+baseShoes.get(i).shoes.get(j).factor));
+//                        Log.i("ROOM111", String.valueOf("Image: "+baseShoes.get(i).shoes.get(j).image));
+//                    }
+//                }
+//
             }
         });
 

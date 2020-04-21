@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
@@ -106,8 +107,17 @@ public class SnkrsClient {
                     shoes.modelName = storage.getShoesList().get(i).getModelName();
                     repo.insertShoes(shoes);
                 }
-//                for (int i = 0; i < repo.getAllBrands().getValue().size(); i++) {
-//                    Log.i("SnkrsServer","SQLite: "+ repo.getAllBrands().getValue().get(i).brand_name);
+
+                Base base= null;
+                for (int i = 0; i < 2; i++) {
+                    base = new Base();
+                    base.id_base = i+1;
+                    base.id_shoes = i + 2;
+                    repo.insertBase(base);
+                }
+
+//                for (int i = 0; i < repo.getAllShoes().getValue().size(); i++) {
+////                    Log.i("ROOM123","SQLite: "+ repo.getAllBaseShoes().get(i));
 //                }
 
                 output.println("QQQ");
