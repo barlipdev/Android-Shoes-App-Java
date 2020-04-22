@@ -16,9 +16,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.SnkrsClient;
+import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Random;
 
 public class DashboardFragment extends Fragment {
 
@@ -71,6 +75,17 @@ public class DashboardFragment extends Fragment {
     }
 
     private void disconnectFromDataServer(){
-//            client.disconnect();
+//        viewModel.deleteAllBrand();
+//        viewModel.deleteAllShoes();
+
+        final LiveData<Shoes> shoesLiveData = viewModel.getShoes(1);
+        shoesLiveData.observe(getViewLifecycleOwner(), new Observer<Shoes>() {
+            @Override
+            public void onChanged(Shoes shoes) {
+                Log.i("ROOM123", "\n"+shoes.modelName);
+
+            }
+        });
+
     }
 }

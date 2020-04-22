@@ -28,6 +28,42 @@ create table shoes
     constraint sneakers_brands_id_brand_fk
         foreign key (id_brand) references brands (id_brand)
 );
+		-------Nike
+insert into shoes VALUES (1,1,'M2K TEKNO',0,'0');
+insert into shoes values(2,1,'Flyknit Racer',0.5,'--image--');
+insert into shoes values(3,1,'Air Force 1 High',0.0,'--image--');
+insert into shoes values(4,1,'Air Max 720',0.0,'--image--');
+insert into shoes values(5,1,'Air Max 97',0.0,'--image--');
+insert into shoes values(6,1,'Air Max 98',0.0,'--image--');
 
-insert into shoes(id_brand, model_name, factor, image) VALUES (1,'M2K TEKNO',0,'0');
+		------Adidas
+insert into shoes values(7,2,'Ultra Boost',0.0,'--image--');
+insert into shoes values(8,2,'NMD R1',0.0,'--image--');
+insert into shoes values(9,2,'EQT Gazelle',0.0,'--image--');
+insert into shoes values(10,2,'Stan Smith',-0.5,'--image--');
+insert into shoes values(11,2,'Yeezy Boost 350',0.0,'--image--');
+		
+		------NB
+insert into shoes values(12,3,'400',-0.5,'--image--');
+insert into shoes values(13,3,'577',-0.5,'--image--');
+insert into shoes values(14,3,'580',0.0,'--image--');
+insert into shoes values(15,3,'650',0.0,'--image--');
+insert into shoes values(16,3,'997',-0.5,'--image--');
+		
+		------Puma
+insert into shoes values(17,4,'Blaze of Glory',0.5,'--image--');
+insert into shoes values(18,4,'Speeder',0.0,'--image--');
+insert into shoes values(19,4,'Clyde',0.5,'--image--');
+insert into shoes values(20,4,'Fast Rider',0.0,'--image--');
+insert into shoes values(21,4,'TX-3',0.0,'--image--');
+		
+		------Converse
+insert into shoes values(22,5,'Chuck Taylor All Star High',-1.0,'--image--');
+insert into shoes values(23,5,'One Star',-1,'--image--');
+insert into shoes values(24,5,'Pro Blaze',-0.5,'--image--');
+insert into shoes values(25,5,'Star Player',-0.5,'--image--');
+insert into shoes values(26,5,'KA II',-5.0,'--image--');
+
+
+
 
