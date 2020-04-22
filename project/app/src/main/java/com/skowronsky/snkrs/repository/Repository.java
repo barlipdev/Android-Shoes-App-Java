@@ -10,6 +10,10 @@ import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.BaseShoesDao;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandDao;
+import com.skowronsky.snkrs.database.Favorite;
+import com.skowronsky.snkrs.database.FavoriteDao;
+import com.skowronsky.snkrs.database.FavoriteShoes;
+import com.skowronsky.snkrs.database.FavoriteShoesDao;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.ShoesDao;
 import com.skowronsky.snkrs.database.SneakersDatabase;
@@ -29,6 +33,11 @@ public class Repository {
     private BaseShoesDao mBaseShoesDao;
     private LiveData<List<BaseShoes>> mAllBaseShoes;
 
+    private FavoriteDao mFavoriteDao;
+    private LiveData<List<Favorite>> mAllFavorite;
+
+    private FavoriteShoesDao mFavoriteShoesDao;
+    private LiveData<List<FavoriteShoes>> mAllFavoriteShoes;
 
 
     public Repository(Application application){
@@ -44,6 +53,45 @@ public class Repository {
 
         mBaseShoesDao = db.baseShoesDao();
         mAllBaseShoes = mBaseShoesDao.getAllBaseShoes();
+
+        mFavoriteDao = db.favoriteDao();
+        mAllFavorite = mFavoriteDao.getAll();
+
+        mFavoriteShoesDao = db.favoriteShoesDao();
+        mAllFavoriteShoes = mFavoriteShoesDao.getAllFavoriteShoes();
+    }
+
+    public LiveData<List<FavoriteShoes>> getAllFavoriteShoes(){
+        return mAllFavoriteShoes;
+    }
+
+    public LiveData<List<Favorite>> getAllFavorite(){
+        return mAllFavorite;
+    }
+
+
+    public void insertFavorite(Favorite favorite){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mFavoriteDao.insert(favorite);
+        });
+    }
+
+    public void insertAllFavorite(List<Favorite> favorite){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mFavoriteDao.insertAll(favorite);
+        });
+    }
+
+    public void deleteAllFavorites(){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mFavoriteDao.deleteAll();
+        });
+    }
+
+    public void deleteFavorite(Favorite favorite){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mFavoriteDao.delete(favorite);
+        });
     }
 
     public LiveData<List<BaseShoes>> getAllBaseShoes(){

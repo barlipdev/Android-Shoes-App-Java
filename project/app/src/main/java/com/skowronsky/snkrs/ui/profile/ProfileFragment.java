@@ -19,6 +19,8 @@ import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.Favorite;
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentProfileBinding;
 
@@ -69,7 +71,7 @@ public class ProfileFragment extends Fragment {
         viewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<BaseShoes>>() {
             @Override
             public void onChanged(List<BaseShoes> baseShoes) {
-                    Log.i("ROOM111", String.valueOf("Id: "+baseShoes.size()));
+//                    Log.i("ROOM111", String.valueOf("Id: "+baseShoes.size()));
 //                for (int i = 0; i < baseShoes.size(); i++) {
 //                    Log.i("ROOM111", String.valueOf("Size: "+baseShoes.get(i).base.size));
 //                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
@@ -81,6 +83,31 @@ public class ProfileFragment extends Fragment {
 //                    }
 //                }
 //
+            }
+        });
+
+        viewModel.getAllFavorites().observe(getViewLifecycleOwner(), new Observer<List<Favorite>>() {
+            @Override
+            public void onChanged(List<Favorite> favoriteList) {
+//                for (int i = 0; i < favoriteList.size(); i++) {
+//                    Log.i("ROOM111", String.valueOf("Id: "+favoriteList.get(i).id_favorite_shoes));
+//                    Log.i("ROOM111", String.valueOf("\tId_shoes: "+favoriteList.get(i).id_shoes));
+//                    Log.i("ROOM111", String.valueOf("\tSize: "+favoriteList.get(i).size));
+//                }
+            }
+        });
+
+        viewModel.getAllFavoriteShoes().observe(getViewLifecycleOwner(), new Observer<List<FavoriteShoes>>() {
+            @Override
+            public void onChanged(List<FavoriteShoes> favoriteShoes) {
+                for (int i = 0; i < favoriteShoes.size(); i++) {
+                    Log.i("ROOM111", String.valueOf("Id FavoriteShoes: "+favoriteShoes.get(i).favorite.id_favorite_shoes));
+                    for (int j = 0; j < favoriteShoes.get(i).shoes.size(); j++) {
+                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).modelName));
+                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).brand_name));
+                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).factor));
+                    }
+                }
             }
         });
 

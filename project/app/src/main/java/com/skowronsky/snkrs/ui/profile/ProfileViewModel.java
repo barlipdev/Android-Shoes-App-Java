@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.Favorite;
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
 
@@ -21,6 +23,8 @@ public class ProfileViewModel extends AndroidViewModel {
     private LiveData<List<Shoes>> allShoes;
     private LiveData<List<Base>> allBase;
     private LiveData<List<BaseShoes>> allBaseShoes;
+    private LiveData<List<Favorite>> allFavorites;
+    private LiveData<List<FavoriteShoes>> allFavoriteShoes;
 
     private String _brandListText = "Brands:\n";
     private String _shoesListText = "Shoes:\n";
@@ -38,12 +42,16 @@ public class ProfileViewModel extends AndroidViewModel {
         allShoes = repository.getAllShoes();
         allBase = repository.getmAllBase();
         allBaseShoes = repository.getAllBaseShoes();
+        allFavorites = repository.getAllFavorite();
+        allFavoriteShoes = repository.getAllFavoriteShoes();
     }
 
     LiveData<List<Brand>> getAllBrands() { return allBrands; }
     LiveData<List<Shoes>> getAllShoes() {return allShoes;}
     LiveData<List<Base>> getAllBase() {return allBase;}
     LiveData<List<BaseShoes>> getAllBaseShoes() {return allBaseShoes;}
+    LiveData<List<Favorite>> getAllFavorites() {return allFavorites;}
+    LiveData<List<FavoriteShoes>> getAllFavoriteShoes() {return allFavoriteShoes;}
 
     public MutableLiveData<Boolean> getEventSettingsNav(){
         if(settingsNav == null)

@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
@@ -114,6 +115,15 @@ public class SnkrsClient {
                     base.id_base = i+1;
                     base.id_shoes = i + 2;
                     repo.insertBase(base);
+                }
+
+                Favorite favorite = null;
+                for (int i = 0; i < 3; i++) {
+                    favorite = new Favorite();
+                    favorite.id_favorite_shoes = i+1;
+                    favorite.id_shoes = i + 2;
+                    favorite.size = 9;
+                    repo.insertFavorite(favorite);
                 }
 
 //                for (int i = 0; i < repo.getAllShoes().getValue().size(); i++) {

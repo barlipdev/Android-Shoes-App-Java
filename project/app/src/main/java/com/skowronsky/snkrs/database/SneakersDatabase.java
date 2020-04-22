@@ -11,14 +11,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Brand.class, Shoes.class, Base.class}, version = 1)
+@Database(entities = {Brand.class, Shoes.class, Base.class, Favorite.class}, version = 1)
 public abstract class SneakersDatabase extends RoomDatabase {
+    // data tables
     public abstract BrandDao brandDao();
     public abstract ShoesDao shoesDao();
     public abstract BaseDao baseDao();
+    public abstract FavoriteDao favoriteDao();
 
+    // relation tables
     public abstract BaseShoesDao baseShoesDao();
-
+    public abstract FavoriteShoesDao favoriteShoesDao();
 
     private static volatile SneakersDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
