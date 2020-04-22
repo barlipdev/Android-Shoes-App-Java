@@ -33,6 +33,7 @@ import com.skowronsky.snkrs.ui.home.HomeViewModelFactory;
 import com.skowronsky.snkrs.ui.home.shoes.ShoesRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HomeBase extends Fragment {
@@ -43,12 +44,6 @@ public class HomeBase extends Fragment {
     private HomeBaseFragmentBinding binding;
     private RecyclerView recyclerView;
     private RecyclerViewBaseHomeAdapter<Context> recyclerViewAdapter;
-    private String shoe_company;
-    private String shoe_model;
-    private String shoe_image;
-    private double shoe_factor;
-    private int shoe_id;
-    private Shoes shoe;
 
 
     public static HomeBase newInstance() {
@@ -60,25 +55,30 @@ public class HomeBase extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         appState = ((MyApplication)this.getActivity().getApplication());
         storage = appState.storage;
-        homeViewModel = new ViewModelProvider(this,new HomeBaseViewModelFactory(storage)).get(HomeBaseViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeBaseViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.home_base_fragment, container, false);
         binding.setBaseViewModel(homeViewModel);
         binding.setLifecycleOwner(this);
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = binding.baselist;
-        if (BaseShoes.baseList.size()>0)
-        {
-            homeViewModel.init(BaseShoes.baseList);
-        }
+
+        homeViewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<com.skowronsky.snkrs.database.BaseShoes>>() {
+            @Override
+            public void onChanged(List<com.skowronsky.snkrs.database.BaseShoes> baseShoes) {
+                homeViewModel.init(baseShoes);
+            }
+        });
         homeViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Shoes>>() {
             @Override
             public void onChanged(ArrayList<com.skowronsky.snkrs.model.Shoes> CompanyArrayList) {
+                Log.i("ROOM112", String.valueOf("Size: "+CompanyArrayList.size()));
                 recyclerViewAdapter = new RecyclerViewBaseHomeAdapter<>(getContext(), CompanyArrayList,homeViewModel);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(recyclerViewAdapter);
 
             }
         });
+
 
         final LiveData<Boolean> navToShoes = homeViewModel.getEventHomeNav();
         navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -102,8 +102,6 @@ public class HomeBase extends Fragment {
     }
 
     private void navigateToHome(){
-        //Bundle bundle = new Bundle();
-        //bundle.putString("key",ShoesCompany.toString());
         Log.i("Array size",String.valueOf(BaseShoes.baseList.size()));
         NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_navigation_home);
     }

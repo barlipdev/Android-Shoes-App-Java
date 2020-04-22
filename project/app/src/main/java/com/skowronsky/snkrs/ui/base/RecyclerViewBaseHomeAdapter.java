@@ -64,7 +64,7 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
             @Override
             public void onClick(View view) {
                 ShoesArrayList.remove(position);
-                shoesViewModel.init(ShoesArrayList);
+                //shoesViewModel.init(ShoesArrayList);
             }
         });
     }

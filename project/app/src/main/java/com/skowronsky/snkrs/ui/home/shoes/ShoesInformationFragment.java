@@ -49,6 +49,7 @@ public class ShoesInformationFragment extends Fragment {
     private double shoe_factor;
     private int shoe_id;
     private ArrayList<Double> sizes;
+    private int selectedSize;
 
 
     public static ShoesInformationFragment newInstance() {
@@ -89,10 +90,18 @@ public class ShoesInformationFragment extends Fragment {
             }
         });
 
+        shoesInformationViewModel.getSelectedSize().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                selectedSize = integer;
+            }
+        });
+
         shoesInformationFragmentBinding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BaseShoes.baseList.add(shoe);
+                shoesInformationViewModel.addShoeToBase(shoe,1);
+                //BaseShoes.baseList.add(shoe);
                 shoesInformationViewModel.eventNavToInfo();
             }
         });

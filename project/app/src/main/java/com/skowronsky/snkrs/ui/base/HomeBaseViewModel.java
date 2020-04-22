@@ -1,26 +1,35 @@
 package com.skowronsky.snkrs.ui.base;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HomeBaseViewModel extends ViewModel {
+public class HomeBaseViewModel extends AndroidViewModel {
 
-    private Storage storage;
     private MutableLiveData<Boolean> homeNav;
     private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
     private ArrayList<Shoes> shoesList;
-    private MutableLiveData<Boolean> areArguments;
+    private LiveData<List<BaseShoes>> allBaseShoes;
+    private Repository repository;
 
-    public HomeBaseViewModel(Storage storage){
+    public HomeBaseViewModel(Application application){
+        super(application);
+        repository = new Repository(application);
+        allBaseShoes = repository.getAllBaseShoes();
         this.ShoesLiveData = new MutableLiveData<ArrayList<Shoes>>();
-        this.storage = storage;
         this.shoesList = new ArrayList<Shoes>();
     }
 
@@ -28,11 +37,6 @@ public class HomeBaseViewModel extends ViewModel {
         if(homeNav == null)
             homeNav = new MutableLiveData<Boolean>();
         return homeNav;
-    }
-    public MutableLiveData<Boolean> getAreArguments(){
-        if(areArguments == null)
-            areArguments = new MutableLiveData<Boolean>();
-        return areArguments;
     }
 
     public MutableLiveData<ArrayList<Shoes>> getShoesLiveData()
@@ -42,10 +46,12 @@ public class HomeBaseViewModel extends ViewModel {
         return ShoesLiveData;
     }
 
-    public void init(ArrayList<Shoes> shoes){
-        //addToList(shoe);
-        ShoesLiveData.setValue(shoes);
+    public void init(List<BaseShoes> baseShoes){
+        addBaseShoes(baseShoes);
+        ShoesLiveData.setValue(shoesList);
     }
+
+    LiveData<List<BaseShoes>> getAllBaseShoes() {return allBaseShoes;}
 
     private void addToList(Shoes shoe){
         shoesList.add(shoe);
@@ -54,10 +60,23 @@ public class HomeBaseViewModel extends ViewModel {
     public void eventNavToHome(){
         homeNav.setValue(true);
     }
-    public void eventSetArgumentsTrue(){areArguments.setValue(true);}
-    public void eventSetArgumentsFalse(){areArguments.setValue(false);}
     public void eventNavToHomeFinished(){
         homeNav.setValue(false);
+    }
+
+    public void addBaseShoes(List<BaseShoes> baseShoes) {
+        Shoes shoe;
+        for (int i = 0; i < baseShoes.size(); i++) {
+            for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
+                shoe = new Shoes(baseShoes.get(i).shoes.get(j).id_shoes,
+                        baseShoes.get(i).shoes.get(j).brand_name,
+                        baseShoes.get(i).shoes.get(j).modelName,
+                        baseShoes.get(i).shoes.get(j).factor,
+                        baseShoes.get(i).shoes.get(j).image
+                );
+                addToList(shoe);
+            }
+        }
     }
 
 }
