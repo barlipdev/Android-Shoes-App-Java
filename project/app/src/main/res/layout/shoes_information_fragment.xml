@@ -9,30 +9,107 @@
             type="com.skowronsky.snkrs.ui.home.shoes.ShoesInformationViewModel" />
     </data>
 
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="274sp"
-            android:src="@drawable/city" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="274sp"
+                android:src="@drawable/city" />
+
+            <ToggleButton
+                android:id="@+id/followButton"
+                style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="214dp"
+                android:layout_marginEnd="21dp"
+                android:textOff="Follow"
+                android:textOn="Unfollow" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/model_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Model"
             android:textSize="30sp"
-            android:text="Model" />
-        <TextView
-            android:id="@+id/prefer_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Prefer Number" />
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/prefer_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose size"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/size_view"
+                            android:layout_width="match_parent"
+                             android:layout_height="150dp">
+
+                         </androidx.recyclerview.widget.RecyclerView>
+                </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/saveButton"
+                    style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/save" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
 
 </layout>

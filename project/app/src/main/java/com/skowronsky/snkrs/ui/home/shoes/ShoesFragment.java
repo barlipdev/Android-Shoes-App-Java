@@ -42,6 +42,7 @@ public class ShoesFragment extends Fragment {
     private MyApplication appState;
     private Storage storage;
 
+
     public static ShoesFragment newInstance() {
         return new ShoesFragment();
     }
@@ -97,6 +98,9 @@ public class ShoesFragment extends Fragment {
         bundle_info.putString("model",shoe_info.getModelName().toString());
         bundle_info.putString("company",shoe_info.getBrandName().toString());
         bundle_info.putString("image",shoe_info.getImage().toString());
+        bundle_info.putInt("id",shoe_info.getId());
+        bundle_info.putDouble("factor",shoe_info.getFactor());
+        bundle_info.putBoolean("is",true);
         NavHostFragment.findNavController(this).navigate(R.id.action_shoesFragment2_to_shoesInformationFragment2,bundle_info);
     }
 
