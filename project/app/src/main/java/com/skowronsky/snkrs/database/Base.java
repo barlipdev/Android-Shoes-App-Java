@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Base {
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     public int id_base;
     public int id_shoes;
     public double size;
@@ -13,8 +13,7 @@ public class Base {
     public double hiddenSize;
 
     public Base(){};
-    public Base(int id_base, Shoes shoes, int size){
-        this.id_base = id_base;
+    public Base(Shoes shoes, int size){
         this.id_shoes = shoes.id_shoes;
         this.hiddenSize = shoes.factor + this.size;
         this.size = size;
