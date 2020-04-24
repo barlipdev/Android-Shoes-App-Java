@@ -43,7 +43,7 @@ public class ShoesInformationViewModel extends AndroidViewModel {
         return selectedSize;
     }
 
-    public void addShoeToBase(Shoes shoe, int size){
+    public void addShoeToBase(Shoes shoe, double size){
 
         com.skowronsky.snkrs.database.Shoes dbshoe = new com.skowronsky.snkrs.database.Shoes();
         Base base;
@@ -57,6 +57,8 @@ public class ShoesInformationViewModel extends AndroidViewModel {
         base = new Base(dbshoe,size);
         repository.insertBase(base);
     }
+
+
 
     public void eventNavToInfo(){
         navToBase.setValue(true);

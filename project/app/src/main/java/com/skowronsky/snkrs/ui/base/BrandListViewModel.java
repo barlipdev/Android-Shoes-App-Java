@@ -1,44 +1,48 @@
-package com.skowronsky.snkrs.ui.home;
+package com.skowronsky.snkrs.ui.base;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.Company;
-import com.skowronsky.snkrs.MyApplication;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
-public class HomeViewModel extends ViewModel {
-
+public class BrandListViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<Brand>> CompanyLiveData;
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
+    private LiveData<List<com.skowronsky.snkrs.database.Brand>> allBrands;
+    private Repository repository;
 
     public ArrayList<Brand> CompanyArrayList;
-    private Storage storage;
 
-    public HomeViewModel(Storage storage){
-        this.storage = storage;
+    public BrandListViewModel(Application application){
+        super(application);
+        repository = new Repository(application);
         CompanyLiveData = new MutableLiveData<>();
         CompanyArrayList = new ArrayList<>();
+        allBrands = repository.getAllBrands();
+    }
 
-            for(int i=0;i<this.storage.getBrandList().size();i++) {
-                Brand com = new Brand(this.storage.getBrandList().get(i).getId(),this.storage.getBrandList().get(i).getName(),this.storage.getBrandList().get(i).getImage());
-                CompanyArrayList.add(com);
-            }
-
-
+    public void initBrands(List<com.skowronsky.snkrs.database.Brand> brands){
+        for(int i=0;i<brands.size();i++) {
+            Brand com = new Brand(brands.get(i).id_brand,brands.get(i).brand_name,brands.get(i).image);
+            CompanyArrayList.add(com);
+         }
     }
 
     public MutableLiveData<ArrayList<Brand>> getCompanyLiveData()
     {
         if (CompanyLiveData == null)
-                CompanyLiveData = new MutableLiveData<>();
+            CompanyLiveData = new MutableLiveData<>();
         return CompanyLiveData;
     }
 
@@ -55,12 +59,15 @@ public class HomeViewModel extends ViewModel {
         return CompanyName;
     }
 
+    LiveData<List<com.skowronsky.snkrs.database.Brand>> getAllBrands() {return allBrands;}
+
     public void eventNavToShoes(){
         ShoesNav.setValue(true);
     }
     public void eventNavToShoesFinished(){
         ShoesNav.setValue(false);
     }
+
     public void eventCompanyName(String name){ CompanyName.setValue(name);}
 
     public void init(){

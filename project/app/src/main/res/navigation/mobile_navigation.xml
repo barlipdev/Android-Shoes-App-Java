@@ -78,8 +78,15 @@
         <action
             android:id="@+id/action_homeBase_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_homeBase_to_brandListFragment"
+            app:destination="@id/brandListFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/brandListFragment"
+        android:name="com.skowronsky.snkrs.ui.base.BrandListFragment"
+        android:label="BrandListFragment" />
 
 
 </navigation>

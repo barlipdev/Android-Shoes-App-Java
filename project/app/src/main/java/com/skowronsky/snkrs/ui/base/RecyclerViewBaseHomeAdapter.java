@@ -8,30 +8,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.RecyclerViewAdapter;
-import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Shoes;
-import com.skowronsky.snkrs.ui.home.HomeViewModel;
-import com.skowronsky.snkrs.ui.home.shoes.ShoesRecyclerViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Acitivity context;
     ArrayList<Shoes> ShoesArrayList;
+    List<BaseShoes> baseShoes;
+    ArrayList<String> baseInfo;
     HomeBaseViewModel shoesViewModel;
 
-    public RecyclerViewBaseHomeAdapter(Acitivity context, ArrayList<Shoes> ShoesArrayList,HomeBaseViewModel homeViewModel){
+    public RecyclerViewBaseHomeAdapter(Acitivity context ,HomeBaseViewModel homeViewModel,ArrayList<Shoes> ShoesArrayList,List<BaseShoes> baseShoes){
         this.context = context;
-        this.ShoesArrayList = ShoesArrayList;
         this.shoesViewModel = homeViewModel;
+        this.ShoesArrayList = ShoesArrayList;
+        this.baseShoes = baseShoes;
+        this.baseInfo = new ArrayList<String>();
     }
 
 
@@ -49,22 +51,32 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
         final RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder viewHolder = (RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder) holder;
         viewHolder.shoe_company.setText(shoes.getBrandName());
         viewHolder.shoe_model.setText(shoes.getModelName());
+        baseShoes = shoesViewModel.getAllBaseShoes().getValue();
+        viewHolder.base_size.setText("Base size: "+String.valueOf(baseShoes.get(position).base.size));
         if (shoes.getImage()!=null){
             Picasso.with((Context) context).load(shoes.getImage()).into(
                     viewHolder.imageView);
         }
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("but",ShoesArrayList.get(position).getBrandName());
+                baseInfo.add(String.valueOf(shoes.getBrandName()));
+                baseInfo.add(String.valueOf(shoes.getModelName()));
+                baseInfo.add(String.valueOf(baseShoes.get(position).base.size));
+                baseInfo.add(String.valueOf(shoes.getImage()));
+                shoesViewModel.eventBaseSet(baseInfo);
+                shoesViewModel.eventNavToInfo();
             }
         });
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                shoesViewModel.deleteBaseShoes(ShoesArrayList.get(position),baseShoes.get(position).base.size);
                 ShoesArrayList.remove(position);
-                //shoesViewModel.init(ShoesArrayList);
+                shoesViewModel.refresh(ShoesArrayList);
+
+                //shoesViewModel.init(baseShoes);
             }
         });
     }
@@ -77,6 +89,7 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
         TextView shoe_company;
         TextView shoe_model;
+        TextView base_size;
         ImageView imageView;
         Button deleteButton;
 
@@ -86,6 +99,7 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
             shoe_model = itemView.findViewById(R.id.shoe_model);
             imageView = itemView.findViewById(R.id.shoe_icon);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+            base_size = itemView.findViewById(R.id.size);
         }
     }
 }

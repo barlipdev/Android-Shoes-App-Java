@@ -108,13 +108,8 @@ public class SnkrsClient {
                     repo.insertShoes(shoes);
                 }
 
-                Base base= null;
-                for (int i = 0; i < 2; i++) {
-                    base = new Base();
-                    base.id_base = i+1;
-                    base.id_shoes = i + 2;
-                    repo.insertBase(base);
-                }
+
+
 
 //                for (int i = 0; i < repo.getAllShoes().getValue().size(); i++) {
 ////                    Log.i("ROOM123","SQLite: "+ repo.getAllBaseShoes().get(i));

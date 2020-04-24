@@ -21,7 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.databinding.HomeBaseFragmentBinding;
@@ -48,8 +51,9 @@ public class ShoesInformationFragment extends Fragment {
     private Shoes shoe;
     private double shoe_factor;
     private int shoe_id;
-    private ArrayList<Double> sizes;
     private int selectedSize;
+
+    private RadioButton rb;
 
 
     public static ShoesInformationFragment newInstance() {
@@ -64,7 +68,6 @@ public class ShoesInformationFragment extends Fragment {
         shoesInformationFragmentBinding.setShoesInfoViewModel(shoesInformationViewModel);
         shoesInformationFragmentBinding.setLifecycleOwner(this);
 
-
         shoe_model = getArguments().getString("model");
         shoe_company = getArguments().getString("company");
         shoe_image = getArguments().getString("image");
@@ -72,21 +75,13 @@ public class ShoesInformationFragment extends Fragment {
         shoe_id = getArguments().getInt("id");
 
         shoe = new Shoes(shoe_id,shoe_company,shoe_model,shoe_factor,shoe_image);
-        sizes = new ArrayList<Double>();
 
-        for(int i=35;i<46;i++){
-            sizes.add(i*1.0);
-        }
 
-        recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
-        recyclerView = shoesInformationFragmentBinding.sizeView;
-        shoesInformationViewModel.init(sizes);
+
         shoesInformationViewModel.getSizesData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Double>>() {
             @Override
             public void onChanged(ArrayList<Double> sizes) {
-                recyclerViewAdapter = new ShoesInformationRecyclerViewAdapter(getContext(), sizes,shoesInformationViewModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(recyclerViewAdapter);
+
             }
         });
 
@@ -100,8 +95,58 @@ public class ShoesInformationFragment extends Fragment {
         shoesInformationFragmentBinding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shoesInformationViewModel.addShoeToBase(shoe,1);
-                //BaseShoes.baseList.add(shoe);
+
+                if(shoesInformationFragmentBinding.rb1.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,38);
+                }
+                if(shoesInformationFragmentBinding.rb2.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,38.5);
+                }
+                if(shoesInformationFragmentBinding.rb3.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,39);
+                }
+                if(shoesInformationFragmentBinding.rb4.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,39.5);
+                }
+                if(shoesInformationFragmentBinding.rb5.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,40);
+                }
+                if(shoesInformationFragmentBinding.rb6.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,40.5);
+                }
+                if(shoesInformationFragmentBinding.rb7.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,41);
+                }
+                if(shoesInformationFragmentBinding.rb8.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,41.5);
+                }
+                if(shoesInformationFragmentBinding.rb9.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,42);
+                }
+                if(shoesInformationFragmentBinding.rb10.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,42.5);
+                }
+                if(shoesInformationFragmentBinding.rb11.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,43);
+                }
+                if(shoesInformationFragmentBinding.rb12.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,43.5);
+                }
+                if(shoesInformationFragmentBinding.rb13.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,44);
+                }
+                if(shoesInformationFragmentBinding.rb14.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,44.5);
+                }
+                if(shoesInformationFragmentBinding.rb15.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,45);
+                }
+                if(shoesInformationFragmentBinding.rb16.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,45.5);
+                }
+                if(shoesInformationFragmentBinding.rb17.isChecked()){
+                    shoesInformationViewModel.addShoeToBase(shoe,46);
+                }
                 shoesInformationViewModel.eventNavToInfo();
             }
         });

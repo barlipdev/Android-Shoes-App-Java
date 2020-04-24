@@ -13,7 +13,7 @@ public class Base {
     public double hiddenSize;
 
     public Base(){};
-    public Base(Shoes shoes, int size){
+    public Base(Shoes shoes, double size){
         this.id_shoes = shoes.id_shoes;
         this.hiddenSize = shoes.factor + this.size;
         this.size = size;
