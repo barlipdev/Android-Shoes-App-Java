@@ -3,6 +3,7 @@ package com.skowronsky.snkrs.ui.home.shoes;
 import android.icu.text.IDNA;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -79,35 +80,5 @@ public class ShoesViewModel extends ViewModel {
     }
     public void eventSendShoe(com.skowronsky.snkrs.model.Shoes shoe){shoe_info.setValue(shoe);}
 
-    public void ShoesList(String company){
-        Shoes shoes = new Shoes();
-        Shoes shoes2 = new Shoes();
-
-
-        shoes.setModel("AirMax");
-        shoes.setNumber(40);
-        shoes.setShoe_company("Nike");
-
-        shoes2.setModel("Orginals");
-        shoes2.setNumber(40);
-        shoes2.setShoe_company("Adidas");
-
-        ShoesArrayList = new ArrayList<>();
-        ShoesArrayListTmp = new ArrayList<>();
-
-        ShoesArrayListTmp.add(shoes);
-        ShoesArrayListTmp.add(shoes2);
-
-        for(int i=0;i<ShoesArrayListTmp.size();i++){
-            name = ShoesArrayListTmp.get(i).getShoe_company();
-            if (name.equals(company)){
-                ShoesArrayList.add(ShoesArrayListTmp.get(i));
-            }
-        }
-
-
-
-
-    }
 
 }
