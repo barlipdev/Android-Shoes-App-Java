@@ -71,18 +71,17 @@ public class ProfileFragment extends Fragment {
         viewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<BaseShoes>>() {
             @Override
             public void onChanged(List<BaseShoes> baseShoes) {
-//                    Log.i("ROOM111", String.valueOf("Id: "+baseShoes.size()));
-//                for (int i = 0; i < baseShoes.size(); i++) {
-//                    Log.i("ROOM111", String.valueOf("Size: "+baseShoes.get(i).base.size));
-//                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
-////                    for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
-//                        Log.i("ROOM111", String.valueOf("Brand Name: "+baseShoes.get(i).shoes.get(j).brand_name));
-//                        Log.i("ROOM111", String.valueOf("Model Name: "+baseShoes.get(i).shoes.get(j).modelName));
-//                        Log.i("ROOM111", String.valueOf("Factor: "+baseShoes.get(i).shoes.get(j).factor));
-//                        Log.i("ROOM111", String.valueOf("Image: "+baseShoes.get(i).shoes.get(j).image));
-//                    }
-//                }
-//
+                Log.i("ROOM111", "\t\t\tBaseShoes");
+                for (int i = 0; i < baseShoes.size(); i++) {
+                    Log.i("ROOM111", String.valueOf("Size: " + baseShoes.get(i).base.size));
+                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
+                    for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
+                        Log.i("ROOM111", String.valueOf("Brand Name: " + baseShoes.get(i).shoes.get(j).brand_name));
+                        Log.i("ROOM111", String.valueOf("Model Name: " + baseShoes.get(i).shoes.get(j).modelName));
+                        Log.i("ROOM111", String.valueOf("Factor: " + baseShoes.get(i).shoes.get(j).factor));
+                        Log.i("ROOM111", String.valueOf("Image: " + baseShoes.get(i).shoes.get(j).image));
+                    }
+                }
             }
         });
 
@@ -100,6 +99,7 @@ public class ProfileFragment extends Fragment {
         viewModel.getAllFavoriteShoes().observe(getViewLifecycleOwner(), new Observer<List<FavoriteShoes>>() {
             @Override
             public void onChanged(List<FavoriteShoes> favoriteShoes) {
+                Log.i("ROOM111", "\t\t\tFavoriteShoes");
                 for (int i = 0; i < favoriteShoes.size(); i++) {
                     Log.i("ROOM111", String.valueOf("Id FavoriteShoes: "+favoriteShoes.get(i).favorite.id_favorite_shoes));
                     for (int j = 0; j < favoriteShoes.get(i).shoes.size(); j++) {

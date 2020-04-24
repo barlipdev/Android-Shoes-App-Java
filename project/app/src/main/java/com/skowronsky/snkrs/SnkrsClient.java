@@ -30,6 +30,7 @@ import java.util.List;
 
 public class SnkrsClient {
     Thread connectionThread = null;
+    Thread loginThread = null;
 
     String SERVER_IP = "192.168.1.12";
     int SERVER_PORT = 59899;
@@ -42,7 +43,7 @@ public class SnkrsClient {
         this.storage = storage;
         this.application = application;
         repo = new Repository((Application) application.getApplicationContext());
-        connect();
+//        connect();
     }
 
     private static volatile SnkrsClient INSTANCE;
@@ -59,6 +60,11 @@ public class SnkrsClient {
     public void connect(){
         connectionThread = new Thread(new ConnectionThread(storage));
         connectionThread.start();
+    }
+
+    public void connect(String login,String password){
+        loginThread = new Thread(new LoginThread(storage,login,password));
+        loginThread.start();
     }
 
     class ConnectionThread implements Runnable {
@@ -90,6 +96,65 @@ public class SnkrsClient {
 
                 getBrands(output,objectInputStream,storage);
                 getShoes(output,objectInputStream,storage);
+//                getUser(login,password,output,objectInputStream,storage);
+
+                output.println("QQQ");
+                do{
+                    message = input.readLine();
+                    Log.i("SnkrsServer","Messege: "+ message);
+
+                }while (!message.equals("QQQ"));
+
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    if(output != null)
+                        output.close();
+                    if(socket != null)
+                        socket.close();
+                    Log.i("SnkrsServer","Connection Closed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }//run
+
+    }//ConnectionThread
+
+    class LoginThread implements Runnable{
+
+        private PrintWriter output;
+        private BufferedReader input;
+        private ObjectInputStream objectInputStream;
+
+
+        private Socket socket;
+        private Storage storage;
+
+
+        private String login;
+        private String password;
+
+        public LoginThread(Storage storage, String login, String password){
+            this.storage = storage;
+            this.login = login;
+            this.password = password;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @SuppressLint("RestrictedApi")
+        public void run() {
+            try {
+                socket = new Socket(SERVER_IP,SERVER_PORT);
+                output = new PrintWriter(socket.getOutputStream(),true);
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+                String message = "";
+
+                Log.i("SnkrsServer","Connected To Login");
+
                 getUser(login,password,output,objectInputStream,storage);
 
                 output.println("QQQ");
@@ -114,82 +179,80 @@ public class SnkrsClient {
                 }
             }
         }//run
-        private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
-            output.println("brands");
-            storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
+    }
 
-            insertBrandsToRoom(storage.getBrandList());
+    private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+        output.println("brands");
+        storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
+
+        insertBrandsToRoom(storage.getBrandList());
+    }
+
+    private void insertBrandsToRoom(List<Brand> brandList){
+        com.skowronsky.snkrs.database.Brand brand = null;
+        for (int i = 0; i < brandList.size(); i++) {
+            Log.i("SnkrsBrands","Obj: "+ brandList.get(i).getName());
+            brand = new com.skowronsky.snkrs.database.Brand();
+            brand.id_brand = brandList.get(i).getId();
+            brand.brand_name = brandList.get(i).getName();
+            brand.image = brandList.get(i).getImage();
+            repo.insertBrand(brand);
         }
+    }
 
-        private void insertBrandsToRoom(List<Brand> brandList){
-            com.skowronsky.snkrs.database.Brand brand = null;
-            for (int i = 0; i < brandList.size(); i++) {
-                Log.i("SnkrsBrands","Obj: "+ brandList.get(i).getName());
-                brand = new com.skowronsky.snkrs.database.Brand();
-                brand.id_brand = brandList.get(i).getId();
-                brand.brand_name = brandList.get(i).getName();
-                brand.image = brandList.get(i).getImage();
-                repo.insertBrand(brand);
-            }
+    private void getShoes(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+        output.println("shoes");
+        storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
+
+        insertShoesToRoom(storage.getShoesList());
+    }
+
+    private void insertShoesToRoom(List<Shoes> shoesList){
+        com.skowronsky.snkrs.database.Shoes shoes = null;
+        for (int i = 0; i < shoesList.size(); i++) {
+            shoes = new com.skowronsky.snkrs.database.Shoes();
+            shoes.id_shoes = shoesList.get(i).getId();
+            shoes.brand_name = shoesList.get(i).getBrandName();
+            shoes.factor = shoesList.get(i).getFactor();
+            shoes.image = shoesList.get(i).getImage();
+            shoes.modelName = shoesList.get(i).getModelName();
+            repo.insertShoes(shoes);
         }
+    }
 
-        private void getShoes(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
-            output.println("shoes");
-            storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
+    private void getUser(String login, String password, PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+        output.println("login");
+        output.println(login);
+        output.println(password);
+        storage.setUser((User) objectInputStream.readObject());
 
-            insertShoesToRoom(storage.getShoesList());
+        if(storage.getUser() != null){
+            insertBaseShoesToRoom(storage.getUser().getBaseShoesList());
+            insertFavoriteShoesToRoom(storage.getUser().getFavoriteShoesList());
         }
+        Log.i("User",storage.getUser().getEmail());
+    }
 
-        private void insertShoesToRoom(List<Shoes> shoesList){
-            com.skowronsky.snkrs.database.Shoes shoes = null;
-            for (int i = 0; i < shoesList.size(); i++) {
-                shoes = new com.skowronsky.snkrs.database.Shoes();
-                shoes.id_shoes = shoesList.get(i).getId();
-                shoes.brand_name = shoesList.get(i).getBrandName();
-                shoes.factor = shoesList.get(i).getFactor();
-                shoes.image = shoesList.get(i).getImage();
-                shoes.modelName = shoesList.get(i).getModelName();
-                repo.insertShoes(shoes);
-            }
+    private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
+        Base base = null;
+        for (int i = 0; i < baseShoes.size(); i++) {
+            base = new Base();
+            base.id_base = i+1;
+            base.id_shoes = baseShoes.get(i).getIdShoes();
+            base.size = baseShoes.get(i).getSize();
+            base.hiddenSize = baseShoes.get(i).getHiddenSize();
+            repo.insertBase(base);
         }
+    }
 
-        private void getUser(String login, String password, PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
-            output.println("login");
-            output.println(login);
-            output.println(password);
-            storage.setUser((User) objectInputStream.readObject());
-
-            if(storage.getUser() != null){
-                Log.i("User",storage.getUser().getEmail());
-                insertBaseShoesToRoom(storage.getUser().getBaseShoesList());
-                insertFavoriteShoesToRoom(storage.getUser().getFavoriteShoesList());
-            }
-
+    private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
+        Favorite favorite = null;
+        for (int i = 0; i < favoriteShoesList.size(); i++) {
+            favorite = new Favorite();
+            favorite.id_favorite_shoes = i+1;
+            favorite.id_shoes = favoriteShoesList.get(i).getIdShoes();
+            favorite.size = favoriteShoesList.get(i).getSize();
+            repo.insertFavorite(favorite);
         }
-
-        private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
-            Base base = null;
-            for (int i = 0; i < baseShoes.size(); i++) {
-                base = new Base();
-                base.id_base = i+1;
-                base.id_shoes = baseShoes.get(i).getIdShoes();
-                base.size = baseShoes.get(i).getSize();
-                base.hiddenSize = baseShoes.get(i).getHiddenSize();
-                repo.insertBase(base);
-            }
-        }
-
-        private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
-            Favorite favorite = null;
-            for (int i = 0; i < favoriteShoesList.size(); i++) {
-                favorite = new Favorite();
-                favorite.id_favorite_shoes = i+1;
-                favorite.id_shoes = favoriteShoesList.get(i).getIdShoes();
-                favorite.size = favoriteShoesList.get(i).getSize();
-                repo.insertFavorite(favorite);
-            }
-        }
-
-    }//ConnectionThread
-
+    }
 }
