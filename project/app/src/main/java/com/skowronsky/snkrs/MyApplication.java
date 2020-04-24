@@ -23,6 +23,8 @@ public class MyApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
         snkrsClient  = SnkrsClient.getInstance(storage,context);
+        snkrsClient.connect();
+        snkrsClient.connect("root@root.com","root");
     }
 }
 
