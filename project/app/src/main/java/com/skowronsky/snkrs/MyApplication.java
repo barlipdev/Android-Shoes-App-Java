@@ -9,8 +9,8 @@ import com.skowronsky.snkrs.storage.Storage;
 
 public class MyApplication extends Application {
 
-    User user = new User("123","rooot@root.pl", "root", "Kiemon");
-    public UserManager userManager = new UserManager(user);
+//    User user = new User("123","rooot@root.pl", "root", "Kiemon");
+//    public UserManager userManager = new UserManager(user);
     public Storage storage = new Storage();
     private Context context;
     public SnkrsClient snkrsClient;

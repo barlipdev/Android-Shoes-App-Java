@@ -4,19 +4,20 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.skowronsky.snkrs.model.UserManager;
+import com.skowronsky.snkrs.storage.Storage;
 
 public class SettingsViewModel extends ViewModel {
-    public UserManager userManager;
+    public Storage storage;
     public String username = "null";
     public String email = "email";
 
     private MutableLiveData<Boolean> eventNavToProfile;
 
 
-    public SettingsViewModel(UserManager userManager){
-        this.userManager = userManager;
-        username = userManager.getUsername();
-        email = userManager.getEmail();
+    public SettingsViewModel(Storage storage){
+        this.storage = storage;
+        username = storage.getUser().getName();
+        email = storage.getUser().getEmail();
     }
 
     public MutableLiveData<Boolean> getEventNavToProfile(){

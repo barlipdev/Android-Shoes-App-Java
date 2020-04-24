@@ -17,6 +17,7 @@ import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.databinding.FragmentSettingsBinding;
 import com.skowronsky.snkrs.model.UserManager;
+import com.skowronsky.snkrs.storage.Storage;
 
 public class SettingsFragment extends Fragment {
 
@@ -24,14 +25,14 @@ public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding;
 
     private MyApplication appState;
-    private UserManager userManager;
+    private Storage storage;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         appState = ((MyApplication)this.getActivity().getApplication());
-        userManager = appState.userManager;
+        storage = appState.storage;
 
-        viewModel = new ViewModelProvider(this, new SettingViewModelFactory(userManager)).get(SettingsViewModel.class);
+        viewModel = new ViewModelProvider(this, new SettingViewModelFactory(storage)).get(SettingsViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);

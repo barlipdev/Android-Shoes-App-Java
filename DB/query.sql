@@ -28,6 +28,68 @@ create table shoes
     constraint sneakers_brands_id_brand_fk
         foreign key (id_brand) references brands (id_brand)
 );
+
+
+create table user
+(
+	id_user int auto_increment,
+	email VARCHAR(50) not null,
+	password varchar(25) not null,
+	name VARCHAR(50) null,
+	photo varchar(200) null,
+	constraint user_pk
+		primary key (id_user)
+);
+
+create unique index user_email_uindex
+	on user (email);
+
+insert into user values (1,'root@root.com','root','root','no photo');
+insert into user values (2,'user@user.com','user','user','photo');
+insert into user values (3,'oskar.skowronski1@gmail.com','password','skowronsky','none');
+
+create table base_shoes
+(
+	id_base int auto_increment,
+	id_user int not null,
+	id_shoes int not null,
+	size double not null,
+	hidden_size double not null,
+	constraint base_shoes_pk
+		primary key (id_base),
+	constraint base_shoes_id_shoes_fk
+		foreign key (id_shoes) references shoes (id_shoes),
+	constraint base_shoes_id_user_fk
+		foreign key (id_user) references user (id_user)
+);
+
+insert into base_shoes values (1,1,1,9,0);
+insert into base_shoes values (2,1,4,7,0);
+insert into base_shoes values (3,2,8,9,9);
+insert into base_shoes values (4,2,7,9,9);
+insert into base_shoes values (5,2,14,9,9);
+insert into base_shoes values (6,1,14,9,0);
+
+
+create table favorite_shoes
+(
+	id_favorite int auto_increment,
+	id_user int not null,
+	id_shoes int not null,
+	size double not null,
+	constraint favorite_shoes_pk
+		primary key (id_favorite),
+	constraint favorite_shoes_id_shoes_fk
+		foreign key (id_shoes) references shoes (id_shoes),
+	constraint favorite_shoes_id_user_fk
+		foreign key (id_user) references user (id_user)
+);
+
+insert into favorite_shoes values (1,1,6,9);
+insert into favorite_shoes values (2,1,8,9);
+insert into favorite_shoes values (3,2,16,7);
+insert into favorite_shoes values (4,2,18,9);
+
 		-------Nike
 insert into shoes VALUES (1,1,'M2K TEKNO',0,'0');
 insert into shoes values(2,1,'Flyknit Racer',0.5,'--image--');

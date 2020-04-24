@@ -10,8 +10,11 @@ import androidx.annotation.RequiresApi;
 
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Favorite;
+import com.skowronsky.snkrs.model.BaseShoes;
 import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.model.FavoriteShoes;
 import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.model.User;
 import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.Storage;
 
@@ -21,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,7 +61,6 @@ public class SnkrsClient {
         connectionThread.start();
     }
 
-
     class ConnectionThread implements Runnable {
 
         private PrintWriter output;
@@ -79,56 +82,15 @@ public class SnkrsClient {
                 output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
-
                 String message = "";
+                String login = "root@root.com";
+                String password = "root";
+
                 Log.i("SnkrsServer","Connected");
 
-
-                storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
-                storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
-//                List<Brand> brandList = (List<Brand>) objectInputStream.readObject();
-//
-//                repo.deleteAllBrands();
-                com.skowronsky.snkrs.database.Brand brand = null;
-                for (int i = 0; i < storage.getBrandList().size(); i++) {
-                    Log.i("SnkrsServer","Obj: "+ storage.getBrandList().get(i).getName());
-                    brand = new com.skowronsky.snkrs.database.Brand();
-                    brand.id_brand = storage.getBrandList().get(i).getId();
-                    brand.brand_name = storage.getBrandList().get(i).getName();
-                    brand.image = storage.getBrandList().get(i).getImage();
-                    repo.insertBrand(brand);
-                }
-                com.skowronsky.snkrs.database.Shoes shoes = null;
-                for (int i = 0; i < storage.getShoesList().size(); i++) {
-                    shoes = new com.skowronsky.snkrs.database.Shoes();
-                    shoes.id_shoes = storage.getShoesList().get(i).getId();
-                    shoes.brand_name = storage.getShoesList().get(i).getBrandName();
-                    shoes.factor = storage.getShoesList().get(i).getFactor();
-                    shoes.image = storage.getShoesList().get(i).getImage();
-                    shoes.modelName = storage.getShoesList().get(i).getModelName();
-                    repo.insertShoes(shoes);
-                }
-
-                Base base= null;
-                for (int i = 0; i < 2; i++) {
-                    base = new Base();
-                    base.id_base = i+1;
-                    base.id_shoes = i + 2;
-                    repo.insertBase(base);
-                }
-
-                Favorite favorite = null;
-                for (int i = 0; i < 3; i++) {
-                    favorite = new Favorite();
-                    favorite.id_favorite_shoes = i+1;
-                    favorite.id_shoes = i + 2;
-                    favorite.size = 9;
-                    repo.insertFavorite(favorite);
-                }
-
-//                for (int i = 0; i < repo.getAllShoes().getValue().size(); i++) {
-////                    Log.i("ROOM123","SQLite: "+ repo.getAllBaseShoes().get(i));
-//                }
+                getBrands(output,objectInputStream,storage);
+                getShoes(output,objectInputStream,storage);
+                getUser(login,password,output,objectInputStream,storage);
 
                 output.println("QQQ");
                 do{
@@ -152,6 +114,82 @@ public class SnkrsClient {
                 }
             }
         }//run
+        private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+            output.println("brands");
+            storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
+
+            insertBrandsToRoom(storage.getBrandList());
+        }
+
+        private void insertBrandsToRoom(List<Brand> brandList){
+            com.skowronsky.snkrs.database.Brand brand = null;
+            for (int i = 0; i < brandList.size(); i++) {
+                Log.i("SnkrsBrands","Obj: "+ brandList.get(i).getName());
+                brand = new com.skowronsky.snkrs.database.Brand();
+                brand.id_brand = brandList.get(i).getId();
+                brand.brand_name = brandList.get(i).getName();
+                brand.image = brandList.get(i).getImage();
+                repo.insertBrand(brand);
+            }
+        }
+
+        private void getShoes(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+            output.println("shoes");
+            storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
+
+            insertShoesToRoom(storage.getShoesList());
+        }
+
+        private void insertShoesToRoom(List<Shoes> shoesList){
+            com.skowronsky.snkrs.database.Shoes shoes = null;
+            for (int i = 0; i < shoesList.size(); i++) {
+                shoes = new com.skowronsky.snkrs.database.Shoes();
+                shoes.id_shoes = shoesList.get(i).getId();
+                shoes.brand_name = shoesList.get(i).getBrandName();
+                shoes.factor = shoesList.get(i).getFactor();
+                shoes.image = shoesList.get(i).getImage();
+                shoes.modelName = shoesList.get(i).getModelName();
+                repo.insertShoes(shoes);
+            }
+        }
+
+        private void getUser(String login, String password, PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+            output.println("login");
+            output.println(login);
+            output.println(password);
+            storage.setUser((User) objectInputStream.readObject());
+
+            if(storage.getUser() != null){
+                Log.i("User",storage.getUser().getEmail());
+                insertBaseShoesToRoom(storage.getUser().getBaseShoesList());
+                insertFavoriteShoesToRoom(storage.getUser().getFavoriteShoesList());
+            }
+
+        }
+
+        private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
+            Base base = null;
+            for (int i = 0; i < baseShoes.size(); i++) {
+                base = new Base();
+                base.id_base = i+1;
+                base.id_shoes = baseShoes.get(i).getIdShoes();
+                base.size = baseShoes.get(i).getSize();
+                base.hiddenSize = baseShoes.get(i).getHiddenSize();
+                repo.insertBase(base);
+            }
+        }
+
+        private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
+            Favorite favorite = null;
+            for (int i = 0; i < favoriteShoesList.size(); i++) {
+                favorite = new Favorite();
+                favorite.id_favorite_shoes = i+1;
+                favorite.id_shoes = favoriteShoesList.get(i).getIdShoes();
+                favorite.size = favoriteShoesList.get(i).getSize();
+                repo.insertFavorite(favorite);
+            }
+        }
+
     }//ConnectionThread
 
 }

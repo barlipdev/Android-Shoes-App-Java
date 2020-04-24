@@ -7,7 +7,7 @@ public class UserManager{
     }
 
     public String getUsername(){
-        return user.getUsername();
+        return user.getName();
     }
 
     public String getEmail() {return  user.getEmail(); }

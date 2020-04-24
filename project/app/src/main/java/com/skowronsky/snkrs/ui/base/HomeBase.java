@@ -102,7 +102,6 @@ public class HomeBase extends Fragment {
     }
 
     private void navigateToHome(){
-        Log.i("Array size",String.valueOf(BaseShoes.baseList.size()));
         NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_navigation_home);
     }
 
