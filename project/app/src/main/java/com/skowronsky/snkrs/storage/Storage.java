@@ -1,5 +1,8 @@
 package com.skowronsky.snkrs.storage;
 
+import android.content.Context;
+
+import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
@@ -12,6 +15,19 @@ public class Storage {
     private List<Brand> brandList;
     private List<Shoes> shoesList;
     private User user;
+
+    private Storage(){}
+
+    private static volatile Storage INSTANCE;
+    public static Storage getInstance(){
+        if (INSTANCE == null){
+            synchronized (Storage.class){
+                if (INSTANCE == null)
+                    INSTANCE = new Storage();
+            }
+        }
+        return INSTANCE;
+    }
 
     public List<Brand> getBrandList() {
         return brandList;
