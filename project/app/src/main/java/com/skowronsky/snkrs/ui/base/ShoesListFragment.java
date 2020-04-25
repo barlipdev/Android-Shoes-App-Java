@@ -13,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.databinding.ShoesListFragmentBinding;
 
 public class ShoesListFragment extends Fragment {
+
+    private ShoesListViewModel viewModel;
+    private ShoesListFragmentBinding shoesListFragmentBinding;
 
     private ShoesListViewModel mViewModel;
 
