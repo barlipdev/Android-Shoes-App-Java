@@ -33,6 +33,11 @@ public class BrandListViewModel extends AndroidViewModel {
     }
 
     public void initBrands(List<com.skowronsky.snkrs.database.Brand> brands){
+        if (CompanyArrayList.size() > 0){
+            for(int i=0;i<brands.size();i++) {
+                CompanyArrayList.removeAll(CompanyArrayList);
+            }
+        }
         for(int i=0;i<brands.size();i++) {
             Brand com = new Brand(brands.get(i).id_brand,brands.get(i).brand_name,brands.get(i).image);
             CompanyArrayList.add(com);

@@ -86,7 +86,23 @@
     <fragment
         android:id="@+id/brandListFragment"
         android:name="com.skowronsky.snkrs.ui.base.BrandListFragment"
-        android:label="BrandListFragment" />
+        android:label="BrandListFragment" >
+        <action
+            android:id="@+id/action_brandListFragment_to_shoesListFragment"
+            app:destination="@id/shoesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoesListFragment"
+        android:name="com.skowronsky.snkrs.ui.base.ShoesListFragment"
+        android:label="ShoesListFragment" >
+        <action
+            android:id="@+id/action_shoesListFragment_to_shoeInfoFragment"
+            app:destination="@id/shoeInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoeInfoFragment"
+        android:name="com.skowronsky.snkrs.ui.base.ShoeInfoFragment"
+        android:label="ShoeInfoFragment" />
 
 
 </navigation>

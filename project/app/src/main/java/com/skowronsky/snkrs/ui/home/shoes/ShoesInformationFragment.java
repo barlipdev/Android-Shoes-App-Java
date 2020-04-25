@@ -42,9 +42,6 @@ public class ShoesInformationFragment extends Fragment {
 
     private ShoesInformationViewModel shoesInformationViewModel;
     private ShoesInformationFragmentBinding shoesInformationFragmentBinding;
-    private RecyclerView recyclerView;
-    private ShoesInformationRecyclerViewAdapter<Context> recyclerViewAdapter;
-    private HomeBaseViewModel baseViewModel;
     private String shoe_company;
     private String shoe_model;
     private String shoe_image;
@@ -52,9 +49,6 @@ public class ShoesInformationFragment extends Fragment {
     private double shoe_factor;
     private int shoe_id;
     private int selectedSize;
-
-    private RadioButton rb;
-
 
     public static ShoesInformationFragment newInstance() {
         return new ShoesInformationFragment();
@@ -75,7 +69,6 @@ public class ShoesInformationFragment extends Fragment {
         shoe_id = getArguments().getInt("id");
 
         shoe = new Shoes(shoe_id,shoe_company,shoe_model,shoe_factor,shoe_image);
-
 
 
         shoesInformationViewModel.getSizesData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Double>>() {

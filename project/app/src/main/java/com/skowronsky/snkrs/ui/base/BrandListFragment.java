@@ -107,8 +107,9 @@ public class BrandListFragment extends Fragment {
     private void navigateToShoes(){
         Bundle bundle = new Bundle();
         bundle.putString("key",ShoesCompany.toString());
+        bundle.putStringArrayList("base_info",base_info);
         Log.i("NameCompany",ShoesCompany);
-        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_shoesFragment22,bundle);
+        NavHostFragment.findNavController(this).navigate(R.id.action_brandListFragment_to_shoesListFragment,bundle);
     }
 
 }

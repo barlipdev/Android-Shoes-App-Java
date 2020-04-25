@@ -16,10 +16,8 @@ import java.util.List;
 public class ShoesViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<com.skowronsky.snkrs.model.Shoes>> ShoesLiveData;
-    public ArrayList<Shoes> ShoesArrayList;
     public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesListTmp;
     public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesList;
-    public ArrayList<Shoes> ShoesArrayListTmp;
     public MutableLiveData<com.skowronsky.snkrs.model.Shoes> shoe_info;
     private MutableLiveData<Boolean> InfoNav;
     private Storage storage;
@@ -66,9 +64,7 @@ public class ShoesViewModel extends ViewModel {
         return shoe_info;
     }
 
-    public void init(String company){
-        //ShoesList(company);
-        Log.i("NameCompany3",company);
+    public void init(){
         ShoesLiveData.setValue(shoesList);
     }
 

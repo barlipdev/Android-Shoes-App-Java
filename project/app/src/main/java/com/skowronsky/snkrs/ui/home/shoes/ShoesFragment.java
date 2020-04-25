@@ -61,8 +61,7 @@ public class ShoesFragment extends Fragment {
 
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = shoesFragmentBinding.ShoesView;
-        shoesViewModel.init(company);
-        Log.i("NameCompany2",company);
+        shoesViewModel.init();
         shoesViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<com.skowronsky.snkrs.model.Shoes>>() {
             @Override
             public void onChanged(ArrayList<com.skowronsky.snkrs.model.Shoes> CompanyArrayList) {

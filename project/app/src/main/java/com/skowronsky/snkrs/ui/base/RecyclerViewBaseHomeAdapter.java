@@ -64,6 +64,7 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
                 baseInfo.add(String.valueOf(shoes.getModelName()));
                 baseInfo.add(String.valueOf(baseShoes.get(position).base.size));
                 baseInfo.add(String.valueOf(shoes.getImage()));
+                baseInfo.add(String.valueOf(baseShoes.get(position).base.id_base));
                 shoesViewModel.eventBaseSet(baseInfo);
                 shoesViewModel.eventNavToInfo();
             }

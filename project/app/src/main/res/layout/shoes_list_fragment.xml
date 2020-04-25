@@ -6,8 +6,82 @@
     <data>
         <variable
             name="shoesViewModel"
-            type="com.skowronsky.snkrs.ui.home.shoes.ShoesViewModel" />
+            type="com.skowronsky.snkrs.ui.base.ShoesListViewModel" />
     </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Your base:"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/Company_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@drawable/border">
+
+        <ImageView
+            android:id="@+id/shoe_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_launcher_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/shoe_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title\t"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shoe_comp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title\t"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/shoe_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title\t"
+                android:layout_marginLeft="30sp"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Choose a shoe"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/Company_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,5 +93,7 @@
             android:layout_height="match_parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </layout>
