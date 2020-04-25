@@ -34,7 +34,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="274sp"
+                android:layout_height="270dp"
                 android:src="@drawable/city" />
 
             <ToggleButton
@@ -46,6 +46,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="214dp"
                 android:layout_marginEnd="21dp"
+                android:visibility="invisible"
                 android:textOff="Follow"
                 android:textOn="Unfollow" />
         </RelativeLayout>
@@ -84,32 +85,145 @@
                 android:text="Choose size"
                 android:textAlignment="center"
                 android:textSize="20sp" />
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
-                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/size_view"
-                            android:layout_width="match_parent"
-                             android:layout_height="150dp">
 
-                         </androidx.recyclerview.widget.RecyclerView>
-                </androidx.cardview.widget.CardView>
-                <Button
-                    android:id="@+id/saveButton"
-                    style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/save" />
+                    android:layout_height="250dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_margin="10dp">
+
+
+                        <RadioGroup
+                            android:id="@+id/rg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/rb1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 38\t|UK: 3\t|CM: 22.5\t|US: 4 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 38.5\t|UK: 3.5\t|CM: 23\t|US: 4.5 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 39\t|UK: 4\t|CM: 23.5\t|US: 5 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 39.5\t|UK: 4.5\t|CM: 23\t|US: 5.5 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 40\t|UK: 5\t|CM: 23.5\t|US: 6 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 40.5\t|UK: 5.5\t|CM: 23.5\t|US: 6.5 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 41\t|UK: 6\t|CM: 24\t|US: 7 " ></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 41.5\t|UK: 6.5\t|CM: 24.5\t|US: 7.5 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 42\t|UK: 7\t|CM: 25\t|US: 8 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 42.5\t|UK: 7.5\t|CM: 25.5\t|US: 8.5 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 43\t|UK: 8\t|CM: 26\t|US: 9 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 43.5\t|UK: 8.5\t|CM: 26.5\t|US: 9.5 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb13"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 44\t|UK: 9\t|CM: 27\t|US: 10 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb14"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 44.5\t|UK: 9.5\t|CM: 27.5\t|US: 10.5 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 45\t|UK: 10\t|CM: 28\t|US: 11 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb16"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 45.5\t|UK: 10.5\t|CM: 28.5\t|US: 11.5 "></RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/rb17"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="EU: 46\t|UK: 11\t|CM: 29\t|US: 12 "></RadioButton>
+
+                        </RadioGroup>
+                    </androidx.cardview.widget.CardView>
+                </androidx.core.widget.NestedScrollView>
+
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/save"
+            android:layout_gravity="bottom"
+             />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
+
 
 </layout>

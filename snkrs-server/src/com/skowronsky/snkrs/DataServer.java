@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class DataServer {
 
-    final static int portNumber = 59899;
+    final static int portNumber = 59895;
     static InetAddress inetAddress;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {

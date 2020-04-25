@@ -3,6 +3,7 @@ package com.skowronsky.snkrs.ui.home.shoes;
 import android.icu.text.IDNA;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -15,10 +16,8 @@ import java.util.List;
 public class ShoesViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<com.skowronsky.snkrs.model.Shoes>> ShoesLiveData;
-    public ArrayList<Shoes> ShoesArrayList;
     public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesListTmp;
     public ArrayList<com.skowronsky.snkrs.model.Shoes> shoesList;
-    public ArrayList<Shoes> ShoesArrayListTmp;
     public MutableLiveData<com.skowronsky.snkrs.model.Shoes> shoe_info;
     private MutableLiveData<Boolean> InfoNav;
     private Storage storage;
@@ -65,9 +64,7 @@ public class ShoesViewModel extends ViewModel {
         return shoe_info;
     }
 
-    public void init(String company){
-        //ShoesList(company);
-        Log.i("NameCompany3",company);
+    public void init(){
         ShoesLiveData.setValue(shoesList);
     }
 
@@ -79,35 +76,5 @@ public class ShoesViewModel extends ViewModel {
     }
     public void eventSendShoe(com.skowronsky.snkrs.model.Shoes shoe){shoe_info.setValue(shoe);}
 
-    public void ShoesList(String company){
-        Shoes shoes = new Shoes();
-        Shoes shoes2 = new Shoes();
-
-
-        shoes.setModel("AirMax");
-        shoes.setNumber(40);
-        shoes.setShoe_company("Nike");
-
-        shoes2.setModel("Orginals");
-        shoes2.setNumber(40);
-        shoes2.setShoe_company("Adidas");
-
-        ShoesArrayList = new ArrayList<>();
-        ShoesArrayListTmp = new ArrayList<>();
-
-        ShoesArrayListTmp.add(shoes);
-        ShoesArrayListTmp.add(shoes2);
-
-        for(int i=0;i<ShoesArrayListTmp.size();i++){
-            name = ShoesArrayListTmp.get(i).getShoe_company();
-            if (name.equals(company)){
-                ShoesArrayList.add(ShoesArrayListTmp.get(i));
-            }
-        }
-
-
-
-
-    }
 
 }

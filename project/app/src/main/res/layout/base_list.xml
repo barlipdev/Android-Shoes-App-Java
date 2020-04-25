@@ -36,6 +36,12 @@
             android:textSize="15sp"
             android:text="Title" />
 
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

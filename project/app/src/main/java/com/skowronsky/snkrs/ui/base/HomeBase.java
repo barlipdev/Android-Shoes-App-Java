@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.databinding.HomeBaseFragmentBinding;
 import com.skowronsky.snkrs.databinding.ShoesInformationFragmentBinding;
 import com.skowronsky.snkrs.model.BaseShoes;
@@ -44,6 +45,8 @@ public class HomeBase extends Fragment {
     private HomeBaseFragmentBinding binding;
     private RecyclerView recyclerView;
     private RecyclerViewBaseHomeAdapter<Context> recyclerViewAdapter;
+    private List<com.skowronsky.snkrs.database.BaseShoes> bbaseShoes;
+    private ArrayList<String> baseinfo;
 
 
     public static HomeBase newInstance() {
@@ -66,15 +69,35 @@ public class HomeBase extends Fragment {
             @Override
             public void onChanged(List<com.skowronsky.snkrs.database.BaseShoes> baseShoes) {
                 homeViewModel.init(baseShoes);
+                bbaseShoes = baseShoes;
+                Log.i("ROOM111", String.valueOf("Id: "+baseShoes.size()));
+                for (int i = 0; i < baseShoes.size(); i++) {
+                    Log.i("ROOM111", String.valueOf("Size: "+baseShoes.get(i).base.size));
+                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
+                        Log.i("ROOM111", String.valueOf("Brand Name: "+baseShoes.get(i).shoes.brand_name));
+                        Log.i("ROOM111", String.valueOf("Model Name: "+baseShoes.get(i).shoes.modelName));
+                        Log.i("ROOM111", String.valueOf("Factor: "+baseShoes.get(i).shoes.factor));
+                        Log.i("ROOM111", String.valueOf("Image: "+baseShoes.get(i).shoes.image));
+                }
             }
         });
+
         homeViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Shoes>>() {
             @Override
             public void onChanged(ArrayList<com.skowronsky.snkrs.model.Shoes> CompanyArrayList) {
                 Log.i("ROOM112", String.valueOf("Size: "+CompanyArrayList.size()));
-                recyclerViewAdapter = new RecyclerViewBaseHomeAdapter<>(getContext(), CompanyArrayList,homeViewModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(recyclerViewAdapter);
+                    recyclerViewAdapter = new RecyclerViewBaseHomeAdapter<>(getContext(),homeViewModel,CompanyArrayList,bbaseShoes);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.setAdapter(recyclerViewAdapter);
+            }
+        });
+
+        homeViewModel.getBaseLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> strings) {
+
+                baseinfo = new ArrayList<String>();
+                baseinfo = strings;
 
             }
         });
@@ -85,8 +108,19 @@ public class HomeBase extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    navigateToHome();
+                    navigateToHome("set_base");
                     homeViewModel.eventNavToHomeFinished();
+                }
+            }
+        });
+
+        final LiveData<Boolean> navToInfo = homeViewModel.getInfoNav();
+        navToInfo.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean) {
+                    navigateToInfo(baseinfo);
+                    homeViewModel.eventNavToInfoFinished();
                 }
             }
         });
@@ -101,7 +135,15 @@ public class HomeBase extends Fragment {
         return binding.getRoot();
     }
 
-    private void navigateToHome(){
+    private void navigateToInfo(ArrayList<String> baseinfo){
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("base_info",baseinfo);
+        NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_brandListFragment,bundle);
+    }
+
+    private void navigateToHome(String destination){
+        Bundle bundle = new Bundle();
+        bundle.putString("destination",destination);
         NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_navigation_home);
     }
 
