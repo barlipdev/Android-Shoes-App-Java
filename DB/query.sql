@@ -89,6 +89,11 @@ insert into favorite_shoes values (1,1,6,9);
 insert into favorite_shoes values (2,1,8,9);
 insert into favorite_shoes values (3,2,16,7);
 insert into favorite_shoes values (4,2,18,9);
+insert into favorite_shoes values (5,1,16,7);
+insert into favorite_shoes values (6,1,18,9);
+insert into favorite_shoes values (7,1,12,9);
+insert into favorite_shoes values (8,1,13,9);
+
 
 		-------Nike
 insert into shoes VALUES (1,1,'M2K TEKNO',0,'0');

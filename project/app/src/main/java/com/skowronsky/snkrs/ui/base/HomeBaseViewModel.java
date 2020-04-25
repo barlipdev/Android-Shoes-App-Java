@@ -67,15 +67,13 @@ public class HomeBaseViewModel extends AndroidViewModel {
     public void addBaseShoes(List<BaseShoes> baseShoes) {
         Shoes shoe;
         for (int i = 0; i < baseShoes.size(); i++) {
-            for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
-                shoe = new Shoes(baseShoes.get(i).shoes.get(j).id_shoes,
-                        baseShoes.get(i).shoes.get(j).brand_name,
-                        baseShoes.get(i).shoes.get(j).modelName,
-                        baseShoes.get(i).shoes.get(j).factor,
-                        baseShoes.get(i).shoes.get(j).image
+                shoe = new Shoes(baseShoes.get(i).shoes.id_shoes,
+                        baseShoes.get(i).shoes.brand_name,
+                        baseShoes.get(i).shoes.modelName,
+                        baseShoes.get(i).shoes.factor,
+                        baseShoes.get(i).shoes.image
                 );
                 addToList(shoe);
-            }
         }
     }
 

@@ -14,6 +14,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Base;
@@ -33,81 +35,23 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setProfileViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
-        viewModel.getAllBrands().observe(getViewLifecycleOwner(), new Observer<List<Brand>>() {
-            @Override
-            public void onChanged(@Nullable final List<Brand> brands) {
-                viewModel.showBrandsData(brands);
+        RecyclerView recyclerView = binding.favShoesRecyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
 
-                Log.i("WWW", String.valueOf(brands.size()));
-
-                for (int i = 0; i < brands.size(); i++) {
-                    Log.i("WWW", String.valueOf(brands.get(i).id_brand));
-                    Log.i("WWW", String.valueOf(brands.get(i).brand_name));
-                }
-            }
-        });
-
-        viewModel.getAllShoes().observe(getViewLifecycleOwner(), new Observer<List<Shoes>>() {
-            @Override
-            public void onChanged(List<Shoes> shoes) {
-                viewModel.showShoesData(shoes);
-            }
-        });
-
-        viewModel.getAllBase().observe(getViewLifecycleOwner(), new Observer<List<Base>>() {
-            @Override
-            public void onChanged(List<Base> bases) {
-                for (int i = 0; i < bases.size(); i++) {
-                    Log.i("ROOM123",bases.get(i).id_base+ " "+bases.get(i).id_shoes);
-                }
-            }
-        });
-
-        viewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<BaseShoes>>() {
-            @Override
-            public void onChanged(List<BaseShoes> baseShoes) {
-                Log.i("ROOM111", "\t\t\tBaseShoes");
-                for (int i = 0; i < baseShoes.size(); i++) {
-                    Log.i("ROOM111", String.valueOf("Size: " + baseShoes.get(i).base.size));
-                    Log.i("ROOM111", String.valueOf(baseShoes.get(i).base.hiddenSize));
-                    for (int j = 0; j < baseShoes.get(i).shoes.size(); j++) {
-                        Log.i("ROOM111", String.valueOf("Brand Name: " + baseShoes.get(i).shoes.get(j).brand_name));
-                        Log.i("ROOM111", String.valueOf("Model Name: " + baseShoes.get(i).shoes.get(j).modelName));
-                        Log.i("ROOM111", String.valueOf("Factor: " + baseShoes.get(i).shoes.get(j).factor));
-                        Log.i("ROOM111", String.valueOf("Image: " + baseShoes.get(i).shoes.get(j).image));
-                    }
-                }
-            }
-        });
-
-        viewModel.getAllFavorites().observe(getViewLifecycleOwner(), new Observer<List<Favorite>>() {
-            @Override
-            public void onChanged(List<Favorite> favoriteList) {
-//                for (int i = 0; i < favoriteList.size(); i++) {
-//                    Log.i("ROOM111", String.valueOf("Id: "+favoriteList.get(i).id_favorite_shoes));
-//                    Log.i("ROOM111", String.valueOf("\tId_shoes: "+favoriteList.get(i).id_shoes));
-//                    Log.i("ROOM111", String.valueOf("\tSize: "+favoriteList.get(i).size));
-//                }
-            }
-        });
+        FavoriteShoesAdapter favoriteShoesAdapter = new FavoriteShoesAdapter();
+        recyclerView.setAdapter(favoriteShoesAdapter);
 
         viewModel.getAllFavoriteShoes().observe(getViewLifecycleOwner(), new Observer<List<FavoriteShoes>>() {
             @Override
             public void onChanged(List<FavoriteShoes> favoriteShoes) {
-                Log.i("ROOM111", "\t\t\tFavoriteShoes");
-                for (int i = 0; i < favoriteShoes.size(); i++) {
-                    Log.i("ROOM111", String.valueOf("Id FavoriteShoes: "+favoriteShoes.get(i).favorite.id_favorite_shoes));
-                    for (int j = 0; j < favoriteShoes.get(i).shoes.size(); j++) {
-                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).modelName));
-                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).brand_name));
-                        Log.i("ROOM111", String.valueOf("Id Shoes: "+favoriteShoes.get(i).shoes.get(j).factor));
-                    }
-                }
+                favoriteShoesAdapter.setFavoriteShoesList(favoriteShoes);
             }
         });
 

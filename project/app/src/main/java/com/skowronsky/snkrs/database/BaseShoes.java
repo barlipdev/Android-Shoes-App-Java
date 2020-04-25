@@ -11,5 +11,5 @@ public class BaseShoes {
     @Relation(
             parentColumn = "id_shoes",
             entityColumn ="id_shoes")
-    public List<Shoes> shoes;
+    public Shoes shoes;
 }
