@@ -1,5 +1,6 @@
 package com.skowronsky.snkrs.ui.profile.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.skowronsky.snkrs.MainActivity;
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.auth.StartActivity;
 import com.skowronsky.snkrs.databinding.FragmentSettingsBinding;
 import com.skowronsky.snkrs.model.UserManager;
 import com.skowronsky.snkrs.storage.Storage;
@@ -24,15 +27,9 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel viewModel;
     private FragmentSettingsBinding binding;
 
-    private MyApplication appState;
-    private Storage storage;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        appState = ((MyApplication)this.getActivity().getApplication());
-        storage = appState.storage;
-
-        viewModel = new ViewModelProvider(this, new SettingViewModelFactory(storage)).get(SettingsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);
@@ -44,6 +41,19 @@ public class SettingsFragment extends Fragment {
                 if(nav) {
                     navigateToProfile();
                     viewModel.eventNavToProfileFinished();
+                }
+            }
+        });
+
+        final LiveData<Boolean> logout = viewModel.getEventLogout();
+        logout.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    Intent intent = new Intent(getActivity(), StartActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                    viewModel.eventLogoutFinished();
                 }
             }
         });

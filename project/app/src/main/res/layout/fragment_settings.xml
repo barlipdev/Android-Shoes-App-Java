@@ -108,12 +108,23 @@
             android:id="@+id/login_btn_login"
             style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
             android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{() -> settingsViewModel.setEventLogout()}"
             android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="@+id/emailEditText"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/emailEditText"
+            app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

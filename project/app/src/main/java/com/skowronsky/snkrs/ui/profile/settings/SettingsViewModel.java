@@ -7,17 +7,26 @@ import com.skowronsky.snkrs.model.UserManager;
 import com.skowronsky.snkrs.storage.Storage;
 
 public class SettingsViewModel extends ViewModel {
-    public Storage storage;
+    private Storage storage = Storage.getInstance();
     public String username = "null";
     public String email = "email";
 
     private MutableLiveData<Boolean> eventNavToProfile;
+    private MutableLiveData<Boolean> eventLogout;
 
-
-    public SettingsViewModel(Storage storage){
-        this.storage = storage;
+    public SettingsViewModel(){
         username = storage.getUser().getName();
         email = storage.getUser().getEmail();
+    }
+
+    public void logout(){
+        storage.setUser(null);
+    }
+
+    public MutableLiveData<Boolean> getEventLogout(){
+        if(eventLogout == null)
+            eventLogout = new MutableLiveData<Boolean>();
+        return eventLogout;
     }
 
     public MutableLiveData<Boolean> getEventNavToProfile(){
@@ -33,5 +42,7 @@ public class SettingsViewModel extends ViewModel {
         eventNavToProfile.setValue(false);
     }
 
+    public void setEventLogout(){eventLogout.setValue(true);}
+    public void eventLogoutFinished(){eventLogout.setValue(false);}
 
 }
