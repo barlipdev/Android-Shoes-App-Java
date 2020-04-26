@@ -156,7 +156,7 @@ public class Repository {
         });
     }
 
-    public LiveData<List<Base>> getmAllBase(){
+    public LiveData<List<Base>> getAllBase(){
         return mAllBase;
     }
 
@@ -169,6 +169,12 @@ public class Repository {
     public void delete(Base base){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBaseDao.delete(base);
+        });
+    }
+
+    public void deleteAllBase(){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            mBaseDao.deleteAll();
         });
     }
 

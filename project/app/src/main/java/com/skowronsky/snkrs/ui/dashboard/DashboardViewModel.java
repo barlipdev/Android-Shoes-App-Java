@@ -1,7 +1,6 @@
 package com.skowronsky.snkrs.ui.dashboard;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -32,7 +31,7 @@ public class DashboardViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
         allShoes = repository.getAllShoes();
-        allBases = repository.getmAllBase();
+        allBases = repository.getAllBase();
 
     }
 

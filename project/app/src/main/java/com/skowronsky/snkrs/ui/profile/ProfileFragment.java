@@ -61,7 +61,6 @@ public class ProfileFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     navigateToSettings();
-                    Log.i("MyTag","Dziala");
                     viewModel.eventNavToSettingsFinished();
                 }
             }

@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.skowronsky.snkrs.auth.login.LoginViewModel;
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.model.BaseShoes;
@@ -31,6 +32,7 @@ import java.util.List;
 public class SnkrsClient {
     Thread connectionThread = null;
     Thread loginThread = null;
+    Thread signupThread = null;
 
     String SERVER_IP = "192.168.1.12";
     int SERVER_PORT = 59895;
@@ -62,10 +64,16 @@ public class SnkrsClient {
         connectionThread.start();
     }
 
-    public void connect(String login,String password){
+    public void login(String login, String password){
         loginThread = new Thread(new LoginThread(storage,login,password));
         loginThread.start();
     }
+
+    public void signup(String login, String password, String name){
+        signupThread = new Thread(new SignupThread(storage,login,password,name));
+        signupThread.start();
+    }
+
 
     class ConnectionThread implements Runnable {
 
@@ -158,11 +166,61 @@ public class SnkrsClient {
                 getUser(login,password,output,objectInputStream,storage);
 
                 output.println("QQQ");
-                do{
-                    message = input.readLine();
-                    Log.i("SnkrsServer","Messege: "+ message);
 
-                }while (!message.equals("QQQ"));
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    if(output != null)
+                        output.close();
+                    if(socket != null)
+                        socket.close();
+                    Log.i("SnkrsServer","Connection Closed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }//run
+    }
+
+    class SignupThread implements Runnable{
+
+        private PrintWriter output;
+        private BufferedReader input;
+        private ObjectInputStream objectInputStream;
+
+
+        private Socket socket;
+        private Storage storage;
+
+        private String login;
+        private String password;
+        private String name;
+
+        public SignupThread(Storage storage, String login, String password, String name){
+            this.storage = storage;
+            this.login = login;
+            this.password = password;
+            this.name = name;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @SuppressLint("RestrictedApi")
+        public void run() {
+            try {
+                socket = new Socket(SERVER_IP,SERVER_PORT);
+                output = new PrintWriter(socket.getOutputStream(),true);
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+
+                String message = "";
+
+                Log.i("SnkrsServer","Connected To Login");
+
+                createUser(login,password,name,output,objectInputStream,storage);
+
+                output.println("QQQ");
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -234,6 +292,7 @@ public class SnkrsClient {
     }
 
     private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
+        repo.deleteAllBase();
         Base base = null;
         for (int i = 0; i < baseShoes.size(); i++) {
             base = new Base();
@@ -246,6 +305,7 @@ public class SnkrsClient {
     }
 
     private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
+        repo.deleteAllFavorites();
         Favorite favorite = null;
         for (int i = 0; i < favoriteShoesList.size(); i++) {
             favorite = new Favorite();
@@ -254,5 +314,18 @@ public class SnkrsClient {
             favorite.size = favoriteShoesList.get(i).getSize();
             repo.insertFavorite(favorite);
         }
+    }
+
+    private void createUser(String login, String password, String name, PrintWriter output,ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+        output.println("signup");
+        output.println(login);
+        output.println(password);
+        output.println(name);
+
+        storage.setUser((User) objectInputStream.readObject());
+        repo.deleteAllBase();
+        repo.deleteAllFavorites();
+        if(storage.getUser()!= null)
+            Log.i("User",storage.getUser().getEmail());
     }
 }

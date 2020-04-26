@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +33,7 @@ public class Capitalizer implements Runnable {
 
             do{
                 message = in.nextLine();
-                executeCommadn(message, objOut, in, storage);
+                executeCommadn(message, objOut, in, out, storage);
                 System.out.println(message);
 //                out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
@@ -64,12 +65,18 @@ public class Capitalizer implements Runnable {
         objOut.writeObject(user);
     }
 
-    private void executeCommadn(String command,ObjectOutputStream objOut, Scanner input, Storage storage) throws IOException {
+    private void executeCommadn(String command,ObjectOutputStream objOut, Scanner input, PrintWriter output, Storage storage) throws IOException {
+        String login = null;
+        String password = null;
+        String name = null;
+        String response = null;
+        User user = null;
+
         switch (command){
             case "login":
-                String login = input.nextLine();
-                String password = input.nextLine();
-                User user = storage.getUser(login,password);
+                login = input.nextLine();
+                password = input.nextLine();
+                user = storage.getUser(login,password);
                 if (user != null)
                     sendUserInfo(user,objOut);
                 break;
@@ -78,6 +85,17 @@ public class Capitalizer implements Runnable {
                 break;
             case "brands":
                 sendBrands(storage.getBrandList(),objOut);
+                break;
+            case "signup":
+                login = input.nextLine();
+                password = input.nextLine();
+                name = input.nextLine();
+                user = null;
+                if(storage.checkUserData(login)){
+                    user = new User(login,name,"",password,new ArrayList<>(),new ArrayList<>());
+                    storage.insertUser(user);
+                }
+                sendUserInfo(user,objOut);
                 break;
             default:
                 break;

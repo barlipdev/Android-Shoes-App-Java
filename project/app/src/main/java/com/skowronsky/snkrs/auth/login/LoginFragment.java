@@ -3,7 +3,6 @@ package com.skowronsky.snkrs.auth.login;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.UiThread;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -57,7 +56,7 @@ public class LoginFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
                     if(binding.username.length()>0 && binding.password.length() > 0){
-                        snkrsClient.connect(binding.username.getText().toString(),binding.password.getText().toString());
+                        snkrsClient.login(binding.username.getText().toString(),binding.password.getText().toString());
                         viewModel.loginFinished();
                         //TODO Check login in time
                         SystemClock.sleep(1000);

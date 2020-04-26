@@ -18,7 +18,7 @@ public class DataServer {
     static InetAddress inetAddress;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        DataBase dataBase = dataBase = new DataBase();
+        DataBase dataBase =  new DataBase();
         Storage storage = new Storage(dataBase);
 
         try {

@@ -7,9 +7,6 @@
         <variable
             name="profileViewModel"
             type="com.skowronsky.snkrs.ui.profile.ProfileViewModel" />
-        <import type="androidx.databinding.ObservableMap"/>
-        <variable name="list" type="ObservableMap&lt;String, Object>"/>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

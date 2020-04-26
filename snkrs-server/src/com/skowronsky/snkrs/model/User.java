@@ -26,6 +26,16 @@ public class User implements Serializable {
         this.favoriteShoesList = favoriteShoesList;
     }
 
+    public User(String email,
+                String name,
+                String password){
+
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
+
     public String getEmail() {
         return email;
     }

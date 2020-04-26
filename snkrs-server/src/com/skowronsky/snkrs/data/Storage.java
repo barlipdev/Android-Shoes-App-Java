@@ -13,8 +13,10 @@ public class Storage {
     private List<Brand> brandList = new ArrayList<>();
     private List<Shoes> shoesList = new ArrayList<>();
     private List<User> userList = new ArrayList<>();
+    private DataBase dataBase;
 
     public Storage(DataBase dataBase) throws SQLException {
+        this.dataBase = dataBase;
         dataBase.getBrands(this.brandList);
         dataBase.getShoes(this.shoesList);
         dataBase.getUsers(this.userList);
@@ -29,6 +31,7 @@ public class Storage {
     }
 
     public User getUser(String email, String password){
+
         for (var item :
                 userList) {
             if(item.getEmail().equals(email)){
@@ -37,5 +40,25 @@ public class Storage {
             }
         }
         return null;
+    }
+
+    public boolean checkUserData(String email){
+        for (var item :
+                userList) {
+            if (item.getEmail().equals(email))
+                return false;
+        }
+            return true;
+    }
+    public void insertUser(User user){
+        try {
+            dataBase.insertUser(user.getEmail(),user.getPassword(),user.getName());
+            userList.add(user);
+            for (var item :
+                    userList) {
+                System.out.println(item.getEmail());
+            }
+        } catch (SQLException throwables) {
+        }
     }
 }

@@ -102,11 +102,17 @@ public class DataBase {
                 favoriteShoesList.add(new FavoriteShoes(id_shoes,size));
             }
 
-            userList.add(id-1, new User(email,name,photo,password,baseShoesList,favoriteShoesList));
+            userList.add(new User(email,name,photo,password,baseShoesList,favoriteShoesList));
         }
 
 
     }
+
+    public void insertUser(String email, String password, String name) throws SQLException {
+        statement = connect.createStatement();
+        statement.executeUpdate(String.format("insert into user(email,password,name) values ('%s','%s','%s');",email,password,name));
+    }
+
 
     public void close() {
         try {
