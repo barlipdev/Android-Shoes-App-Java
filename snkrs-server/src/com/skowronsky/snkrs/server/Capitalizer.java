@@ -77,8 +77,7 @@ public class Capitalizer implements Runnable {
                 login = input.nextLine();
                 password = input.nextLine();
                 user = storage.getUser(login,password);
-                if (user != null)
-                    sendUserInfo(user,objOut);
+                sendUserInfo(user,objOut);
                 break;
             case "shoes":
                 sendShoes(storage.getShoesList(),objOut);

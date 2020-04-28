@@ -34,7 +34,7 @@ public class SnkrsClient {
     Thread loginThread = null;
     Thread signupThread = null;
 
-    String SERVER_IP = "192.168.1.12";
+    String SERVER_IP = "192.168.1.3";
     int SERVER_PORT = 59895;
 
     private Repository repo;
@@ -288,7 +288,7 @@ public class SnkrsClient {
             insertBaseShoesToRoom(storage.getUser().getBaseShoesList());
             insertFavoriteShoesToRoom(storage.getUser().getFavoriteShoesList());
         }
-        Log.i("User",storage.getUser().getEmail());
+//        Log.i("User",storage.getUser().getEmail());
     }
 
     private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
