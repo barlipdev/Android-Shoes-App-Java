@@ -6,6 +6,7 @@ import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -38,9 +39,6 @@ public class Capitalizer implements Runnable {
 //                out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
 
-            out.println("QQQ");
-
-
         } catch (Exception e) {
             System.out.println("I/O Error:" + socket);
         } finally {
@@ -69,6 +67,7 @@ public class Capitalizer implements Runnable {
         String login = null;
         String password = null;
         String name = null;
+        String photo = null;
         String response = null;
         User user = null;
 
@@ -95,6 +94,14 @@ public class Capitalizer implements Runnable {
                     storage.insertUser(user);
                 }
                 sendUserInfo(user,objOut);
+                break;
+            case "update":
+                login = input.nextLine();
+                name = input.nextLine();
+                password = input.nextLine();
+                photo = input.nextLine();
+                storage.updateUser(login,name,password,photo);
+
                 break;
             default:
                 break;

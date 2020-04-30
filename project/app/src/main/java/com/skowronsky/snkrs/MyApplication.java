@@ -3,6 +3,7 @@ package com.skowronsky.snkrs;
 import android.app.Application;
 import android.content.Context;
 
+import com.skowronsky.snkrs.model.User;
 import com.skowronsky.snkrs.storage.Storage;
 
 public class MyApplication extends Application {
@@ -23,6 +24,10 @@ public class MyApplication extends Application {
         snkrsClient.connect();
 //        snkrsClient.signup("1","1","1");
 //        snkrsClient.login("root@root.com","root");
+
+//        User user = new User("12","2","2","2");
+//        User user = new User("13","2","2","2");
+//        snkrsClient.updateUser(user);
     }
 }
 

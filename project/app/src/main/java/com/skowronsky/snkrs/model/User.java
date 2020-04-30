@@ -28,11 +28,13 @@ public class User implements Serializable {
 
     public User(String email,
                 String name,
-                String password){
+                String password,
+                String photo){
 
         this.email = email;
         this.password = password;
         this.name = name;
+        this.photo = photo;
     }
 
 

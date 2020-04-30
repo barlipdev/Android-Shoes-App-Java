@@ -31,7 +31,6 @@ public class Storage {
     }
 
     public User getUser(String email, String password){
-
         for (var item :
                 userList) {
             if(item.getEmail().equals(email)){
@@ -40,6 +39,32 @@ public class Storage {
             }
         }
         return null;
+    }
+
+    public void updateUser(String email, String name, String password, String photo){
+        User tmp;
+        for (var item :
+                userList) {
+            if (item.getEmail().equals(email)){
+                tmp = item;
+                userList.remove(item);
+                userList.add(new User(email,name,photo,password,tmp.getBaseShoesList(),tmp.getFavoriteShoesList()));
+
+                try {
+                    dataBase.updateUser(email,name,password,photo);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+
+        for (var item :
+                userList) {
+            System.out.println("\tUser:");
+            System.out.println(item.getEmail());
+            System.out.println(item.getName());
+            System.out.println(item.getPassword());
+        }
     }
 
     public boolean checkUserData(String email){

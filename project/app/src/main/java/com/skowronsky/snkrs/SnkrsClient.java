@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Collections;
@@ -70,8 +71,8 @@ public class SnkrsClient {
         authThread.start();
     }
 
-    private void updateUser(User user){
-        updateThread = new Thread(new UpdateThread(storage,user));
+    public void updateUser(User user){
+        updateThread = new Thread(new UpdateThread(user));
         updateThread.start();
     }
 
@@ -107,11 +108,6 @@ public class SnkrsClient {
 //                getUser(login,password,output,objectInputStream,storage);
 
                 output.println("QQQ");
-                do{
-                    message = input.readLine();
-                    Log.i("SnkrsServer","Messege: "+ message);
-
-                }while (!message.equals("QQQ"));
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -204,12 +200,10 @@ public class SnkrsClient {
         private BufferedReader input;
 
         private Socket socket;
-        private Storage storage;
 
         private User user;
 
-        public UpdateThread(Storage storage, User user){
-            this.storage = storage;
+        public UpdateThread(User user){
             this.user = user;
         }
 
@@ -224,13 +218,9 @@ public class SnkrsClient {
 
                 Log.i("SnkrsServer","Connected");
 
+                updateUser(user,output);
 
                 output.println("QQQ");
-                do{
-                    message = input.readLine();
-                    Log.i("SnkrsServer","Messege: "+ message);
-
-                }while (!message.equals("QQQ"));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -329,6 +319,7 @@ public class SnkrsClient {
     }
 
     private void createUser(String login, String password, String name, PrintWriter output,ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
+
         output.println("signup");
         output.println(login);
         output.println(password);
@@ -339,5 +330,13 @@ public class SnkrsClient {
         repo.deleteAllFavorites();
         if(storage.getUser()!= null)
             Log.i("User",storage.getUser().getEmail());
+    }
+
+    private void updateUser(User user, PrintWriter out) {
+        out.println("update");
+        out.println(user.getEmail());
+        out.println(user.getName());
+        out.println(user.getPassword());
+        out.println(user.getPhoto());
     }
 }
