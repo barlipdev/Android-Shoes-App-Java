@@ -57,7 +57,7 @@ public class SignupFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     if (binding.username.length() > 0 && binding.email.length() > 0 && binding.password.length() > 0){
-                        snkrsClient.signup(binding.email.getText().toString()
+                        snkrsClient.auth(binding.email.getText().toString()
                                 ,binding.password.getText().toString()
                                 ,binding.username.getText().toString());
                         SystemClock.sleep(3000);

@@ -8,7 +8,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.skowronsky.snkrs.auth.login.LoginViewModel;
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.model.BaseShoes;
@@ -25,30 +24,32 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SnkrsClient {
     Thread connectionThread = null;
-    Thread loginThread = null;
-    Thread signupThread = null;
+    Thread authThread = null;
+    Thread updateThread = null;
 
     String SERVER_IP = "192.168.1.3";
     int SERVER_PORT = 59895;
 
     private Repository repo;
     private Storage storage;
-    private Context application;
 
     private SnkrsClient(Storage storage, Context application){
         this.storage = storage;
-        this.application = application;
         repo = new Repository((Application) application.getApplicationContext());
 //        connect();
     }
 
     private static volatile SnkrsClient INSTANCE;
+    public void connect(){
+        connectionThread = new Thread(new ConnectionThread(storage));
+        connectionThread.start();
+    }
+
     public static SnkrsClient getInstance(Storage storage, Context context){
         if (INSTANCE == null){
             synchronized (SnkrsClient.class){
@@ -59,21 +60,20 @@ public class SnkrsClient {
         return INSTANCE;
     }
 
-    public void connect(){
-        connectionThread = new Thread(new ConnectionThread(storage));
-        connectionThread.start();
+    public void auth(String login, String password){
+        authThread = new Thread(new AuthThread(storage,login,password));
+        authThread.start();
     }
 
-    public void login(String login, String password){
-        loginThread = new Thread(new LoginThread(storage,login,password));
-        loginThread.start();
+    public void auth(String login, String password, String name){
+        authThread = new Thread(new AuthThread(storage,login,password,name));
+        authThread.start();
     }
 
-    public void signup(String login, String password, String name){
-        signupThread = new Thread(new SignupThread(storage,login,password,name));
-        signupThread.start();
+    private void updateUser(User user){
+        updateThread = new Thread(new UpdateThread(storage,user));
+        updateThread.start();
     }
-
 
     class ConnectionThread implements Runnable {
 
@@ -131,7 +131,7 @@ public class SnkrsClient {
 
     }//ConnectionThread
 
-    class LoginThread implements Runnable{
+    class AuthThread implements Runnable{
 
         private PrintWriter output;
         private BufferedReader input;
@@ -143,66 +143,23 @@ public class SnkrsClient {
 
 
         private String login;
-        private String password;
-
-        public LoginThread(Storage storage, String login, String password){
-            this.storage = storage;
-            this.login = login;
-            this.password = password;
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @SuppressLint("RestrictedApi")
-        public void run() {
-            try {
-                socket = new Socket(SERVER_IP,SERVER_PORT);
-                output = new PrintWriter(socket.getOutputStream(),true);
-                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                objectInputStream = new ObjectInputStream(socket.getInputStream());
-                String message = "";
-
-                Log.i("SnkrsServer","Connected To Login");
-
-                getUser(login,password,output,objectInputStream,storage);
-
-                output.println("QQQ");
-
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    if(output != null)
-                        output.close();
-                    if(socket != null)
-                        socket.close();
-                    Log.i("SnkrsServer","Connection Closed");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }//run
-    }
-
-    class SignupThread implements Runnable{
-
-        private PrintWriter output;
-        private BufferedReader input;
-        private ObjectInputStream objectInputStream;
-
-
-        private Socket socket;
-        private Storage storage;
-
-        private String login;
-        private String password;
         private String name;
+        private String password;
+        private Boolean signUp;
 
-        public SignupThread(Storage storage, String login, String password, String name){
+        public AuthThread(Storage storage, String login, String password){
             this.storage = storage;
             this.login = login;
             this.password = password;
+            signUp = false;
+        }
+
+        public AuthThread(Storage storage, String login, String name, String password){
+            this.storage = storage;
+            this.login = login;
             this.name = name;
+            this.password = password;
+            signUp = true;
         }
 
         @RequiresApi(api = Build.VERSION_CODES.O)
@@ -213,12 +170,14 @@ public class SnkrsClient {
                 output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
-
                 String message = "";
 
                 Log.i("SnkrsServer","Connected To Login");
 
-                createUser(login,password,name,output,objectInputStream,storage);
+                if(signUp)
+                    createUser(login,password,name,output,objectInputStream,storage);
+                else
+                    getUser(login,password,output,objectInputStream,storage);
 
                 output.println("QQQ");
 
@@ -237,7 +196,60 @@ public class SnkrsClient {
                 }
             }
         }//run
-    }
+    }//AuthThread
+
+    class UpdateThread implements Runnable {
+
+        private PrintWriter output;
+        private BufferedReader input;
+
+        private Socket socket;
+        private Storage storage;
+
+        private User user;
+
+        public UpdateThread(Storage storage, User user){
+            this.storage = storage;
+            this.user = user;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        @SuppressLint("RestrictedApi")
+        public void run() {
+            try {
+                socket = new Socket(SERVER_IP,SERVER_PORT);
+                output = new PrintWriter(socket.getOutputStream(),true);
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String message = "";
+
+                Log.i("SnkrsServer","Connected");
+
+
+                output.println("QQQ");
+                do{
+                    message = input.readLine();
+                    Log.i("SnkrsServer","Messege: "+ message);
+
+                }while (!message.equals("QQQ"));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    if(output != null)
+                        output.close();
+                    if(socket != null)
+                        socket.close();
+                    Log.i("SnkrsServer","Connection Closed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }//run
+
+    }//ConnectionThread
+
 
     private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
         output.println("brands");
