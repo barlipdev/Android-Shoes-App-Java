@@ -27,12 +27,12 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
     List<BaseShoes> baseShoes;
     ArrayList<String> baseInfo;
     HomeBaseViewModel shoesViewModel;
+    List<BaseShoes> baseShoesList;
 
-    public RecyclerViewBaseHomeAdapter(Acitivity context ,HomeBaseViewModel homeViewModel,ArrayList<Shoes> ShoesArrayList,List<BaseShoes> baseShoes){
+    public RecyclerViewBaseHomeAdapter(Acitivity context ,HomeBaseViewModel homeViewModel){
         this.context = context;
         this.shoesViewModel = homeViewModel;
-        this.ShoesArrayList = ShoesArrayList;
-        this.baseShoes = baseShoes;
+        baseShoesList = new ArrayList<>();
         this.baseInfo = new ArrayList<String>();
     }
 
@@ -47,24 +47,24 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        Shoes shoes = ShoesArrayList.get(position);
+        com.skowronsky.snkrs.database.Shoes shoes = baseShoesList.get(position).shoes;
         final RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder viewHolder = (RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder) holder;
-        viewHolder.shoe_company.setText(shoes.getBrandName());
-        viewHolder.shoe_model.setText(shoes.getModelName());
-        baseShoes = shoesViewModel.getAllBaseShoes().getValue();
-        viewHolder.base_size.setText("Base size: "+String.valueOf(baseShoes.get(position).base.size));
-        if (shoes.getImage()!=null){
-            Picasso.with((Context) context).load(shoes.getImage()).into(
+        viewHolder.shoe_company.setText(shoes.brand_name);
+        viewHolder.shoe_model.setText(shoes.modelName);
+       // baseShoes = shoesViewModel.getAllBaseShoes().getValue();
+        viewHolder.base_size.setText("Base size: "+String.valueOf(baseShoesList.get(position).base.size));
+        if (shoes.image!=null){
+            Picasso.with((Context) context).load(shoes.image).into(
                     viewHolder.imageView);
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseInfo.add(String.valueOf(shoes.getBrandName()));
-                baseInfo.add(String.valueOf(shoes.getModelName()));
-                baseInfo.add(String.valueOf(baseShoes.get(position).base.size));
-                baseInfo.add(String.valueOf(shoes.getImage()));
-                baseInfo.add(String.valueOf(baseShoes.get(position).base.id_base));
+                baseInfo.add(String.valueOf(shoes.brand_name));
+                baseInfo.add(String.valueOf(shoes.modelName));
+                baseInfo.add(String.valueOf(baseShoesList.get(position).base.size));
+                baseInfo.add(String.valueOf(shoes.image));
+                baseInfo.add(String.valueOf(baseShoesList.get(position).base.id_base));
                 shoesViewModel.eventBaseSet(baseInfo);
                 shoesViewModel.eventNavToInfo();
             }
@@ -73,18 +73,19 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shoesViewModel.deleteBaseShoes(ShoesArrayList.get(position),baseShoes.get(position).base.size);
-                ShoesArrayList.remove(position);
-                shoesViewModel.refresh(ShoesArrayList);
-
-                //shoesViewModel.init(baseShoes);
+                shoesViewModel.deleteBaseShoes(baseShoesList.get(position).shoes,baseShoesList.get(position).base.size);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return ShoesArrayList.size();
+        return baseShoesList.size();
+    }
+
+    public void setBaseShoes(List<BaseShoes> baseShoesList){
+        this.baseShoesList = baseShoesList;
+        notifyDataSetChanged();
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {

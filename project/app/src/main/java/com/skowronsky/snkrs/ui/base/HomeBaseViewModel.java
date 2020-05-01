@@ -28,7 +28,6 @@ public class HomeBaseViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
         allBaseShoes = repository.getAllBaseShoes();
-        this.ShoesLiveData = new MutableLiveData<ArrayList<Shoes>>();
         this.BaseLiveData = new MutableLiveData<ArrayList<String>>();
         this.shoesList = new ArrayList<Shoes>();
     }
@@ -58,15 +57,6 @@ public class HomeBaseViewModel extends AndroidViewModel {
         return ShoesLiveData;
     }
 
-    public void init(List<BaseShoes> baseShoes){
-        addBaseShoes(baseShoes);
-        ShoesLiveData.setValue(shoesList);
-    }
-
-    public void refresh(ArrayList<Shoes> shoes){
-        ShoesLiveData.setValue(shoes);
-    }
-
     LiveData<List<BaseShoes>> getAllBaseShoes() {return allBaseShoes;}
 
     private void addToList(Shoes shoe){
@@ -83,28 +73,11 @@ public class HomeBaseViewModel extends AndroidViewModel {
     public void eventNavToInfoFinished(){infoNav.setValue(false);}
     public void eventBaseSet(ArrayList<String> base_info){BaseLiveData.setValue(base_info);}
 
-    public void addBaseShoes(List<BaseShoes> baseShoes) {
-        Shoes shoe;
-        if (shoesList.size() == 0) {
-            for (int i = 0; i < baseShoes.size(); i++) {
-                    shoe = new Shoes(baseShoes.get(i).shoes.id_shoes,
-                            baseShoes.get(i).shoes.brand_name,
-                            baseShoes.get(i).shoes.modelName,
-                            baseShoes.get(i).shoes.factor,
-                            baseShoes.get(i).shoes.image
-                    );
-                    addToList(shoe);
-            }
-        }
-    }
-
-    public void deleteBaseShoes(Shoes shoe, double size){
-        String model_name = shoe.getModelName();
+    public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){
+        String model_name = shoe.modelName;
         for (int i = 0; i < allBaseShoes.getValue().size(); i++){
                         if (model_name.equals(allBaseShoes.getValue().get(i).shoes.modelName) && size == allBaseShoes.getValue().get(i).base.size){
                                 repository.delete(allBaseShoes.getValue().get(i).base);
-                                Log.i("ROOM114", String.valueOf("Shoe: "+shoe.getModelName()));
-                                Log.i("ROOM114", String.valueOf("Deleted: "+allBaseShoes.getValue().get(i).shoes.modelName));
                 }
         }
     }

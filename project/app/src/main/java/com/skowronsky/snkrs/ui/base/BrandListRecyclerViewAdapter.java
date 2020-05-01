@@ -18,17 +18,18 @@ import com.skowronsky.snkrs.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Acitivity context;
-    ArrayList<Brand> CompanyArrayList;
     BrandListViewModel viewModel;
+    List<com.skowronsky.snkrs.database.Brand> brands;
 
-    public BrandListRecyclerViewAdapter(Acitivity context, ArrayList<Brand> CompanyArrayList, BrandListViewModel brandListViewModel){
+    public BrandListRecyclerViewAdapter(Acitivity context, BrandListViewModel brandListViewModel){
         this.context = context;
-        this.CompanyArrayList = CompanyArrayList;
         this.viewModel = brandListViewModel;
+        brands = new ArrayList<com.skowronsky.snkrs.database.Brand>();
     }
 
     @NonNull
@@ -41,12 +42,12 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Brand Company = CompanyArrayList.get(position);
+        com.skowronsky.snkrs.database.Brand brand = brands.get(position);
         final BrandListRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (BrandListRecyclerViewAdapter.RecyclerViewViewHolder) holder;
-        Picasso.with((Context) context).load(Company.getImage()).into(
+        Picasso.with((Context) context).load(brand.image).into(
                 viewHolder.company_photo);
         viewHolder.shoe_company.setVisibility(View.INVISIBLE);
-        viewHolder.shoe_company.setText(Company.getName());
+        viewHolder.shoe_company.setText(brand.brand_name);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,12 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
 
     @Override
     public int getItemCount() {
-        return CompanyArrayList.size();
+        return brands.size();
+    }
+
+    public void setBrandList(List<com.skowronsky.snkrs.database.Brand> brands){
+        this.brands = brands;
+        notifyDataSetChanged();
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {

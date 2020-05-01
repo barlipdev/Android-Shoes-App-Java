@@ -1,71 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/shoe_icon"
-        android:layout_width="150dp"
-        android:padding="3dp"
-        android:layout_height="150dp"
-        android:src="@drawable/ic_launcher_background" />
-
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/shoe_model"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Title" />
 
-        <TextView
-            android:id="@+id/shoe_comp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Title" />
-
-        <TextView
-            android:id="@+id/size"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+        <ImageView
+            android:id="@+id/shoe_icon"
+            android:layout_width="162dp"
+            android:layout_height="119dp"
+            android:layout_marginEnd="1dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="118dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="1dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shoe_icon"
+            app:layout_constraintTop_toTopOf="@+id/shoe_icon">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/shoe_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shoe_comp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/deleteButton"
-                    style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:text="Delete from base"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/deleteButton"
+                        style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:text="Delete from base"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

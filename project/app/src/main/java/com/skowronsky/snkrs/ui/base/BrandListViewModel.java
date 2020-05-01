@@ -16,41 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrandListViewModel extends AndroidViewModel {
-    private MutableLiveData<ArrayList<Brand>> CompanyLiveData;
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
     private LiveData<List<com.skowronsky.snkrs.database.Brand>> allBrands;
     private Repository repository;
 
-    public ArrayList<Brand> CompanyArrayList;
 
     public BrandListViewModel(Application application){
         super(application);
         repository = new Repository(application);
-        CompanyLiveData = new MutableLiveData<>();
-        CompanyArrayList = new ArrayList<>();
         allBrands = repository.getAllBrands();
     }
-
-    public void initBrands(List<com.skowronsky.snkrs.database.Brand> brands){
-        if (CompanyArrayList.size() > 0){
-            for(int i=0;i<brands.size();i++) {
-                CompanyArrayList.removeAll(CompanyArrayList);
-            }
-        }
-        for(int i=0;i<brands.size();i++) {
-            Brand com = new Brand(brands.get(i).id_brand,brands.get(i).brand_name,brands.get(i).image);
-            CompanyArrayList.add(com);
-         }
-    }
-
-    public MutableLiveData<ArrayList<Brand>> getCompanyLiveData()
-    {
-        if (CompanyLiveData == null)
-            CompanyLiveData = new MutableLiveData<>();
-        return CompanyLiveData;
-    }
-
 
     public MutableLiveData<Boolean> getEventShoesNav(){
         if(ShoesNav == null)
@@ -75,7 +51,4 @@ public class BrandListViewModel extends AndroidViewModel {
 
     public void eventCompanyName(String name){ CompanyName.setValue(name);}
 
-    public void init(){
-        CompanyLiveData.setValue(CompanyArrayList);
-    }
 }

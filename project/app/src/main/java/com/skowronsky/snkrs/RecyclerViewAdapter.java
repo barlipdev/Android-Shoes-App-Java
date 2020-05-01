@@ -6,27 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     Acitivity context;
-    ArrayList<Brand> CompanyArrayList;
-    HomeViewModel homeViewModel;
+    private List<com.skowronsky.snkrs.database.Brand> brandList;
+    private HomeViewModel homeViewModel;
 
-    public RecyclerViewAdapter(Acitivity context, ArrayList<Brand> CompanyArrayList,HomeViewModel homeViewModel){
+    public RecyclerViewAdapter(Acitivity context,HomeViewModel homeViewModel){
         this.context = context;
-        this.CompanyArrayList = CompanyArrayList;
         this.homeViewModel = homeViewModel;
+        this.brandList = new ArrayList<>();
     }
 
     @NonNull
@@ -39,17 +39,16 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Brand Company = CompanyArrayList.get(position);
+        Brand brand = brandList.get(position);
         final RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
-        Picasso.with((Context) context).load(Company.getImage()).into(
+        Picasso.with((Context) context).load(brand.image).into(
                 viewHolder.company_photo);
         viewHolder.shoe_company.setVisibility(View.INVISIBLE);
-        viewHolder.shoe_company.setText(Company.getName());
+        viewHolder.shoe_company.setText(brand.brand_name);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homeViewModel.eventCompanyName(viewHolder.shoe_company.getText().toString());
-                Toast.makeText((Context) context, "Numer: "+ viewHolder.shoe_company.getText(), Toast.LENGTH_SHORT).show();
                 homeViewModel.eventNavToShoes();
             }
         });
@@ -57,7 +56,12 @@ public class RecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Recycle
 
     @Override
     public int getItemCount() {
-        return CompanyArrayList.size();
+        return brandList.size();
+    }
+
+    public void setBrandList(List<com.skowronsky.snkrs.database.Brand> brandList) {
+        this.brandList = brandList;
+        notifyDataSetChanged();
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {

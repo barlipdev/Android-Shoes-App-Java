@@ -32,13 +32,10 @@ public class ShoesListFragment extends Fragment {
     private ShoesListFragmentBinding shoesListFragmentBinding;
     private RecyclerView recyclerView;
     private ShoesListRecyclerViewAdapter<Context> recyclerViewAdapter;
-    private com.skowronsky.snkrs.model.Shoes shoe_info;
+    private com.skowronsky.snkrs.database.Shoes shoe_info;
     private String brand;
     private ArrayList<String> base_info;
 
-    public static ShoesListFragment newInstance() {
-        return new ShoesListFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,6 +44,7 @@ public class ShoesListFragment extends Fragment {
         brand = getArguments().getString("key");
         base_info = getArguments().getStringArrayList("base_info");
         mViewModel = new ViewModelProvider(this).get(ShoesListViewModel.class);
+
         shoesListFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.shoes_list_fragment, container, false);
         shoesListFragmentBinding.setShoesViewModel(mViewModel);
         shoesListFragmentBinding.setLifecycleOwner(this);
@@ -58,27 +56,20 @@ public class ShoesListFragment extends Fragment {
 
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = shoesListFragmentBinding.ShoesView;
+        recyclerViewAdapter = new ShoesListRecyclerViewAdapter<>(getContext(),mViewModel);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(recyclerViewAdapter);
 
         mViewModel.getAllShoes().observe(getViewLifecycleOwner(), new Observer<List<com.skowronsky.snkrs.database.Shoes>>() {
             @Override
             public void onChanged(List<com.skowronsky.snkrs.database.Shoes> shoes) {
-                mViewModel.init_shoes_to_list(shoes,brand);
-                mViewModel.init(brand);
+                brand = getArguments().getString("key");
+                recyclerViewAdapter.setAllShoes(shoes,brand);
             }
         });
-
-        mViewModel.getShoesLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Shoes>>() {
+        mViewModel.getEventShoeInfo().observe(getViewLifecycleOwner(), new Observer<com.skowronsky.snkrs.database.Shoes>() {
             @Override
-            public void onChanged(ArrayList<com.skowronsky.snkrs.model.Shoes> CompanyArrayList) {
-                recyclerViewAdapter = new ShoesListRecyclerViewAdapter<>(getContext(), CompanyArrayList,mViewModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-        });
-
-        mViewModel.getEventShoeInfo().observe(getViewLifecycleOwner(), new Observer<com.skowronsky.snkrs.model.Shoes>() {
-            @Override
-            public void onChanged(Shoes s) {
+            public void onChanged(com.skowronsky.snkrs.database.Shoes s) {
                 shoe_info = s;
             }
         });
@@ -99,11 +90,11 @@ public class ShoesListFragment extends Fragment {
 
     private void navigateToShoesInfo(){
         Bundle bundle_info = new Bundle();
-        bundle_info.putString("model",shoe_info.getModelName().toString());
-        bundle_info.putString("company",shoe_info.getBrandName().toString());
-        bundle_info.putString("image",shoe_info.getImage().toString());
-        bundle_info.putInt("id",shoe_info.getId());
-        bundle_info.putDouble("factor",shoe_info.getFactor());
+        bundle_info.putString("model",shoe_info.modelName);
+        bundle_info.putString("company",shoe_info.brand_name);
+        bundle_info.putString("image",shoe_info.image);
+        bundle_info.putInt("id",shoe_info.id_shoes);
+        bundle_info.putDouble("factor",shoe_info.factor);
         bundle_info.putBoolean("is",true);
         bundle_info.putStringArrayList("base_info",base_info);
         NavHostFragment.findNavController(this).navigate(R.id.action_shoesListFragment_to_shoeInfoFragment,bundle_info);

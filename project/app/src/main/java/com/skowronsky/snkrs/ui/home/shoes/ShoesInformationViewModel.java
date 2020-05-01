@@ -15,32 +15,17 @@ import java.util.ArrayList;
 public class ShoesInformationViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> navToBase;
-    private MutableLiveData<ArrayList<Double>> sizes;
-    private MutableLiveData<Integer> selectedSize;
     private Repository repository;
 
     public ShoesInformationViewModel(Application application){
         super(application);
         repository = new Repository(application);
-        sizes = new MutableLiveData<ArrayList<Double>>();
     }
 
     public MutableLiveData<Boolean> getNavToBase(){
         if (navToBase == null)
             navToBase = new MutableLiveData<Boolean>();
         return navToBase;
-    }
-
-    public MutableLiveData<ArrayList<Double>> getSizesData(){
-        if (sizes == null)
-            sizes = new MutableLiveData<ArrayList<Double>>();
-        return sizes;
-    }
-
-    public MutableLiveData<Integer> getSelectedSize(){
-        if (selectedSize == null)
-            selectedSize = new MutableLiveData<Integer>();
-        return selectedSize;
     }
 
     public void addShoeToBase(Shoes shoe, double size){
@@ -66,10 +51,6 @@ public class ShoesInformationViewModel extends AndroidViewModel {
     public void eventNavToInfoFinished(){
         navToBase.setValue(false);
     }
-    public void eventSetSize(int size){selectedSize.setValue(size);}
 
-    public void init(ArrayList<Double> sizes){
-        this.sizes.setValue(sizes);
-    }
 
 }
