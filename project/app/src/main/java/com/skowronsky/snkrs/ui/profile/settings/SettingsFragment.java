@@ -2,6 +2,8 @@ package com.skowronsky.snkrs.ui.profile.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.skowronsky.snkrs.MainActivity;
 import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.auth.StartActivity;
 import com.skowronsky.snkrs.databinding.FragmentSettingsBinding;
+import com.skowronsky.snkrs.model.User;
 import com.skowronsky.snkrs.model.UserManager;
 import com.skowronsky.snkrs.storage.Storage;
 
@@ -27,12 +31,18 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel viewModel;
     private FragmentSettingsBinding binding;
 
+    private Storage storage;
+    private SnkrsClient snkrsClient;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);
+
+        storage = Storage.getInstance();
+        snkrsClient = SnkrsClient.getInstance(storage,getContext());
 
         final LiveData<Boolean> natToProfile = viewModel.getEventNavToProfile();
         natToProfile.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -54,6 +64,27 @@ public class SettingsFragment extends Fragment {
                     startActivity(intent);
                     getActivity().finish();
                     viewModel.eventLogoutFinished();
+                }
+            }
+        });
+
+        final LiveData<Boolean> save = viewModel.getEventSave();
+        save.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+
+                    if(binding.userEditText.length() > 0 && binding.passwordEditText.length() > 0){
+                        String login = storage.getUser().getEmail();
+                        String password = binding.passwordEditText.getText().toString();
+                        String name = binding.userEditText.getText().toString();
+                        
+                        snkrsClient.updateUser(login,password,name);
+//                        snkrsClient.auth(login,password);
+                        storage.setUser(new User(login,name,password,"photo"));
+
+                    }
+                    viewModel.eventSaveFinished();
                 }
             }
         });

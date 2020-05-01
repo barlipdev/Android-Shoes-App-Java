@@ -6,7 +6,6 @@ import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -28,22 +27,27 @@ public class Capitalizer implements Runnable {
         System.out.println("Connected: " + socket);
         try {
             var in = new Scanner(socket.getInputStream());
-            var out = new PrintWriter(socket.getOutputStream(), true);
             var objOut = new ObjectOutputStream(socket.getOutputStream());
             String message = "";
 
+
             do{
                 message = in.nextLine();
-                executeCommadn(message, objOut, in, out, storage);
+
+                System.out.println("conne");
+
+                executeCommadn(message, objOut, in, storage);
                 System.out.println(message);
-//                out.println("response to messege: "+ message);
             }while (!message.equals("QQQ"));
 
+            in.close();
+            objOut.close();
         } catch (Exception e) {
             System.out.println("I/O Error:" + socket);
         } finally {
             try {
                 socket.close();
+
             } catch (IOException e) {
                 System.out.println("Close connection err: "+e);
             }
@@ -63,12 +67,10 @@ public class Capitalizer implements Runnable {
         objOut.writeObject(user);
     }
 
-    private void executeCommadn(String command,ObjectOutputStream objOut, Scanner input, PrintWriter output, Storage storage) throws IOException {
+    private void executeCommadn(String command, ObjectOutputStream objOut, Scanner input, Storage storage) throws IOException {
         String login = null;
         String password = null;
         String name = null;
-        String photo = null;
-        String response = null;
         User user = null;
 
         switch (command){
@@ -97,10 +99,10 @@ public class Capitalizer implements Runnable {
                 break;
             case "update":
                 login = input.nextLine();
-                name = input.nextLine();
                 password = input.nextLine();
-                photo = input.nextLine();
-                storage.updateUser(login,name,password,photo);
+                name = input.nextLine();
+                System.out.println(login+" : "+name+" : "+ password);
+                storage.updateUser(login,name,password);
 
                 break;
             default:

@@ -25,9 +25,7 @@ public class MyApplication extends Application {
 //        snkrsClient.signup("1","1","1");
 //        snkrsClient.login("root@root.com","root");
 
-//        User user = new User("12","2","2","2");
-//        User user = new User("13","2","2","2");
-//        snkrsClient.updateUser(user);
+//        snkrsClient.updateUser("12","12","12");
     }
 }
 

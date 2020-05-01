@@ -113,10 +113,10 @@ public class DataBase {
         statement.executeUpdate(String.format("insert into user(email,password,name) values ('%s','%s','%s');",email,password,name));
     }
 
-    public void updateUser(String email, String name, String password, String photo) throws SQLException {
+    public void updateUser(String email, String name, String password) throws SQLException {
         statement = connect.createStatement();
-        statement.executeUpdate(String.format("update user set name = '%s', password = '%s', photo = '%s' where email like('%s');",
-                name,password,photo,email));
+        statement.executeUpdate(String.format("update user set name = '%s', password = '%s' where email like('%s');",
+                name,password,email));
     }
 
     public void close() {

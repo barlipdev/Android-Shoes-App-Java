@@ -41,19 +41,19 @@ public class Storage {
         return null;
     }
 
-    public void updateUser(String email, String name, String password, String photo){
-        User tmp;
+    public void updateUser(String email, String name, String password){
+        User tmp = null;
         for (var item :
                 userList) {
             if (item.getEmail().equals(email)){
                 tmp = item;
                 userList.remove(item);
-                userList.add(new User(email,name,photo,password,tmp.getBaseShoesList(),tmp.getFavoriteShoesList()));
+                userList.add(new User(email,name,"photo",password,tmp.getBaseShoesList(),tmp.getFavoriteShoesList()));
 
                 try {
-                    dataBase.updateUser(email,name,password,photo);
+                    dataBase.updateUser(email,name,password);
                 } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                    System.out.println("Error update db");
                 }
             }
         }

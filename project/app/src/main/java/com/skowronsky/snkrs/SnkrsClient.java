@@ -71,8 +71,8 @@ public class SnkrsClient {
         authThread.start();
     }
 
-    public void updateUser(User user){
-        updateThread = new Thread(new UpdateThread(user));
+    public void updateUser(String login, String password, String name){
+        updateThread = new Thread(new UpdateThread(storage,login,name,password));
         updateThread.start();
     }
 
@@ -166,7 +166,6 @@ public class SnkrsClient {
                 output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
-                String message = "";
 
                 Log.i("SnkrsServer","Connected To Login");
 
@@ -194,17 +193,24 @@ public class SnkrsClient {
         }//run
     }//AuthThread
 
-    class UpdateThread implements Runnable {
+    class UpdateThread implements Runnable{
 
         private PrintWriter output;
         private BufferedReader input;
+        private ObjectInputStream objectInputStream;
 
         private Socket socket;
+        private Storage storage;
 
-        private User user;
+        private String login;
+        private String name;
+        private String password;
 
-        public UpdateThread(User user){
-            this.user = user;
+        public UpdateThread(Storage storage, String login, String name, String password){
+            this.storage = storage;
+            this.login = login;
+            this.name = name;
+            this.password = password;
         }
 
         @RequiresApi(api = Build.VERSION_CODES.O)
@@ -214,11 +220,11 @@ public class SnkrsClient {
                 socket = new Socket(SERVER_IP,SERVER_PORT);
                 output = new PrintWriter(socket.getOutputStream(),true);
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String message = "";
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-                Log.i("SnkrsServer","Connected");
+                Log.i("SnkrsServer","Connected To Login");
 
-                updateUser(user,output);
+                updateUser(login,password,name,output);
 
                 output.println("QQQ");
 
@@ -237,8 +243,7 @@ public class SnkrsClient {
                 }
             }
         }//run
-
-    }//ConnectionThread
+    }//AuthThread
 
 
     private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
@@ -332,11 +337,12 @@ public class SnkrsClient {
             Log.i("User",storage.getUser().getEmail());
     }
 
-    private void updateUser(User user, PrintWriter out) {
+    private void updateUser(String login, String password, String name, PrintWriter out) {
         out.println("update");
-        out.println(user.getEmail());
-        out.println(user.getName());
-        out.println(user.getPassword());
-        out.println(user.getPhoto());
+        out.println(login);
+        out.println(password);
+        out.println(name);
+
+//        storage.setUser(new User());
     }
 }
