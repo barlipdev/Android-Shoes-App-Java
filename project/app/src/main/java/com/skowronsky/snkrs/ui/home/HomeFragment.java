@@ -17,14 +17,12 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.RecyclerViewAdapter;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
-import com.skowronsky.snkrs.model.Brand;
-import com.skowronsky.snkrs.storage.Storage;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -34,48 +32,43 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter<Context> recyclerViewAdapter;
     private String ShoesCompany = "";
-    private MyApplication appState;
-    private Storage storage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        appState = ((MyApplication)this.getActivity().getApplication());
-        storage = appState.storage;
-        homeViewModel = new ViewModelProvider(this,new HomeViewModelFactory(storage)).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setHomeViewModel(homeViewModel);
         binding.setLifecycleOwner(this);
+        recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
+        recyclerView = binding.CompanyView;
+        recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(),homeViewModel);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(recyclerViewAdapter);
 
-                recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
-                recyclerView = binding.CompanyView;
-                homeViewModel.init();
-                homeViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Brand>>() {
-                    @Override
-                    public void onChanged(ArrayList<Brand> CompanyArrayList) {
-                        recyclerViewAdapter = new RecyclerViewAdapter<>(getContext(), CompanyArrayList,homeViewModel);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(recyclerViewAdapter);
-                    }
-                });
-                homeViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
+        homeViewModel.getAllBrands().observe(getViewLifecycleOwner(), new Observer<List<Brand>>() {
+            @Override
+            public void onChanged(List<Brand> brands) {
+                recyclerViewAdapter.setBrandList(brands);
+            }
+        });
+
+        homeViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
                         ShoesCompany = s;
                     }
-                });
+        });
 
-                final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
-                navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean aBoolean) {
-                        if(aBoolean){
-                            navigateToShoes();
-                            homeViewModel.eventNavToShoesFinished();
-                        }
-                    }
-                });
-
-
+        final LiveData<Boolean> navToShoes = homeViewModel.getEventShoesNav();
+        navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    navigateToShoes();
+                    homeViewModel.eventNavToShoesFinished();
+                }
+            }
+        });
         return binding.getRoot();
     }
 

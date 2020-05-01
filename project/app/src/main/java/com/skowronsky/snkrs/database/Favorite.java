@@ -11,7 +11,7 @@ public class Favorite {
     public double size;
 
     public Favorite(){};
-    public Favorite(Shoes shoes, int size){
+    public Favorite(Shoes shoes, double size){
         this.id_shoes = shoes.id_shoes;
         this.size = size;
     }

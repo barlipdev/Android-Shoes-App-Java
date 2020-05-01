@@ -12,22 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.RecyclerViewAdapter;
-import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.database.Shoes;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShoesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Acitivity context;
-    ArrayList<com.skowronsky.snkrs.model.Shoes> ShoesArrayList;
+    List<Shoes> shoesList;
     ShoesViewModel shoesViewModel;
 
-    public ShoesRecyclerViewAdapter(Acitivity context, ArrayList<com.skowronsky.snkrs.model.Shoes> ShoesArrayList, ShoesViewModel shoesViewModel){
+    public ShoesRecyclerViewAdapter(Acitivity context, ShoesViewModel shoesViewModel){
         this.context = context;
-        this.ShoesArrayList = ShoesArrayList;
         this.shoesViewModel = shoesViewModel;
+        this.shoesList = new ArrayList<>();
     }
 
     @NonNull
@@ -40,18 +41,18 @@ public class ShoesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        Shoes shoes = ShoesArrayList.get(position);
+        Shoes shoes = shoesList.get(position);
         final RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
-        viewHolder.shoe_company.setText(shoes.getBrandName());
-        viewHolder.shoe_model.setText(shoes.getModelName());
-        if (shoes.getImage()!=null){
-            Picasso.with((Context) context).load(shoes.getImage()).into(
+        viewHolder.shoe_company.setText(shoes.brand_name);
+        viewHolder.shoe_model.setText(shoes.modelName);
+        if (shoes.image!=null){
+            Picasso.with((Context) context).load(shoes.image).into(
                     viewHolder.imageView);
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoesViewModel.eventSendShoe(ShoesArrayList.get(position));
+                shoesViewModel.eventSendShoe(shoesList.get(position));
                 shoesViewModel.eventNavToInfo();
             }
         });
@@ -59,7 +60,16 @@ public class ShoesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
-        return ShoesArrayList.size();
+        return shoesList.size();
+    }
+
+    public void setShoesList(List<Shoes> shoesList,String brand){
+        for(int i=0;i<shoesList.size();i++){
+            if (shoesList.get(i).brand_name.equals(brand)){
+                this.shoesList.add(shoesList.get(i));
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {

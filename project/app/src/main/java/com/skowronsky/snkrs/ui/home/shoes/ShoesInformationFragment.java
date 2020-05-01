@@ -71,20 +71,6 @@ public class ShoesInformationFragment extends Fragment {
         shoe = new Shoes(shoe_id,shoe_company,shoe_model,shoe_factor,shoe_image);
 
 
-        shoesInformationViewModel.getSizesData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Double>>() {
-            @Override
-            public void onChanged(ArrayList<Double> sizes) {
-
-            }
-        });
-
-        shoesInformationViewModel.getSelectedSize().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                selectedSize = integer;
-            }
-        });
-
         shoesInformationFragmentBinding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

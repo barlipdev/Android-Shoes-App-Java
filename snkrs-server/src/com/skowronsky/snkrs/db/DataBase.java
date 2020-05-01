@@ -102,7 +102,7 @@ public class DataBase {
                 favoriteShoesList.add(new FavoriteShoes(id_shoes,size));
             }
 
-            userList.add(id-1, new User(email,name,photo,password,baseShoesList,favoriteShoesList));
+            userList.add( new User(email,name,photo,password,baseShoesList,favoriteShoesList));
         }
 
 

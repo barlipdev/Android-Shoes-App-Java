@@ -4,7 +4,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,13 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.RecyclerViewAdapter;
 import com.skowronsky.snkrs.databinding.BrandListFragmentBinding;
-import com.skowronsky.snkrs.model.Brand;
-import com.skowronsky.snkrs.ui.home.HomeViewModel;
-import com.skowronsky.snkrs.ui.home.HomeViewModelFactory;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,10 +37,6 @@ public class BrandListFragment extends Fragment {
     private String ShoesCompany = "";
     private ArrayList<String> base_info;
 
-
-    public static BrandListFragment newInstance() {
-        return new BrandListFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -67,22 +57,17 @@ public class BrandListFragment extends Fragment {
         Picasso.with(getContext()).load(base_info.get(3)).into(
                 binding.shoeIcon);
 
+        recyclerViewAdapter = new BrandListRecyclerViewAdapter<>(getContext(),mViewModel);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(recyclerViewAdapter);
+
         mViewModel.getAllBrands().observe(getViewLifecycleOwner(), new Observer<List<com.skowronsky.snkrs.database.Brand>>() {
             @Override
             public void onChanged(List<com.skowronsky.snkrs.database.Brand> brands) {
-                mViewModel.initBrands(brands);
+                recyclerViewAdapter.setBrandList(brands);
             }
         });
 
-        mViewModel.init();
-        mViewModel.getCompanyLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Brand>>() {
-            @Override
-            public void onChanged(ArrayList<Brand> CompanyArrayList) {
-                recyclerViewAdapter = new BrandListRecyclerViewAdapter<>(getContext(), CompanyArrayList,mViewModel);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-        });
         mViewModel.getEventCompanyName().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {

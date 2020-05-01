@@ -1,47 +1,32 @@
 package com.skowronsky.snkrs.ui.home;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.Company;
-import com.skowronsky.snkrs.MyApplication;
-import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.repository.Repository;
-import com.skowronsky.snkrs.storage.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
-    private MutableLiveData<ArrayList<Brand>> CompanyLiveData;
+    private LiveData<List<Brand>> allBrands;
     private MutableLiveData<Boolean> ShoesNav;
     private MutableLiveData<String> CompanyName;
+    private Repository repository;
 
-    public ArrayList<Brand> CompanyArrayList;
-    private Storage storage;
-
-    public HomeViewModel(Storage storage){
-        this.storage = storage;
-        CompanyLiveData = new MutableLiveData<>();
-        CompanyArrayList = new ArrayList<>();
-
-            for(int i=0;i<this.storage.getBrandList().size();i++) {
-                Brand com = new Brand(this.storage.getBrandList().get(i).getId(),this.storage.getBrandList().get(i).getName(),this.storage.getBrandList().get(i).getImage());
-                CompanyArrayList.add(com);
-            }
-
-
+    public HomeViewModel(Application application){
+        super(application);
+        repository = new Repository(application);
+        allBrands= repository.getAllBrands();
     }
 
-    public MutableLiveData<ArrayList<Brand>> getCompanyLiveData()
-    {
-        if (CompanyLiveData == null)
-                CompanyLiveData = new MutableLiveData<>();
-        return CompanyLiveData;
+    public LiveData<List<Brand>> getAllBrands(){
+        return allBrands;
     }
-
 
     public MutableLiveData<Boolean> getEventShoesNav(){
         if(ShoesNav == null)
@@ -62,8 +47,4 @@ public class HomeViewModel extends ViewModel {
         ShoesNav.setValue(false);
     }
     public void eventCompanyName(String name){ CompanyName.setValue(name);}
-
-    public void init(){
-        CompanyLiveData.setValue(CompanyArrayList);
-    }
 }
