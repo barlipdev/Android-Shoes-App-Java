@@ -112,9 +112,7 @@ public class ShoeInfoFragment extends Fragment {
         shoes.image = shoe_image;
         shoes.factor = shoe_factor;
         favorite = new Favorite(shoes,prefer_size);
-        favoriteShoes = new FavoriteShoes();
-        favoriteShoes.favorite = favorite;
-        favoriteShoes.shoes = shoes;
+
     }
 
     public void checkShoe(){
