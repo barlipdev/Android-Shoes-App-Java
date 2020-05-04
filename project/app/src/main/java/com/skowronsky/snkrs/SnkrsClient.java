@@ -150,7 +150,7 @@ public class SnkrsClient {
             signUp = false;
         }
 
-        public AuthThread(Storage storage, String login, String name, String password){
+        public AuthThread(Storage storage, String login, String password, String name){
             this.storage = storage;
             this.login = login;
             this.name = name;

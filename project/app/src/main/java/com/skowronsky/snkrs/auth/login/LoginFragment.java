@@ -25,7 +25,6 @@ public class LoginFragment extends Fragment {
 
     private LoginViewModel viewModel;
     private FragmentLoginBinding binding;
-    private SnkrsClient snkrsClient;
     private Storage storage;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +36,6 @@ public class LoginFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         storage = Storage.getInstance();
-        snkrsClient = SnkrsClient.getInstance(storage,getContext());
 
         final LiveData<Boolean> navToSignup = viewModel.getNavToSignup();
         navToSignup.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -55,17 +53,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
-                    if(binding.username.length()>0 && binding.password.length() > 0){
-                        snkrsClient.auth(binding.username.getText().toString(),binding.password.getText().toString());
-                        viewModel.loginFinished();
-                        //TODO Check login in time
+                        viewModel.login();
                         SystemClock.sleep(1000);
                         if(storage.getUser() != null){
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                             getActivity().finish();
                         }
-                    }
                 }
             }
         });

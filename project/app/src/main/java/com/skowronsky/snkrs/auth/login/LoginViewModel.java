@@ -17,8 +17,8 @@ import com.skowronsky.snkrs.storage.Storage;
 public class LoginViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> eventLogin;
     private MutableLiveData<Boolean> eventNavToSignup;
-    public String password = "";
-    public String email = "";
+    public MutableLiveData<String> password = new MutableLiveData<>();
+    public MutableLiveData<String> email = new MutableLiveData<>();
 
     private Storage storage = Storage.getInstance();
     private SnkrsClient snkrsClient;
@@ -31,11 +31,8 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(){
-        Log.i("ServerUp",email);
-        Log.i("ServerUp",password);
-
-        if(email.length()>0 && password.length() > 0){
-            snkrsClient.auth(email,password);
+        if(email.getValue().length()>0 && password.getValue().length() > 0){
+            snkrsClient.auth(email.getValue(),password.getValue());
         }
         loginFinished();
     }
