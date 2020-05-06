@@ -1,7 +1,6 @@
 package com.skowronsky.snkrs.ui.base;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Shoes;
 import com.squareup.picasso.Picasso;
@@ -21,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HomeBaseRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Acitivity context;
     ArrayList<Shoes> ShoesArrayList;
     List<BaseShoes> baseShoes;
@@ -29,7 +27,7 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
     HomeBaseViewModel shoesViewModel;
     List<BaseShoes> baseShoesList;
 
-    public RecyclerViewBaseHomeAdapter(Acitivity context ,HomeBaseViewModel homeViewModel){
+    public HomeBaseRecyclerViewAdapter(Acitivity context , HomeBaseViewModel homeViewModel){
         this.context = context;
         this.shoesViewModel = homeViewModel;
         baseShoesList = new ArrayList<>();
@@ -42,13 +40,13 @@ public class RecyclerViewBaseHomeAdapter<Acitivity> extends RecyclerView.Adapter
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final RecyclerView.ViewHolder viewHolder = null;
         View rootView = LayoutInflater.from((Context) context).inflate(R.layout.base_list,parent,false);
-        return new RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder(rootView);
+        return new HomeBaseRecyclerViewAdapter.RecyclerViewViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         com.skowronsky.snkrs.database.Shoes shoes = baseShoesList.get(position).shoes;
-        final RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder viewHolder = (RecyclerViewBaseHomeAdapter.RecyclerViewViewHolder) holder;
+        final HomeBaseRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeBaseRecyclerViewAdapter.RecyclerViewViewHolder) holder;
         viewHolder.shoe_company.setText(shoes.brand_name);
         viewHolder.shoe_model.setText(shoes.modelName);
        // baseShoes = shoesViewModel.getAllBaseShoes().getValue();

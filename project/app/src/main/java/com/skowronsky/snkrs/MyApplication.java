@@ -3,8 +3,12 @@ package com.skowronsky.snkrs;
 import android.app.Application;
 import android.content.Context;
 
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.model.User;
 import com.skowronsky.snkrs.storage.Storage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyApplication extends Application {
 
@@ -26,6 +30,7 @@ public class MyApplication extends Application {
 //        snkrsClient.login("root@root.com","root");
 
 //        snkrsClient.updateUser("12","12","12");
+
     }
 }
 

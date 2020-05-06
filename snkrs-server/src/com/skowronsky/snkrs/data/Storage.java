@@ -21,6 +21,21 @@ public class Storage {
         dataBase.getShoes(this.shoesList);
         dataBase.getUsers(this.userList);
 
+
+
+    }
+
+    public void printFavorite(){
+        for (var item :
+                userList) {
+            System.out.println("\tUser:"+item.getEmail());
+            for (var i :
+                    item.getFavoriteShoesList()) {
+                System.out.println(i.getIdShoes());
+                System.out.println(i.getSize());
+            }
+        }
+
     }
 
     public List<Brand> getBrandList() {
@@ -41,6 +56,16 @@ public class Storage {
         return null;
     }
 
+    public User getUser(String email){
+        for (var item :
+                userList) {
+            if(item.getEmail().equals(email))
+                return item;
+
+        }
+        return null;
+    }
+
     public void updateUser(String email, String name, String password){
         User tmp = null;
         for (var item :
@@ -56,14 +81,6 @@ public class Storage {
                     System.out.println("Error update db");
                 }
             }
-        }
-
-        for (var item :
-                userList) {
-            System.out.println("\tUser:");
-            System.out.println(item.getEmail());
-            System.out.println(item.getName());
-            System.out.println(item.getPassword());
         }
     }
 

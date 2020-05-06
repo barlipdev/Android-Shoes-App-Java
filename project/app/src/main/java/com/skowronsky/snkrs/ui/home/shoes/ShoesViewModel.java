@@ -1,21 +1,14 @@
 package com.skowronsky.snkrs.ui.home.shoes;
 
 import android.app.Application;
-import android.icu.text.IDNA;
-import android.util.Log;
-import android.widget.RelativeLayout;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.Company;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
-import com.skowronsky.snkrs.storage.Storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoesViewModel extends AndroidViewModel {

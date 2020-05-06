@@ -76,6 +76,11 @@ public class SnkrsClient {
         updateThread.start();
     }
 
+    public void updateFavorite(String email,List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList){
+        updateThread = new Thread(new UpdateThread(storage,email,favoriteShoesList));
+        updateThread.start();
+    }
+
     class ConnectionThread implements Runnable {
 
         private PrintWriter output;
@@ -205,13 +210,27 @@ public class SnkrsClient {
         private String login;
         private String name;
         private String password;
+        private List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList;
+
+        private boolean user = false;
+        private boolean fav = false;
+        private boolean shoes = false;
 
         public UpdateThread(Storage storage, String login, String name, String password){
             this.storage = storage;
             this.login = login;
             this.name = name;
             this.password = password;
+            user = true;
         }
+
+        public UpdateThread(Storage storage, String email, List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList) {
+            this.login = email;
+            this.storage = storage;
+            this.favoriteShoesList = favoriteShoesList;
+            fav = true;
+        }
+
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint("RestrictedApi")
@@ -224,8 +243,10 @@ public class SnkrsClient {
 
                 Log.i("SnkrsServer","Connected To Login");
 
-                updateUser(login,password,name,output);
-
+                if(user)
+                    updateUser(login,password,name,output);
+                if(fav)
+                    updateFavoriteShoes(login,favoriteShoesList,output);
                 output.println("QQQ");
 
             } catch (IOException e) {
@@ -345,4 +366,17 @@ public class SnkrsClient {
 
 //        storage.setUser(new User());
     }
+
+    private void updateFavoriteShoes(String login, List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList, PrintWriter out){
+        out.println("fav");
+        out.println(login);
+        out.println(favoriteShoesList.size());
+        for (int i = 0; i < favoriteShoesList.size(); i++) {
+            out.println(favoriteShoesList.get(i).shoes.id_shoes);
+            out.println(favoriteShoesList.get(i).favorite.size);
+        }
+
+    }
+
+//    private void updateBasShoes(String login, List)
 }

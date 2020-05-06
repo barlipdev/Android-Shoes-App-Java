@@ -60,8 +60,16 @@ public class User implements Serializable {
         return false;
     }
 
+    public void setBaseShoesList(List<BaseShoes> baseShoesList) {
+        this.baseShoesList = baseShoesList;
+    }
+
     public List<BaseShoes> getBaseShoesList() {
         return baseShoesList;
+    }
+
+    public void setFavoriteShoesList(List<FavoriteShoes> favoriteShoesList) {
+        this.favoriteShoesList = favoriteShoesList;
     }
 
     public List<FavoriteShoes> getFavoriteShoesList() {

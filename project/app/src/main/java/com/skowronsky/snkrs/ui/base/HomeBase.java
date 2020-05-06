@@ -31,7 +31,7 @@ public class HomeBase extends Fragment {
     private HomeBaseViewModel homeViewModel;
     private HomeBaseFragmentBinding binding;
     private RecyclerView recyclerView;
-    private RecyclerViewBaseHomeAdapter<Context> recyclerViewAdapter;
+    private HomeBaseRecyclerViewAdapter<Context> recyclerViewAdapter;
     private ArrayList<String> baseinfo;
 
 
@@ -45,7 +45,7 @@ public class HomeBase extends Fragment {
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
         recyclerView = binding.baselist;
 
-        recyclerViewAdapter = new RecyclerViewBaseHomeAdapter<>(getContext(),homeViewModel);
+        recyclerViewAdapter = new HomeBaseRecyclerViewAdapter<>(getContext(),homeViewModel);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerViewAdapter);
 

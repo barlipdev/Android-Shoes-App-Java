@@ -2,6 +2,7 @@ package com.skowronsky.snkrs.server;
 
 import com.skowronsky.snkrs.data.Storage;
 import com.skowronsky.snkrs.model.Brand;
+import com.skowronsky.snkrs.model.FavoriteShoes;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
 
@@ -72,6 +73,7 @@ public class Capitalizer implements Runnable {
         String password = null;
         String name = null;
         User user = null;
+        int length;
 
         switch (command){
             case "login":
@@ -103,6 +105,30 @@ public class Capitalizer implements Runnable {
                 name = input.nextLine();
                 System.out.println(login+" : "+name+" : "+ password);
                 storage.updateUser(login,name,password);
+
+                break;
+            case "fav":
+                login = input.nextLine();
+                length = input.nextInt();
+                double size;
+                int idShoes;
+
+                List<FavoriteShoes> favoriteShoesList = new ArrayList<>();
+                for (int i = 0; i < length; i++) {
+                    idShoes = input.nextInt();
+                    size = input.nextDouble();
+                    favoriteShoesList.add(new FavoriteShoes(idShoes,size));
+                }
+                user = storage.getUser(login);
+                user.setFavoriteShoesList(favoriteShoesList);
+                storage.printFavorite();
+                break;
+
+            case "base":
+                login = input.nextLine();
+                length = input.nextInt();
+
+
 
                 break;
             default:
