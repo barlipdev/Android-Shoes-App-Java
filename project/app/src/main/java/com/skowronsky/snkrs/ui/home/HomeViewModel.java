@@ -6,45 +6,69 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private LiveData<List<Brand>> allBrands;
-    private MutableLiveData<Boolean> ShoesNav;
-    private MutableLiveData<String> CompanyName;
+    private MutableLiveData<Boolean> homeNav;
+    private MutableLiveData<Boolean> infoNav;
+    private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
+    private MutableLiveData<ArrayList<String>> BaseLiveData;
+    private ArrayList<Shoes> shoesList;
+    private LiveData<List<BaseShoes>> allBaseShoes;
     private Repository repository;
 
     public HomeViewModel(Application application){
         super(application);
         repository = new Repository(application);
-        allBrands= repository.getAllBrands();
+        allBaseShoes = repository.getAllBaseShoes();
+        this.BaseLiveData = new MutableLiveData<ArrayList<String>>();
+        this.shoesList = new ArrayList<Shoes>();
     }
 
-    public LiveData<List<Brand>> getAllBrands(){
-        return allBrands;
+    public MutableLiveData<Boolean> getInfoNav(){
+        if (infoNav == null)
+            infoNav = new MutableLiveData<Boolean>();
+        return infoNav;
     }
 
-    public MutableLiveData<Boolean> getEventShoesNav(){
-        if(ShoesNav == null)
-            ShoesNav = new MutableLiveData<Boolean>();
-        return ShoesNav;
+    public MutableLiveData<Boolean> getEventHomeNav(){
+        if(homeNav == null)
+            homeNav = new MutableLiveData<Boolean>();
+        return homeNav;
     }
 
-    public MutableLiveData<String> getEventCompanyName(){
-        if (CompanyName == null)
-            CompanyName = new MutableLiveData<String>();
-        return CompanyName;
+    public LiveData<ArrayList<Shoes>> getShoesLiveData()
+    {
+        if (ShoesLiveData == null)
+            ShoesLiveData = new MutableLiveData<>();
+        return ShoesLiveData;
     }
 
-    public void eventNavToShoes(){
-        ShoesNav.setValue(true);
+    LiveData<List<BaseShoes>> getAllBaseShoes() {return allBaseShoes;}
+
+
+    public void eventNavToHome(){ homeNav.setValue(true);
     }
-    public void eventNavToShoesFinished(){
-        ShoesNav.setValue(false);
+    public void eventNavToHomeFinished(){
+        homeNav.setValue(false);
     }
-    public void eventCompanyName(String name){ CompanyName.setValue(name);}
+    public void eventNavToInfo(){infoNav.setValue(true);}
+    public void eventNavToInfoFinished(){infoNav.setValue(false);}
+    public void eventBaseSet(ArrayList<String> base_info){BaseLiveData.setValue(base_info);}
+
+    public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){
+        String model_name = shoe.modelName;
+        for (int i = 0; i < allBaseShoes.getValue().size(); i++){
+                        if (model_name.equals(allBaseShoes.getValue().get(i).shoes.modelName) && size == allBaseShoes.getValue().get(i).base.size){
+                                repository.delete(allBaseShoes.getValue().get(i).base);
+                }
+        }
+    }
+
 }

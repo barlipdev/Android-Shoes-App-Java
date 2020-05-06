@@ -3,6 +3,7 @@ package com.skowronsky.snkrs.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseDao;
@@ -39,6 +40,8 @@ public class Repository {
     private FavoriteShoesDao mFavoriteShoesDao;
     private LiveData<List<FavoriteShoes>> mAllFavoriteShoes;
 
+    private MutableLiveData<Shoes> shoe;
+
 
     public Repository(Application application){
         SneakersDatabase db = SneakersDatabase.getDatabase(application);
@@ -59,6 +62,8 @@ public class Repository {
 
         mFavoriteShoesDao = db.favoriteShoesDao();
         mAllFavoriteShoes = mFavoriteShoesDao.getAllFavoriteShoes();
+
+        shoe = new MutableLiveData<>();
     }
 
     public LiveData<List<FavoriteShoes>> getAllFavoriteShoes(){
@@ -176,6 +181,14 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBaseDao.deleteAll();
         });
+    }
+
+    public void setShoe(MutableLiveData<Shoes> shoe){
+        this.shoe = shoe;
+    }
+
+    public MutableLiveData<Shoes> getShoe(){
+        return shoe;
     }
 
 }

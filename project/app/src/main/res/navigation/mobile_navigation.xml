@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homeBase"
+    app:startDestination="@id/homeFragment"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.skowronsky.snkrs.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/baseSelector_BrandList"
+        android:name="com.skowronsky.snkrs.ui.home.baseselector.brandlist.BrandListFragment"
+        tools:layout="@layout/fragment_baseselector_brandlist" >
         <action
             android:id="@+id/action_navigation_home_to_shoesFragment22"
-            app:destination="@id/shoesFragment2"
+            app:destination="@id/baseSelector_Shoes_List"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_dashboard_to_homeBase"
-            app:destination="@id/homeBase" />
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -52,57 +52,57 @@
     </fragment>
       tools:layout="@layout/fragment_settings"
     <fragment
-        android:id="@+id/shoesFragment2"
-        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesFragment"
+        android:id="@+id/baseSelector_Shoes_List"
+        android:name="com.skowronsky.snkrs.ui.home.baseselector.shoeslist.ShoesListFragment"
         android:label="shoes_fragment"
-        tools:layout="@layout/shoes_fragment">
+        tools:layout="@layout/fragment_baseselector_shoes_list">
         <action
             android:id="@+id/action_shoesFragment2_to_shoesInformationFragment2"
-            app:destination="@id/shoesInformationFragment2" />
+            app:destination="@id/baseSelector_Shoes_Info" />
         <argument android:name="shoe_info" />
     </fragment>
     <fragment
-        android:id="@+id/shoesInformationFragment2"
-        android:name="com.skowronsky.snkrs.ui.home.shoes.ShoesInformationFragment"
+        android:id="@+id/baseSelector_Shoes_Info"
+        android:name="com.skowronsky.snkrs.ui.home.baseselector.shoeinfo.ShoeInfoFragment"
         android:label="ShoesInformationFragment" >
         <action
             android:id="@+id/action_shoesInformationFragment2_to_homeBase"
-            app:destination="@id/homeBase" />
+            app:destination="@id/homeFragment" />
         <argument
             android:name="Shoeinfo"
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/homeBase"
-        android:name="com.skowronsky.snkrs.ui.base.HomeBase"
+        android:id="@+id/homeFragment"
+        android:name="com.skowronsky.snkrs.ui.home.HomeFragment"
         android:label="@string/title_home">
         <action
             android:id="@+id/action_homeBase_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            app:destination="@id/baseSelector_BrandList" />
         <action
             android:id="@+id/action_homeBase_to_brandListFragment"
-            app:destination="@id/brandListFragment" />
+            app:destination="@id/search_Brand_List" />
 
     </fragment>
     <fragment
-        android:id="@+id/brandListFragment"
-        android:name="com.skowronsky.snkrs.ui.base.BrandListFragment"
+        android:id="@+id/search_Brand_List"
+        android:name="com.skowronsky.snkrs.ui.home.search.brandlist.BrandListFragment"
         android:label="BrandListFragment" >
         <action
             android:id="@+id/action_brandListFragment_to_shoesListFragment"
-            app:destination="@id/shoesListFragment" />
+            app:destination="@id/search_Shoes_List" />
     </fragment>
     <fragment
-        android:id="@+id/shoesListFragment"
-        android:name="com.skowronsky.snkrs.ui.base.ShoesListFragment"
+        android:id="@+id/search_Shoes_List"
+        android:name="com.skowronsky.snkrs.ui.home.search.shoeslist.ShoesListFragment"
         android:label="ShoesListFragment" >
         <action
             android:id="@+id/action_shoesListFragment_to_shoeInfoFragment"
-            app:destination="@id/shoeInfoFragment" />
+            app:destination="@id/search_Shoe_Info" />
     </fragment>
     <fragment
-        android:id="@+id/shoeInfoFragment"
-        android:name="com.skowronsky.snkrs.ui.base.ShoeInfoFragment"
+        android:id="@+id/search_Shoe_Info"
+        android:name="com.skowronsky.snkrs.ui.home.search.shoeinfo.ShoeInfoFragment"
         android:label="ShoeInfoFragment" />
 
 
