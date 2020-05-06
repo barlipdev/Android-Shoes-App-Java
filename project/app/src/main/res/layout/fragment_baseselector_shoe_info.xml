@@ -6,7 +6,7 @@
     <data>
         <variable
             name="shoesInfoViewModel"
-            type="com.skowronsky.snkrs.ui.home.baseselector.shoeinfo.ShoeInfoViewModel" />
+            type="com.skowronsky.snkrs.ui.home.add.shoeinfo.ShoeInfoViewModel" />
     </data>
 
 <androidx.core.widget.NestedScrollView

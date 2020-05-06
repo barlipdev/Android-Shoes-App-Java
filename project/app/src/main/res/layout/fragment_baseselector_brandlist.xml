@@ -5,7 +5,7 @@
     <data>
         <variable
             name="brandListViewModel"
-            type="com.skowronsky.snkrs.ui.home.baseselector.brandlist.BrandListViewModel" />
+            type="com.skowronsky.snkrs.ui.home.add.brandlist.BrandListViewModel" />
     </data>
 
 

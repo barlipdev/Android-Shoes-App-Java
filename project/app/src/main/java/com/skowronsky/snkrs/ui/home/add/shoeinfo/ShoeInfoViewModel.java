@@ -1,17 +1,13 @@
-package com.skowronsky.snkrs.ui.home.baseselector.shoeinfo;
+package com.skowronsky.snkrs.ui.home.add.shoeinfo;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.skowronsky.snkrs.database.Base;
-import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.NavigationStorage;
-
-import java.util.ArrayList;
 
 public class ShoeInfoViewModel extends AndroidViewModel {
 

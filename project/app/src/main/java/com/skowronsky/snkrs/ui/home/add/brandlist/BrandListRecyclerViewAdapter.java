@@ -1,4 +1,4 @@
-package com.skowronsky.snkrs.ui.home.baseselector.brandlist;
+package com.skowronsky.snkrs.ui.home.add.brandlist;
 
 import android.content.Context;
 import android.view.LayoutInflater;

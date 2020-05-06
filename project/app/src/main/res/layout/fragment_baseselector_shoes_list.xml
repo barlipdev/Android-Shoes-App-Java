@@ -6,7 +6,7 @@
     <data>
         <variable
             name="shoesListViewModel"
-            type="com.skowronsky.snkrs.ui.home.baseselector.shoeslist.ShoesListViewModel" />
+            type="com.skowronsky.snkrs.ui.home.add.shoeslist.ShoesListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
