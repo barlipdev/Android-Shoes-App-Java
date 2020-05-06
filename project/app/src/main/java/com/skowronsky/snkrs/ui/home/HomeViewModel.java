@@ -6,9 +6,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
+import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +25,22 @@ public class HomeViewModel extends AndroidViewModel {
     private LiveData<List<BaseShoes>> allBaseShoes;
     private Repository repository;
 
+    private Storage storage;
+    private SnkrsClient snkrsClient;
+
     public HomeViewModel(Application application){
         super(application);
         repository = new Repository(application);
         allBaseShoes = repository.getAllBaseShoes();
         this.BaseLiveData = new MutableLiveData<ArrayList<String>>();
         this.shoesList = new ArrayList<Shoes>();
+
+        storage = Storage.getInstance();
+        snkrsClient = SnkrsClient.getInstance(storage,application);
+    }
+
+    public void updateBaseShoes(List<BaseShoes> baseShoesList){
+        snkrsClient.updateBase(storage.getUser().getEmail(),baseShoesList);
     }
 
     public MutableLiveData<Boolean> getInfoNav(){

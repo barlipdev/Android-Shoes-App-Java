@@ -11,11 +11,15 @@ import androidx.lifecycle.ViewModel;
 import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.model.User;
 import com.skowronsky.snkrs.model.UserManager;
+import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.Storage;
 
 public class SettingsViewModel extends AndroidViewModel {
+
     private Storage storage = Storage.getInstance();
     private SnkrsClient snkrsClient;
+
+    private Repository repository;
 
     private MutableLiveData<Boolean> eventNavToProfile;
     private MutableLiveData<Boolean> eventLogout;
@@ -27,17 +31,21 @@ public class SettingsViewModel extends AndroidViewModel {
 
     public SettingsViewModel(@NonNull Application application) {
         super(application);
+        repository = new Repository(application);
+
         snkrsClient = SnkrsClient.getInstance(storage,application);
         email.setValue(storage.getUser().getEmail());
         username.setValue(storage.getUser().getName());
         password.setValue(storage.getUser().getPassword());
     }
 
+    public void logout(){
+        repository.deleteAllFavorites();
+        repository.deleteAllBase();
+    }
+
     public void updateUserData(){
         if(password.getValue().length() > 0 && username.getValue().length() > 0){
-            Log.i("ServerUp","n: "+username);
-            Log.i("ServerUp","e: "+email);
-            Log.i("ServerUp","p: "+password);
             snkrsClient.updateUser(email.getValue(),password.getValue(),username.getValue());
             storage.setUser(new User(email.getValue(),username.getValue(),password.getValue(),"photo"));
         }

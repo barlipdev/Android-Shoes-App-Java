@@ -47,6 +47,8 @@ public class ShoeInfoFragment extends Fragment {
                 if(mViewModel.checkShoe(favoriteShoes)){
                     shoeInfoFragmentBinding.favoriteStar.setChecked(true);
                 }
+
+                mViewModel.updateFavorite(favoriteShoes);
             }
         });
 

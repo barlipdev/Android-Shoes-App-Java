@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -47,10 +48,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        homeViewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<com.skowronsky.snkrs.database.BaseShoes>>() {
+        homeViewModel.getAllBaseShoes().observe(getViewLifecycleOwner(), new Observer<List<BaseShoes>>() {
             @Override
-            public void onChanged(List<com.skowronsky.snkrs.database.BaseShoes> baseShoes) {
+            public void onChanged(List<BaseShoes> baseShoes) {
                 recyclerViewAdapter.setBaseShoes(baseShoes);
+                homeViewModel.updateBaseShoes(baseShoes);
             }
         });
 

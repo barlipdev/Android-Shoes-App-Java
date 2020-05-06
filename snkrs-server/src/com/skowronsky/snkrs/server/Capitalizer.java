@@ -1,10 +1,7 @@
 package com.skowronsky.snkrs.server;
 
 import com.skowronsky.snkrs.data.Storage;
-import com.skowronsky.snkrs.model.Brand;
-import com.skowronsky.snkrs.model.FavoriteShoes;
-import com.skowronsky.snkrs.model.Shoes;
-import com.skowronsky.snkrs.model.User;
+import com.skowronsky.snkrs.model.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -74,6 +71,9 @@ public class Capitalizer implements Runnable {
         String name = null;
         User user = null;
         int length;
+        double size;
+        double hiddenSize;
+        int idShoes;
 
         switch (command){
             case "login":
@@ -81,6 +81,7 @@ public class Capitalizer implements Runnable {
                 password = input.nextLine();
                 user = storage.getUser(login,password);
                 sendUserInfo(user,objOut);
+                storage.printFavorite();
                 break;
             case "shoes":
                 sendShoes(storage.getShoesList(),objOut);
@@ -110,8 +111,6 @@ public class Capitalizer implements Runnable {
             case "fav":
                 login = input.nextLine();
                 length = input.nextInt();
-                double size;
-                int idShoes;
 
                 List<FavoriteShoes> favoriteShoesList = new ArrayList<>();
                 for (int i = 0; i < length; i++) {
@@ -128,8 +127,15 @@ public class Capitalizer implements Runnable {
                 login = input.nextLine();
                 length = input.nextInt();
 
-
-
+                List<BaseShoes> baseShoesList = new ArrayList<>();
+                for (int i = 0; i < length; i++) {
+                    idShoes = input.nextInt();
+                    size = input.nextDouble();
+                    hiddenSize = input.nextDouble();
+                    baseShoesList.add(new BaseShoes(idShoes,size,hiddenSize));
+                }
+                user = storage.getUser(login);
+                user.setBaseShoesList(baseShoesList);
                 break;
             default:
                 break;

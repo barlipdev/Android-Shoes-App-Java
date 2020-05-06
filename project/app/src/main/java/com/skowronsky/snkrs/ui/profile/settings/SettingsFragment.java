@@ -53,6 +53,7 @@ public class SettingsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), StartActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+                viewModel.logout();
                 viewModel.eventLogoutFinished();
             }
         });
