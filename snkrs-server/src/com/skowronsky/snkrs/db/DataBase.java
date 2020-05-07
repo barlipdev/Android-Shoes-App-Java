@@ -119,6 +119,53 @@ public class DataBase {
                 name,password,email));
     }
 
+    public void updateFavorites(String email, List<FavoriteShoes> favoriteShoesList) throws SQLException {
+        int id = 0;
+        statement = connect.createStatement();
+        resultSet = statement.executeQuery(String.format("select id_user from user where email like('%s')",email));
+
+        while (resultSet.next())
+            id = resultSet.getInt(1);
+
+
+        if(id > 0){
+            statement = connect.createStatement();
+            statement.executeUpdate(String.format("delete from favorite_shoes where id_user = %d;",id));
+
+            for (FavoriteShoes favoriteShoes : favoriteShoesList) {
+                statement.execute(String.format("insert into favorite_shoes(id_user,id_shoes,size) values(%d,%d,%f)", id, favoriteShoes.getIdShoes(), favoriteShoes.getSize()));
+            }
+
+        }
+
+    }
+
+    public void updateBase(String email, List<BaseShoes> baseShoesList) throws SQLException {
+        int id = 0;
+        statement = connect.createStatement();
+        resultSet = statement.executeQuery(String.format("select id_user from user where email like('%s')",email));
+
+        while (resultSet.next())
+            id = resultSet.getInt(1);
+
+
+        if(id > 0){
+            statement = connect.createStatement();
+            statement.executeUpdate(String.format("delete from base_shoes where id_user = %d;",id));
+
+            for (BaseShoes baseShoes : baseShoesList) {
+                statement.execute(String.format("insert into base_shoes(id_user,id_shoes,size,hidden_size)" +
+                                " values(%d,%d,%f,%f)",
+                        id,
+                        baseShoes.getIdShoes(),
+                        baseShoes.getSize(),
+                        baseShoes.getHiddenSize()));
+            }
+
+        }
+
+    }
+
     public void close() {
         try {
             if (resultSet != null) {

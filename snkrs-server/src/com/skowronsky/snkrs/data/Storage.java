@@ -1,9 +1,7 @@
 package com.skowronsky.snkrs.data;
 
 import com.skowronsky.snkrs.db.DataBase;
-import com.skowronsky.snkrs.model.Brand;
-import com.skowronsky.snkrs.model.Shoes;
-import com.skowronsky.snkrs.model.User;
+import com.skowronsky.snkrs.model.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,8 +18,6 @@ public class Storage {
         dataBase.getBrands(this.brandList);
         dataBase.getShoes(this.shoesList);
         dataBase.getUsers(this.userList);
-
-
 
     }
 
@@ -101,6 +97,31 @@ public class Storage {
                 System.out.println(item.getEmail());
             }
         } catch (SQLException throwables) {
+        }
+    }
+
+    public void updateFavorites(String email, List<FavoriteShoes> favoriteShoesList){
+        User user = getUser(email);
+        user.setFavoriteShoesList(favoriteShoesList);
+
+        try {
+            dataBase.updateFavorites(email,favoriteShoesList);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+
+    public void updateBase(String email, List<BaseShoes> baseShoesList){
+        User user = getUser(email);
+        user.setBaseShoesList(baseShoesList);
+
+        try {
+            dataBase.updateBase(email,baseShoesList);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }

@@ -118,8 +118,7 @@ public class Capitalizer implements Runnable {
                     size = input.nextDouble();
                     favoriteShoesList.add(new FavoriteShoes(idShoes,size));
                 }
-                user = storage.getUser(login);
-                user.setFavoriteShoesList(favoriteShoesList);
+                storage.updateFavorites(login,favoriteShoesList);
                 storage.printFavorite();
                 break;
 
@@ -134,8 +133,7 @@ public class Capitalizer implements Runnable {
                     hiddenSize = input.nextDouble();
                     baseShoesList.add(new BaseShoes(idShoes,size,hiddenSize));
                 }
-                user = storage.getUser(login);
-                user.setBaseShoesList(baseShoesList);
+                storage.updateBase(login,baseShoesList);
                 break;
             default:
                 break;
