@@ -94,12 +94,13 @@ public class DataBase {
 //                System.out.println(String.format("id_shoes: %d ",id_shoes));
                 baseShoesList.add(new BaseShoes(id_shoes,size,hiddenSize));
             }
-            resultSetBase = statmentBaseShoes.executeQuery(String.format("select id_shoes, size from favorite_shoes where id_user = %d",id));
+            resultSetBase = statmentBaseShoes.executeQuery(String.format("select id_shoes, id_base, size from favorite_shoes where id_user = %d",id));
             while (resultSetBase.next()){
                 int id_shoes = resultSetBase.getInt(1);
-                double size = resultSetBase.getDouble(2);
+                int id_base = resultSetBase.getInt(2);
+                double size = resultSetBase.getDouble(3);
 //                System.out.println(String.format("id_shoes: %d ",id_shoes));
-                favoriteShoesList.add(new FavoriteShoes(id_shoes,size));
+                favoriteShoesList.add(new FavoriteShoes(id_shoes,id_base,size));
             }
 
             userList.add(new User(email,name,photo,password,baseShoesList,favoriteShoesList));

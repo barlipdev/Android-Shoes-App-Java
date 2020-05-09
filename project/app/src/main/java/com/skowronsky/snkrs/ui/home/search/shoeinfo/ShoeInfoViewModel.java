@@ -48,7 +48,7 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     }
 
     public void deleteFavoriteShoe(){
-        favorite = new Favorite(this.shoe,prefer_size);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
         for (int i=0;i<favoriteShoesLiveData.getValue().size();i++){
             if (favoriteShoesLiveData.getValue().get(i).shoes.id_shoes == favorite.id_shoes && favoriteShoesLiveData.getValue().get(i).favorite.size == favorite.size){
                 repository.deleteFavorite(favoriteShoesLiveData.getValue().get(i).favorite);
@@ -57,12 +57,12 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     }
 
     public void addFavoriteShoe(){
-        favorite = new Favorite(this.shoe,prefer_size);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
         repository.insertFavorite(favorite);
     }
 
     public boolean checkShoe(List<FavoriteShoes> favoriteShoes){
-        favorite = new Favorite(this.shoe,prefer_size);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
         for(int j=0;j<favoriteShoes.size();j++){
             if (favoriteShoes.get(j).shoes.id_shoes == favorite.id_shoes && favoriteShoes.get(j).favorite.size == favorite.size){
                 return true;

@@ -356,6 +356,7 @@ public class SnkrsClient {
         for (int i = 0; i < favoriteShoesList.size(); i++) {
             favorite = new Favorite();
             favorite.id_favorite_shoes = i+1;
+            favorite.id_base = favoriteShoesList.get(i).getIdBase();
             favorite.id_shoes = favoriteShoesList.get(i).getIdShoes();
             favorite.size = favoriteShoesList.get(i).getSize();
             repo.insertFavorite(favorite);
@@ -391,6 +392,7 @@ public class SnkrsClient {
         out.println(favoriteShoesList.size());
         for (int i = 0; i < favoriteShoesList.size(); i++) {
             out.println(favoriteShoesList.get(i).shoes.id_shoes);
+            out.println(favoriteShoesList.get(i).favorite.id_base);
             out.println(favoriteShoesList.get(i).favorite.size);
         }
 

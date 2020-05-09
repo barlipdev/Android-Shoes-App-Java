@@ -111,12 +111,13 @@ public class Capitalizer implements Runnable {
             case "fav":
                 login = input.nextLine();
                 length = input.nextInt();
-
+                int id_base;
                 List<FavoriteShoes> favoriteShoesList = new ArrayList<>();
                 for (int i = 0; i < length; i++) {
                     idShoes = input.nextInt();
+                    id_base = input.nextInt();
                     size = input.nextDouble();
-                    favoriteShoesList.add(new FavoriteShoes(idShoes,size));
+                    favoriteShoesList.add(new FavoriteShoes(idShoes,id_base,size));
                 }
                 storage.updateFavorites(login,favoriteShoesList);
                 storage.printFavorite();

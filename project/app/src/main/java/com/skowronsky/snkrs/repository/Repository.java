@@ -74,7 +74,6 @@ public class Repository {
         return mAllFavorite;
     }
 
-
     public void insertFavorite(Favorite favorite){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mFavoriteDao.insert(favorite);
@@ -101,6 +100,10 @@ public class Repository {
 
     public LiveData<List<BaseShoes>> getAllBaseShoes(){
         return mAllBaseShoes;
+    }
+
+    public LiveData<BaseShoes> getBaseShoes(int idBase){
+        return mBaseShoesDao.getBaseShoes(idBase);
     }
 
     public LiveData<List<Brand>> getAllBrands(){

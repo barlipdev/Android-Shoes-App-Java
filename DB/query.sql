@@ -76,11 +76,14 @@ create table favorite_shoes
 	id_favorite int auto_increment,
 	id_user int not null,
 	id_shoes int not null,
+	id_base int not null,
 	size double not null,
 	constraint favorite_shoes_pk
 		primary key (id_favorite),
 	constraint favorite_shoes_id_shoes_fk
 		foreign key (id_shoes) references shoes (id_shoes),
+	constraint favorite_shoes_id_base_fk
+		foreign key (id_base) references base_shoes (id_base),
 	constraint favorite_shoes_id_user_fk
 		foreign key (id_user) references user (id_user)
 );
