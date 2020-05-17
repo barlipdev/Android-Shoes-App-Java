@@ -19,7 +19,7 @@ public class ProfileViewModel extends AndroidViewModel {
 
 
     private MutableLiveData<Boolean> settingsNav;
-    public MutableLiveData<String> title = new MutableLiveData<String>("Profile") ;
+    public MutableLiveData<String> title = new MutableLiveData<String>("PROFILE") ;
 
 
     public ProfileViewModel(Application application){

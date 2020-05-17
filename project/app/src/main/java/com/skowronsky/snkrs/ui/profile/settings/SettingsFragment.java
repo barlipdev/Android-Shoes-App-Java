@@ -39,14 +39,6 @@ public class SettingsFragment extends Fragment {
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
-        final LiveData<Boolean> natToProfile = viewModel.getEventNavToProfile();
-        natToProfile.observe(getViewLifecycleOwner(), nav -> {
-            if(nav) {
-                navigateToProfile();
-                viewModel.eventNavToProfileFinished();
-            }
-        });
-
         final LiveData<Boolean> logout = viewModel.getEventLogout();
         logout.observe(getViewLifecycleOwner(), nav -> {
             if(nav){

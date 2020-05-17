@@ -21,7 +21,6 @@ public class SettingsViewModel extends AndroidViewModel {
 
     private Repository repository;
 
-    private MutableLiveData<Boolean> eventNavToProfile;
     private MutableLiveData<Boolean> eventLogout;
     private MutableLiveData<Boolean> eventSave;
     public MutableLiveData<String> email = new MutableLiveData<>();
@@ -57,11 +56,6 @@ public class SettingsViewModel extends AndroidViewModel {
         return eventLogout;
     }
 
-    public MutableLiveData<Boolean> getEventNavToProfile(){
-        if(eventNavToProfile == null)
-            eventNavToProfile = new MutableLiveData<>();
-        return eventNavToProfile;
-    }
 
     public MutableLiveData<Boolean> getEventSave(){
         if(eventSave == null)
@@ -69,12 +63,6 @@ public class SettingsViewModel extends AndroidViewModel {
         return eventSave;
     }
 
-    public void eventNavToProfile(){
-        eventNavToProfile.setValue(true);
-    }
-    public void eventNavToProfileFinished(){
-        eventNavToProfile.setValue(false);
-    }
 
     public void setEventLogout(){eventLogout.setValue(true);}
     public void eventLogoutFinished(){eventLogout.setValue(false);}

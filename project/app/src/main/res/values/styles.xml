@@ -19,6 +19,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Widget.AppCompat.Button.Colored.SettingsButton">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/ic_settings_black_24dp</item>
+        <item name="android:color">@color/colorPrimary</item>
+    </style>
+
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
