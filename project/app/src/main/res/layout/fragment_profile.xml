@@ -15,28 +15,27 @@
 
         <TextView
             android:id="@+id/text_profile"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/profile"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="@{profileViewModel.title.toString()}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:id="@+id/settings_btn"
+            style="@style/Widget.AppCompat.Button.Colored.SettingsButton"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:onClick="@{() -> profileViewModel.eventNavToSettings()}"
-            android:text="Settings"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_profile" />
+            app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -59,11 +58,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
             tools:listitem="@layout/item_favorite_shoes" />
 
         <View
-            android:id="@+id/divider2"
+            android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"

@@ -31,8 +31,6 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel viewModel;
     private FragmentSettingsBinding binding;
 
-    private Storage storage;
-    private SnkrsClient snkrsClient;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,51 +39,22 @@ public class SettingsFragment extends Fragment {
         binding.setSettingsViewModel(viewModel);
         binding.setLifecycleOwner(this);
 
-        storage = Storage.getInstance();
-        snkrsClient = SnkrsClient.getInstance(storage,getContext());
-
-        final LiveData<Boolean> natToProfile = viewModel.getEventNavToProfile();
-        natToProfile.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean nav) {
-                if(nav) {
-                    navigateToProfile();
-                    viewModel.eventNavToProfileFinished();
-                }
-            }
-        });
-
         final LiveData<Boolean> logout = viewModel.getEventLogout();
-        logout.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
-                    Intent intent = new Intent(getActivity(), StartActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                    viewModel.eventLogoutFinished();
-                }
+        logout.observe(getViewLifecycleOwner(), nav -> {
+            if(nav){
+                Intent intent = new Intent(getActivity(), StartActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                viewModel.logout();
+                viewModel.eventLogoutFinished();
             }
         });
 
         final LiveData<Boolean> save = viewModel.getEventSave();
-        save.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
-
-                    if(binding.userEditText.length() > 0 && binding.passwordEditText.length() > 0){
-                        String login = storage.getUser().getEmail();
-                        String password = binding.passwordEditText.getText().toString();
-                        String name = binding.userEditText.getText().toString();
-                        
-                        snkrsClient.updateUser(login,password,name);
-//                        snkrsClient.auth(login,password);
-                        storage.setUser(new User(login,name,password,"photo"));
-
-                    }
-                    viewModel.eventSaveFinished();
-                }
+        save.observe(getViewLifecycleOwner(), update -> {
+            if (update){
+                viewModel.updateUserData();
+                viewModel.eventSaveFinished();
             }
         });
 

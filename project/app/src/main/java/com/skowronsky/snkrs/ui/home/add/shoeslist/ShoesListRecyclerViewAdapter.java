@@ -1,4 +1,4 @@
-package com.skowronsky.snkrs.ui.home.baseselector.shoeslist;
+package com.skowronsky.snkrs.ui.home.add.shoeslist;
 
 import android.content.Context;
 import android.view.LayoutInflater;

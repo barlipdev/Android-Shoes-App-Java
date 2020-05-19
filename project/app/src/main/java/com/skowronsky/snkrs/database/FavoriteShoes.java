@@ -12,4 +12,10 @@ public class FavoriteShoes {
             parentColumn = "id_shoes",
             entityColumn = "id_shoes")
     public Shoes shoes;
+
+    @Relation(
+            parentColumn = "id_base",
+            entityColumn = "id_base")
+    public Base base;
+
 }

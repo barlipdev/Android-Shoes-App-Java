@@ -8,11 +8,13 @@ public class Favorite {
     @PrimaryKey(autoGenerate = true)
     public int id_favorite_shoes;
     public int id_shoes;
+    public int id_base;
     public double size;
 
     public Favorite(){};
-    public Favorite(Shoes shoes, double size){
+    public Favorite(Shoes shoes, double size, int id_base){
         this.id_shoes = shoes.id_shoes;
         this.size = size;
+        this.id_base = id_base;
     }
 }

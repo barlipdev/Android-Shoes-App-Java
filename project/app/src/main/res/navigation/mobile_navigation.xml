@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/baseSelector_BrandList"
-        android:name="com.skowronsky.snkrs.ui.home.baseselector.brandlist.BrandListFragment"
+        android:name="com.skowronsky.snkrs.ui.home.add.brandlist.BrandListFragment"
         tools:layout="@layout/fragment_baseselector_brandlist" >
         <action
             android:id="@+id/action_navigation_home_to_shoesFragment22"
@@ -53,7 +53,7 @@
       tools:layout="@layout/fragment_settings"
     <fragment
         android:id="@+id/baseSelector_Shoes_List"
-        android:name="com.skowronsky.snkrs.ui.home.baseselector.shoeslist.ShoesListFragment"
+        android:name="com.skowronsky.snkrs.ui.home.add.shoeslist.ShoesListFragment"
         android:label="shoes_fragment"
         tools:layout="@layout/fragment_baseselector_shoes_list">
         <action
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/baseSelector_Shoes_Info"
-        android:name="com.skowronsky.snkrs.ui.home.baseselector.shoeinfo.ShoeInfoFragment"
+        android:name="com.skowronsky.snkrs.ui.home.add.shoeinfo.ShoeInfoFragment"
         android:label="ShoesInformationFragment" >
         <action
             android:id="@+id/action_shoesInformationFragment2_to_homeBase"

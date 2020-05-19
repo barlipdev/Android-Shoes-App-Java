@@ -38,7 +38,6 @@ public class SignupFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         storage = Storage.getInstance();
-        snkrsClient = SnkrsClient.getInstance(storage,getContext());
 
         final LiveData<Boolean> loginNavigation = viewModel.getNavToLogin();
         loginNavigation.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -56,18 +55,13 @@ public class SignupFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    if (binding.username.length() > 0 && binding.email.length() > 0 && binding.password.length() > 0){
-                        snkrsClient.auth(binding.email.getText().toString()
-                                ,binding.password.getText().toString()
-                                ,binding.username.getText().toString());
-                        SystemClock.sleep(3000);
-                        if(storage.getUser() != null){
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                        }
+                    viewModel.signup();
+                    SystemClock.sleep(1000);
+                    if(storage.getUser() != null){
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
                     }
-                    viewModel.signupFinished();
                 }
             }
         });

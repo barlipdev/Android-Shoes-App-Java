@@ -1,4 +1,4 @@
-package com.skowronsky.snkrs.ui.home.baseselector.shoeinfo;
+package com.skowronsky.snkrs.ui.home.add.shoeinfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

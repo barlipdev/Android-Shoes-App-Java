@@ -6,12 +6,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
-import com.skowronsky.snkrs.database.Brand;
-import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.database.FavoriteShoes;
-import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
 
 import java.util.List;
@@ -23,7 +19,7 @@ public class ProfileViewModel extends AndroidViewModel {
 
 
     private MutableLiveData<Boolean> settingsNav;
-    public MutableLiveData<String> title = new MutableLiveData<String>("Profile") ;
+    public MutableLiveData<String> title = new MutableLiveData<String>("PROFILE") ;
 
 
     public ProfileViewModel(Application application){
@@ -40,6 +36,9 @@ public class ProfileViewModel extends AndroidViewModel {
         return settingsNav;
     }
 
+    public LiveData<BaseShoes> getBaseShoes(int idBase){
+        return repository.getBaseShoes(idBase);
+    }
 
     public void eventNavToSettings(){
         settingsNav.setValue(true);

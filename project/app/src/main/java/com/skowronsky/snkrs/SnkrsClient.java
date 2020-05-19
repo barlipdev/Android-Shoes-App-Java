@@ -33,7 +33,7 @@ public class SnkrsClient {
     Thread authThread = null;
     Thread updateThread = null;
 
-    String SERVER_IP = "192.168.1.12";
+    String SERVER_IP = "192.168.1.7";
     int SERVER_PORT = 59895;
 
     private Repository repo;
@@ -73,6 +73,16 @@ public class SnkrsClient {
 
     public void updateUser(String login, String password, String name){
         updateThread = new Thread(new UpdateThread(storage,login,name,password));
+        updateThread.start();
+    }
+
+    public void updateFavorite(String email,List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList){
+        updateThread = new Thread(new UpdateThread(storage,email,favoriteShoesList));
+        updateThread.start();
+    }
+
+    public void updateBase(String email, List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList){
+        updateThread = new Thread(new UpdateThread(email,baseShoesList));
         updateThread.start();
     }
 
@@ -150,7 +160,7 @@ public class SnkrsClient {
             signUp = false;
         }
 
-        public AuthThread(Storage storage, String login, String name, String password){
+        public AuthThread(Storage storage, String login, String password, String name){
             this.storage = storage;
             this.login = login;
             this.name = name;
@@ -205,13 +215,36 @@ public class SnkrsClient {
         private String login;
         private String name;
         private String password;
+        private List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList;
+        private List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList;
+
+        private boolean user = false;
+        private boolean fav = false;
+        private boolean shoes = false;
 
         public UpdateThread(Storage storage, String login, String name, String password){
             this.storage = storage;
             this.login = login;
             this.name = name;
             this.password = password;
+            user = true;
         }
+
+        public UpdateThread(Storage storage, String email, List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList) {
+            this.login = email;
+            this.storage = storage;
+            this.favoriteShoesList = favoriteShoesList;
+            fav = true;
+        }
+
+
+        public UpdateThread(String email, List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList) {
+            this.login = email;
+            this.baseShoesList = baseShoesList;
+            shoes = true;
+        }
+
+
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         @SuppressLint("RestrictedApi")
@@ -224,8 +257,12 @@ public class SnkrsClient {
 
                 Log.i("SnkrsServer","Connected To Login");
 
-                updateUser(login,password,name,output);
-
+                if(user)
+                    updateUser(login,password,name,output);
+                if(fav)
+                    updateFavoriteShoes(login,favoriteShoesList,output);
+                if(shoes)
+                    updateBaseShoes(login,baseShoesList,output);
                 output.println("QQQ");
 
             } catch (IOException e) {
@@ -254,6 +291,8 @@ public class SnkrsClient {
     }
 
     private void insertBrandsToRoom(List<Brand> brandList){
+        repo.deleteAllBase();
+        repo.deleteAllFavorites();
         com.skowronsky.snkrs.database.Brand brand = null;
         for (int i = 0; i < brandList.size(); i++) {
             Log.i("SnkrsBrands","Obj: "+ brandList.get(i).getName());
@@ -299,7 +338,7 @@ public class SnkrsClient {
     }
 
     private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
-        repo.deleteAllBase();
+//        repo.deleteAllBase();
         Base base = null;
         for (int i = 0; i < baseShoes.size(); i++) {
             base = new Base();
@@ -312,11 +351,12 @@ public class SnkrsClient {
     }
 
     private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
-        repo.deleteAllFavorites();
+//        repo.deleteAllFavorites();
         Favorite favorite = null;
         for (int i = 0; i < favoriteShoesList.size(); i++) {
             favorite = new Favorite();
             favorite.id_favorite_shoes = i+1;
+            favorite.id_base = favoriteShoesList.get(i).getIdBase();
             favorite.id_shoes = favoriteShoesList.get(i).getIdShoes();
             favorite.size = favoriteShoesList.get(i).getSize();
             repo.insertFavorite(favorite);
@@ -344,5 +384,29 @@ public class SnkrsClient {
         out.println(name);
 
 //        storage.setUser(new User());
+    }
+
+    private void updateFavoriteShoes(String login, List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList, PrintWriter out){
+        out.println("fav");
+        out.println(login);
+        out.println(favoriteShoesList.size());
+        for (int i = 0; i < favoriteShoesList.size(); i++) {
+            out.println(favoriteShoesList.get(i).shoes.id_shoes);
+            out.println(favoriteShoesList.get(i).favorite.id_base);
+            out.println(favoriteShoesList.get(i).favorite.size);
+        }
+
+    }
+
+    private void updateBaseShoes(String login, List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList, PrintWriter out){
+        out.println("base");
+        out.println(login);
+        out.println(baseShoesList.size());
+        for (int i = 0; i < baseShoesList.size(); i++) {
+            out.println(baseShoesList.get(i).base.id_shoes);
+            out.println(baseShoesList.get(i).base.size);
+            out.println(baseShoesList.get(i).base.hiddenSize);
+        }
+
     }
 }
