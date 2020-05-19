@@ -11,8 +11,7 @@
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        android:stateListAnimator="@animator/scale">
+        app:cardUseCompatPadding="true">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Shoes;
+import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
 
@@ -22,8 +24,6 @@ import java.util.List;
 
 public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Acitivity context;
-    ArrayList<Shoes> ShoesArrayList;
-    List<BaseShoes> baseShoes;
     ArrayList<String> baseInfo;
     HomeViewModel shoesViewModel;
     List<BaseShoes> baseShoesList;
@@ -71,13 +71,6 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
                 shoesViewModel.eventNavToInfo();
             }
         });
-
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shoesViewModel.deleteBaseShoes(baseShoesList.get(position).shoes,baseShoesList.get(position).base.size);
-            }
-        });
     }
 
     @Override
@@ -89,20 +82,22 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
         this.baseShoesList = baseShoesList;
         notifyDataSetChanged();
     }
+    public void delete(int pos){
+        shoesViewModel.deleteBaseShoes(baseShoesList.get(pos).shoes,baseShoesList.get(pos).base.size);
+        notifyDataSetChanged();
+    }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
         TextView shoe_company;
         TextView shoe_model;
         TextView base_size;
         ImageView imageView;
-        Button deleteButton;
 
         public RecyclerViewViewHolder(@NonNull View itemView) {
             super(itemView);
             shoe_company = itemView.findViewById(R.id.shoe_comp);
             shoe_model = itemView.findViewById(R.id.shoe_model);
             imageView = itemView.findViewById(R.id.shoe_icon);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
             base_size = itemView.findViewById(R.id.size);
         }
     }

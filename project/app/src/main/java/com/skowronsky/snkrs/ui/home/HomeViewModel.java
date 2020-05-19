@@ -67,6 +67,7 @@ public class HomeViewModel extends AndroidViewModel {
         for (int i = 0; i < allBaseShoes.getValue().size(); i++){
                         if (model_name.equals(allBaseShoes.getValue().get(i).shoes.modelName) && size == allBaseShoes.getValue().get(i).base.size){
                                 repository.delete(allBaseShoes.getValue().get(i).base);
+
                 }
         }
     }

@@ -3,11 +3,14 @@ package com.skowronsky.snkrs.storage;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Shoes;
 
+import java.util.List;
+
 public class NavigationStorage {
 
     private Shoes shoe;
     private BaseShoes base_shoe;
     private String brand;
+    private List<BaseShoes> baseShoes;
 
     private NavigationStorage(){}
 
@@ -39,5 +42,11 @@ public class NavigationStorage {
     }
     public String getBrand(){
         return brand;
+    }
+    public void setBaseShoes(List<BaseShoes> baseShoes){
+        this.baseShoes = baseShoes;
+    }
+    public List<BaseShoes> getBaseShoes(){
+        return baseShoes;
     }
 }

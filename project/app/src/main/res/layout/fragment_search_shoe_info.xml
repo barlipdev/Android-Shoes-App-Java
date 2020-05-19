@@ -108,7 +108,7 @@
                             android:background="@drawable/ic_like"
                             android:button="@null"
                             android:checked="false"
-                            android:stateListAnimator="@animator/scale" />
+                            android:stateListAnimator="@anim/scale" />
 
                     </RelativeLayout>
 
