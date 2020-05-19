@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,6 @@ import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +55,22 @@ public class HomeFragment extends Fragment {
                 homeViewModel.updateBaseShoes(baseShoes);
             }
         });
+
+        SwipeHelper swipeHelper = new SwipeHelper(getContext(),recyclerView,300){
+            public void instantiateOnSwipeButton(RecyclerView.ViewHolder viewHolder, List<com.skowronsky.snkrs.ui.home.SwipeHelper.OnSwipeButton> buffer) {
+                buffer.add(new OnSwipeButton(requireContext(),
+                        "Delete",
+                        30,
+                        R.drawable.ic_delete,
+                        Color.parseColor("#D81B60"),
+                        new OnSwipeButtonClickListener(){
+                            @Override
+                            public void onClick(int pos) {
+                                recyclerViewAdapter.delete(pos);
+                            }
+                        }));
+            }
+        };
 
         final LiveData<Boolean> navToShoes = homeViewModel.getEventHomeNav();
         navToShoes.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
