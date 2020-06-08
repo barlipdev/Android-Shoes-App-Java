@@ -21,11 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.adapter.OnSwipeButtonClickListener;
+import com.skowronsky.snkrs.adapter.SwipeHelper;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.databinding.FragmentHomeBinding;
 
 import java.util.List;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -42,7 +43,7 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setBaseViewModel(homeViewModel);
         binding.setLifecycleOwner(this);
-        recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));
+        recyclerView = new RecyclerView(requireActivity());
         recyclerView = binding.baselist;
         recyclerViewAdapter = new HomeRecyclerViewAdapter<>(getContext(),homeViewModel);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
         });
 
         SwipeHelper swipeHelper = new SwipeHelper(getContext(),recyclerView,300){
-            public void instantiateOnSwipeButton(RecyclerView.ViewHolder viewHolder, List<com.skowronsky.snkrs.ui.home.SwipeHelper.OnSwipeButton> buffer) {
+            public void instantiateOnSwipeButton(RecyclerView.ViewHolder viewHolder, List<SwipeHelper.OnSwipeButton> buffer) {
                 buffer.add(new OnSwipeButton(requireContext(),
                         "Delete",
                         30,

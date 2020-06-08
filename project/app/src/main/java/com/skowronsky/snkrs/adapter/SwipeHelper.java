@@ -1,4 +1,4 @@
-package com.skowronsky.snkrs.ui.home;
+package com.skowronsky.snkrs.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -218,6 +218,8 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         int pos = viewHolder.getAdapterPosition();
         float translationX = dX;
         View itemView = viewHolder.itemView;
+        float height = (float)itemView.getBottom() - (float)itemView.getTop();
+
         if(pos < 0){
             swipePosition = pos;
             return;
@@ -232,7 +234,8 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 else{
                     buffer = buttonBuffer.get(pos);
                 }
-                translationX = dX*buffer.size()*buttonWidth / itemView.getWidth();
+                translationX = -Math.min(-dX, buttonWidth);
+                itemView.setTranslationX(translationX);
                 drawButton(c,itemView,buffer,pos,translationX);
             }
         }
