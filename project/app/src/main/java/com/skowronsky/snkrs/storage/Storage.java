@@ -1,14 +1,9 @@
 package com.skowronsky.snkrs.storage;
 
-import android.content.Context;
-
-import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Storage {

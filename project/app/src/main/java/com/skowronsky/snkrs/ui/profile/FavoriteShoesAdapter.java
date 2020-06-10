@@ -50,6 +50,13 @@ public class FavoriteShoesAdapter extends RecyclerView.Adapter<FavoriteShoesAdap
         notifyDataSetChanged();
     }
 
+    public void delete(int pos, ProfileViewModel viewModel){
+        //TODO Delete from database
+
+        viewModel.deleteFavorite(favoriteShoesList.get(pos).favorite);
+        notifyDataSetChanged();
+    }
+
     public class FavoriteShoesHolder extends RecyclerView.ViewHolder{
         private TextView textViewShoesModel;
         private TextView textViewShoesBrand;
