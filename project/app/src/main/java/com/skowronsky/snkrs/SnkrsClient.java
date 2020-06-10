@@ -28,6 +28,9 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Klasa do obsługi połączenia aplikacji z serwerem
+ */
 public class SnkrsClient {
     Thread connectionThread = null;
     Thread authThread = null;
@@ -46,6 +49,11 @@ public class SnkrsClient {
     }
 
     private static volatile SnkrsClient INSTANCE;
+
+    /**
+     * Metoda odpowiadająca za nawiązanie połączenia z serwerem,
+     * pobranie podstawowych danych z serwera
+     */
     public void connect(){
         connectionThread = new Thread(new ConnectionThread(storage));
         connectionThread.start();
@@ -61,31 +69,61 @@ public class SnkrsClient {
         return INSTANCE;
     }
 
+    /**
+     * Metoda odpowiadająca za logowanie się użytkownika na swój profil
+     * @param login zmienna String przechowująca login użytkownika
+     * @param password zmienna String przechowująca hasło uzytkownika
+     */
     public void auth(String login, String password){
         authThread = new Thread(new AuthThread(storage,login,password));
         authThread.start();
     }
 
+    /**
+     * Metoda odpowiadająca za tworzenie nowego użytkownika
+     * @param login zmienna String przechowująca login użytkownika
+     * @param password zmienna String przechowująca hasło uzytkownika
+     * @param name zmienna String przechowująca nazwę użytkownika
+     */
     public void auth(String login, String password, String name){
         authThread = new Thread(new AuthThread(storage,login,password,name));
         authThread.start();
     }
 
+    /**
+     * Metoda odpowiadająca za edytowanie danych użytkownika
+     * @param login zmienna String przechowująca login użytkownika
+     * @param password zmienna String przechowująca hasło uzytkownika
+     * @param name zmienna String przechowująca nazwę użytkownika
+     */
     public void updateUser(String login, String password, String name){
         updateThread = new Thread(new UpdateThread(storage,login,name,password));
         updateThread.start();
     }
 
+    /**
+     * Metoda odpowiadająca za aktualizację ulubionych butów użytkownika
+     * @param email zmienna String przechowująca email użytkownika
+     * @param favoriteShoesList lista ulubionych butów użytkownika
+     */
     public void updateFavorite(String email,List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList){
         updateThread = new Thread(new UpdateThread(storage,email,favoriteShoesList));
         updateThread.start();
     }
 
+    /**
+     * Metoda odpowiadająca za aktualizację listy butów bazowych
+     * @param email zmienna String przechowująca email użytkownika
+     * @param baseShoesList lista baz butów użytkownika
+     */
     public void updateBase(String email, List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList){
         updateThread = new Thread(new UpdateThread(email,baseShoesList));
         updateThread.start();
     }
 
+    /**
+     * Wątek do łączenia się z serwerem i pobierania podstawowych danych
+     */
     class ConnectionThread implements Runnable {
 
         private PrintWriter output;
@@ -137,6 +175,9 @@ public class SnkrsClient {
 
     }//ConnectionThread
 
+    /**
+     * Wątek odpowiedzialny za logowanie i rejestracje użytkownika
+     */
     class AuthThread implements Runnable{
 
         private PrintWriter output;
@@ -203,6 +244,9 @@ public class SnkrsClient {
         }//run
     }//AuthThread
 
+    /**
+     * Wątek odpowiedzialny za wykonywanie aktualizacji danych
+     */
     class UpdateThread implements Runnable{
 
         private PrintWriter output;
@@ -282,7 +326,14 @@ public class SnkrsClient {
         }//run
     }//AuthThread
 
-
+    /**
+     * Metoda odpowiadająca za porabnie z serwera listy marek butów
+     * @param output strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     * @param objectInputStream strumień wejścia dla obiektów, w tym przypadku dla listy marek butów
+     * @param storage instancja klasy odpowiedzialnej za kolekcjonowanie danych otrzymanych z serwera
+     * @throws IOException wyjątek strumienia wejścia i wyjścia
+     * @throws ClassNotFoundException wjątek obsługujący pobraną klasę
+     */
     private void getBrands(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
         output.println("brands");
         storage.setBrandList(Collections.unmodifiableList((List<Brand>) objectInputStream.readObject()));
@@ -290,6 +341,10 @@ public class SnkrsClient {
         insertBrandsToRoom(storage.getBrandList());
     }
 
+    /**
+     * Metoda odpowiadająca za dodawanie danych do lokalnej bazy danych, w tym przypadku listy marek butów
+     * @param brandList lista marek butów
+     */
     private void insertBrandsToRoom(List<Brand> brandList){
         repo.deleteAllBase();
         repo.deleteAllFavorites();
@@ -304,6 +359,14 @@ public class SnkrsClient {
         }
     }
 
+    /**
+     * Metoda odpowiadająca za pobranie butów z bazy danych
+     * @param output strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     * @param objectInputStream strumień wejścia dla obiektów, w tym przypadku dla listy marek butów
+     * @param storage instancja klasy odpowiedzialnej za kolekcjonowanie danych otrzymanych z serwera
+     * @throws IOException wyjątek strumienia wejścia i wyjścia
+     * @throws ClassNotFoundException wjątek obsługujący pobraną klasę
+     */
     private void getShoes(PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
         output.println("shoes");
         storage.setShoesList(Collections.unmodifiableList((List<Shoes>) objectInputStream.readObject()));
@@ -311,6 +374,10 @@ public class SnkrsClient {
         insertShoesToRoom(storage.getShoesList());
     }
 
+    /**
+     * Metoda odpowiadająca za dodawanie danych do lokalnej bazy danych, w tym przypadku listy butów
+     * @param shoesList lista butów
+     */
     private void insertShoesToRoom(List<Shoes> shoesList){
         com.skowronsky.snkrs.database.Shoes shoes = null;
         for (int i = 0; i < shoesList.size(); i++) {
@@ -324,6 +391,16 @@ public class SnkrsClient {
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za pobranie informacji o użytkowniku z bazy danych
+     * @param login zmienna przechowująca login użytkownika
+     * @param password zmienna przechowująca hasło użytkownika
+     * @param output strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     * @param objectInputStream strumień wejścia dla obiektów, w tym przypadku dla listy marek butów
+     * @param storage instancja klasy odpowiedzialnej za kolekcjonowanie danych otrzymanych z serwera
+     * @throws IOException wyjątek strumienia wejścia i wyjścia
+     * @throws ClassNotFoundException wjątek obsługujący pobraną klasę
+     */
     private void getUser(String login, String password, PrintWriter output, ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
         output.println("login");
         output.println(login);
@@ -337,6 +414,10 @@ public class SnkrsClient {
 //        Log.i("User",storage.getUser().getEmail());
     }
 
+    /**
+     * Metoda odpowiadająca za dodawanie danych do lokalnej bazy danych, w tym przypadku listy baz butów
+     * @param baseShoes lista baz użytkownika
+     */
     private void insertBaseShoesToRoom(List<BaseShoes> baseShoes){
 //        repo.deleteAllBase();
         Base base = null;
@@ -350,6 +431,10 @@ public class SnkrsClient {
         }
     }
 
+    /**
+     * Metoda odpowiadająca za dodawanie danych do lokalnej bazy danych, w tym przypadku listy ulubionych butów
+     * @param favoriteShoesList lista ulubionych butów użytkownika
+     */
     private void insertFavoriteShoesToRoom(List<FavoriteShoes> favoriteShoesList){
 //        repo.deleteAllFavorites();
         Favorite favorite = null;
@@ -363,6 +448,17 @@ public class SnkrsClient {
         }
     }
 
+    /**
+     * Metoda odpowiadająca za utworzenie użytkownika
+     * @param login zmienna przechowująca login użytkownika
+     * @param password zmienna przechowująca hasło użytkownika
+     * @param name zmienna przechowująca nazwę użytkownika
+     * @param output strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     * @param objectInputStream strumień wejścia dla obiektów, w tym przypadku dla listy marek butów
+     * @param storage instancja klasy odpowiedzialnej za kolekcjonowanie danych otrzymanych z serwera
+     * @throws IOException wyjątek strumienia wejścia i wyjścia
+     * @throws ClassNotFoundException wjątek obsługujący pobraną klasę
+     */
     private void createUser(String login, String password, String name, PrintWriter output,ObjectInputStream objectInputStream, Storage storage) throws IOException, ClassNotFoundException {
 
         output.println("signup");
@@ -377,6 +473,13 @@ public class SnkrsClient {
             Log.i("User",storage.getUser().getEmail());
     }
 
+    /**
+     * Metoda odpowiadająca za aktualizację danych użytkownika
+     * @param login zmienna przechowująca login użytkownika
+     * @param password zmienna przechowująca hasło użytkownika
+     * @param name zmienna przechowująca nazwę użytkownika
+     * @param out strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     */
     private void updateUser(String login, String password, String name, PrintWriter out) {
         out.println("update");
         out.println(login);
@@ -386,6 +489,12 @@ public class SnkrsClient {
 //        storage.setUser(new User());
     }
 
+    /**
+     * Metoda odpowiedzialnia za aktualizację listy ulubionych butów użytkownika
+     * @param login zmienna przechowująca login użytkownika
+     * @param favoriteShoesList lista ulubionych butów użytkownika
+     * @param out strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     */
     private void updateFavoriteShoes(String login, List<com.skowronsky.snkrs.database.FavoriteShoes> favoriteShoesList, PrintWriter out){
         out.println("fav");
         out.println(login);
@@ -398,6 +507,12 @@ public class SnkrsClient {
 
     }
 
+    /**
+     * Metoda odpowiedzialna za aktualizację baz butów użytkownika
+     * @param login zmienna przechowująca login użytkownika
+     * @param baseShoesList lista baz butów użytkownika
+     * @param out strumień wyjścia odpowiedzialny za rozkazy skierowane do serwera jaką czynność ma wykonać
+     */
     private void updateBaseShoes(String login, List<com.skowronsky.snkrs.database.BaseShoes> baseShoesList, PrintWriter out){
         out.println("base");
         out.println(login);

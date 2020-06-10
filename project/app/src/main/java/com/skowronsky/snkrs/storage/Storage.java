@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Klasa kolekcjonowania danych otrzymanych z serwera
+ */
 public class Storage {
     private List<Brand> brandList;
     private List<Shoes> shoesList;

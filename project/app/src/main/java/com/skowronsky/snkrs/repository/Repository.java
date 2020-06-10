@@ -22,7 +22,7 @@ import com.skowronsky.snkrs.database.SneakersDatabase;
 import java.util.List;
 
 /**
- * Klasa w której znajdują się metody pośredniczące między bazą danych a aplikacją
+ * Klasa w której znajdują się metody pośredniczące między lokalną bazą danych a aplikacją
  */
 public class Repository {
     private BrandDao mBrandDao;
