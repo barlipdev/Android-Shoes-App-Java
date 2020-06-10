@@ -8,229 +8,108 @@
             name="shoesInfoViewModel"
             type="com.skowronsky.snkrs.ui.home.add.shoeinfo.ShoeInfoViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+       <com.google.android.material.appbar.AppBarLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/appBarLayout"
+           android:background="@color/design_default_color_background">
+
+           <com.google.android.material.appbar.CollapsingToolbarLayout
+               android:layout_width="match_parent"
+               android:layout_height="400dp"
+               app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+               app:contentScrim="@color/colorPrimary">
+
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="300dp"
+                   android:id="@+id/imageView"
+                   app:layout_collapseMode="parallax"
+                   android:scaleType="centerCrop"
+                   android:layout_marginTop="30dp"
+                   android:layout_marginBottom="30dp"/>
+               <androidx.appcompat.widget.Toolbar
+                   android:layout_width="match_parent"
+                   android:layout_height="?attr/actionBarSize"
+                   app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                   app:layout_collapseMode="pin"/>
+
+           </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+       </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:layout_anchor="@id/appBarLayout"
+            app:layout_anchorGravity="bottom|right|end"
+            android:layout_marginEnd="32dp"
+            android:id="@+id/addBaseButton"/>
+
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-            <LinearLayout
-                android:id="@+id/linearLayout4"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/shoe_model"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_marginLeft="5dp"
+                    android:text="@{shoesInfoViewModel.shoe_model}"
+                    android:textSize="32dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/shoe_brand"
+                    app:layout_constraintEnd_toStartOf="@+id/shoe_brand"
+                    app:layout_constraintHorizontal_bias="0.00029"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shoe_brand" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/shoe_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{shoesInfoViewModel.shoe_brand}"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.029"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/shoe_model" />
 
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/imageView"
-                                android:layout_width="match_parent"
-                                android:layout_height="270dp"
-                                android:src="@drawable/city" />
-
-                            <ToggleButton
-                                android:id="@+id/followButton"
-                                style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginTop="214dp"
-                                android:layout_marginEnd="21dp"
-                                android:textOff="Follow"
-                                android:textOn="Unfollow"
-                                android:visibility="invisible" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/model_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="@{shoesInfoViewModel.shoe_model}"
-                            android:textSize="30sp" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tablayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    app:layout_constraintBottom_toTopOf="@+id/viewpager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/shoe_brand" />
 
-                <androidx.cardview.widget.CardView
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tablayout" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/prefer_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Choose size"
-                            android:textAlignment="center"
-                            android:textSize="20sp" />
-
-                        <androidx.core.widget.NestedScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp">
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="100dp"
-                                android:layout_margin="10dp">
-
-                                <RadioGroup
-                                    android:id="@+id/rg"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-                                    <RadioButton
-                                        android:id="@+id/rb1"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 38\t|UK: 3\t|CM: 22.5\t|US: 4 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 38.5\t|UK: 3.5\t|CM: 23\t|US: 4.5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb3"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 39\t|UK: 4\t|CM: 23.5\t|US: 5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb4"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 39.5\t|UK: 4.5\t|CM: 23\t|US: 5.5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb5"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 40\t|UK: 5\t|CM: 23.5\t|US: 6 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb6"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 40.5\t|UK: 5.5\t|CM: 23.5\t|US: 6.5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb7"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 41\t|UK: 6\t|CM: 24\t|US: 7 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb8"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 41.5\t|UK: 6.5\t|CM: 24.5\t|US: 7.5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb9"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 42\t|UK: 7\t|CM: 25\t|US: 8 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb10"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 42.5\t|UK: 7.5\t|CM: 25.5\t|US: 8.5 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb11"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 43\t|UK: 8\t|CM: 26\t|US: 9 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb12"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 43.5\t|UK: 8.5\t|CM: 26.5\t|US: 9.5 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb13"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 44\t|UK: 9\t|CM: 27\t|US: 10 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb14"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 44.5\t|UK: 9.5\t|CM: 27.5\t|US: 10.5 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb15"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 45\t|UK: 10\t|CM: 28\t|US: 11 "/>
-
-                                    <RadioButton
-                                        android:id="@+id/rb16"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 45.5\t|UK: 10.5\t|CM: 28.5\t|US: 11.5 " />
-
-                                    <RadioButton
-                                        android:id="@+id/rb17"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="EU: 46\t|UK: 11\t|CM: 29\t|US: 12 " />
-
-                                </RadioGroup>
-                            </androidx.cardview.widget.CardView>
-                        </androidx.core.widget.NestedScrollView>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <Button
-            android:id="@+id/saveButton"
-            style="@style/Widget.AppCompat.Button.Colored.RoundedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="50dp"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
-            app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
-            app:layout_constraintStart_toStartOf="@+id/nestedScrollView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

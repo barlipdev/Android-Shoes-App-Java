@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        SwipeHelper swipeHelper = new SwipeHelper(getContext(),recyclerView,300){
+        SwipeHelper swipeHelper = new SwipeHelper(getContext(),recyclerView,100){
             public void instantiateOnSwipeButton(RecyclerView.ViewHolder viewHolder, List<com.skowronsky.snkrs.ui.home.SwipeHelper.OnSwipeButton> buffer) {
                 buffer.add(new OnSwipeButton(requireContext(),
                         "Delete",
@@ -97,10 +97,15 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Metoda odpowiadająca za wykonanie nawigacji do danego fragmentu, w tym przypadku do wyboru nowej bazy
+     */
     private void navigateToInfo(){
         NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_brandListFragment);
     }
-
+    /**
+     * Metoda odpowiadająca za wykonanie nawigacji do danego fragmentu, w tym przypadku do wyboru buta na podstawie bazy
+     */
     private void navigateToHome(){
         NavHostFragment.findNavController(this).navigate(R.id.action_homeBase_to_navigation_home);
     }

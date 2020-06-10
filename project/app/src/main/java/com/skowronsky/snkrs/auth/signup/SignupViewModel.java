@@ -34,6 +34,10 @@ public class SignupViewModel extends AndroidViewModel {
             eventSignup = new MutableLiveData<Boolean>();
         return eventSignup;
     }
+
+    /**
+     * Metoda odpowiadająca za przeprowadzenie rejestracji konta uzytkownika
+     */
     public void signup(){
         if(email.getValue().length() > 0 && password.getValue().length()>0 && username.getValue().length() > 0)
             snkrsClient.auth(email.getValue(),password.getValue(),username.getValue());
@@ -51,10 +55,17 @@ public class SignupViewModel extends AndroidViewModel {
             eventNavToLogin = new MutableLiveData<Boolean>();
         return eventNavToLogin;
     }
-
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora
+     * aby wykonała sie nawigacja do danego fragmentu
+     */
     public void setEventNavToLogin(){
         eventNavToLogin.setValue(true);
     }
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na false w celu poinformowania obserwatora
+     * że nawigacja do danego fragmentu się zakończyła
+     */
     public void eventNavToLoginFinished(){
         eventNavToLogin.setValue(false);
     }

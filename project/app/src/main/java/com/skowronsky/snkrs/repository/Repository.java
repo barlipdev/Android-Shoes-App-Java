@@ -21,6 +21,9 @@ import com.skowronsky.snkrs.database.SneakersDatabase;
 
 import java.util.List;
 
+/**
+ * Klasa w której znajdują się metody pośredniczące między bazą danych a aplikacją
+ */
 public class Repository {
     private BrandDao mBrandDao;
     private LiveData<List<Brand>> mAllBrands;
@@ -74,24 +77,39 @@ public class Repository {
         return mAllFavorite;
     }
 
+    /**
+     * Metoda odpowiadająca za dodanie ulubionego buta do bazy danych
+     * @param favorite ulubiony but
+     */
     public void insertFavorite(Favorite favorite){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mFavoriteDao.insert(favorite);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za dodanie listy ulubionych butów do bazy danych
+     * @param favorite liczba ulubionych butów
+     */
     public void insertAllFavorite(List<Favorite> favorite){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mFavoriteDao.insertAll(favorite);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie wszystkich ulubionych butów uzytkownika
+     */
     public void deleteAllFavorites(){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mFavoriteDao.deleteAll();
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie przekzanego ulubionego buta
+     * @param favorite ulubiony but
+     */
     public void deleteFavorite(Favorite favorite){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mFavoriteDao.delete(favorite);
@@ -110,23 +128,39 @@ public class Repository {
         return mAllBrands;
     }
 
+    /**
+     * Metoda odpowiadająca za dodanie marki do bazy danych
+     * @param brand marka buta
+     */
     public void insertBrand(Brand brand){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBrandDao.insert(brand);
         });
     }
+
+    /**
+     * Metoda odpowiadająca za dodanie listy marek do bazy danych
+     * @param brands lista marek butów
+     */
     public void insertAllBrands(List<Brand> brands){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBrandDao.insertAll(brands);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie z bazy danych marki przekazanej przez parametr
+     * @param brand marka buta
+     */
     public void delete(Brand brand){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBrandDao.delete(brand);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie wszystkich marek butów z bazy danych
+     */
     public void deleteAllBrands(){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBrandDao.deleteAll();
@@ -141,23 +175,39 @@ public class Repository {
         return mShoesDao.getShoes(idShoes);
     }
 
+    /**
+     * Metoda odpowiadająca za dodanie buta do bazy danych
+     * @param shoes but który ma zostać dodany
+     */
     public void insertShoes(Shoes shoes){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.insert(shoes);
         });
     }
+
+    /**
+     * Metoda odpowiadająca za dodanie listy butów do bazy danych
+     * @param shoes lista butów
+     */
     public void insertAllShoes(List<Shoes> shoes){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.insertAll(shoes);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usuniecie z bazy danych buta przekazanego przez parametr
+     * @param shoes but który ma zostać usunięty
+     */
     public void delete(Shoes shoes){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.delete(shoes);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie wszystkich butów z bazy danych
+     */
     public void deleteAllShoes(){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mShoesDao.deleteAll();
@@ -168,18 +218,29 @@ public class Repository {
         return mAllBase;
     }
 
+    /**
+     * Metoda odpowiadająca za dodanie bazy buta do bazy danych
+     * @param base baza buta która ma zostać dodana
+     */
     public void insertBase(Base base){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBaseDao.insert(base);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie z bazy danych bazy która jest przekazana przez parametr
+     * @param base baza która ma zostać usunięta
+     */
     public void delete(Base base){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBaseDao.delete(base);
         });
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie wszystkich baz z bazy danych
+     */
     public void deleteAllBase(){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             mBaseDao.deleteAll();

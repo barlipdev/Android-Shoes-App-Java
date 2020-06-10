@@ -63,6 +63,10 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         return shoesList.size();
     }
 
+    /**
+     * Metoda która ustawia listę butów dla recyclerView
+     * @param shoes lista butów które mają być ustawione
+     */
     public void setAllShoes(List<com.skowronsky.snkrs.database.Shoes> shoes){
         for(int i=0;i<shoes.size();i++){
         if (shoes.get(i).brand_name.equals(navigationStorage.getBrand())){

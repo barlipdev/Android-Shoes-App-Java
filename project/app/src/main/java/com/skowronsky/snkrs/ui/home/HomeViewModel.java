@@ -15,16 +15,15 @@ import com.skowronsky.snkrs.storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ViewModel fragmentu Home, tutaj odbywa się cała logika biznesowa dla fragmentu Home
+ */
 public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> homeNav;
     private MutableLiveData<Boolean> infoNav;
-    private MutableLiveData<ArrayList<Shoes>> ShoesLiveData;
-    private MutableLiveData<ArrayList<String>> BaseLiveData;
-    private ArrayList<Shoes> shoesList;
     private LiveData<List<BaseShoes>> allBaseShoes;
     private Repository repository;
-
     private Storage storage;
     private SnkrsClient snkrsClient;
 
@@ -32,13 +31,14 @@ public class HomeViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
         allBaseShoes = repository.getAllBaseShoes();
-        this.BaseLiveData = new MutableLiveData<ArrayList<String>>();
-        this.shoesList = new ArrayList<Shoes>();
-
         storage = Storage.getInstance();
         snkrsClient = SnkrsClient.getInstance(storage,application);
     }
 
+    /**
+     * Metoda odpowiadająca za update list baz użytkownika, ustawia ona listę baz przekazaną przez parametr danemu uzytkownikowi
+     * @param baseShoesList lista baz butów użytkownika
+     */
     public void updateBaseShoes(List<BaseShoes> baseShoesList){
         snkrsClient.updateBase(storage.getUser().getEmail(),baseShoesList);
     }
@@ -55,25 +55,38 @@ public class HomeViewModel extends AndroidViewModel {
         return homeNav;
     }
 
-    public LiveData<ArrayList<Shoes>> getShoesLiveData()
-    {
-        if (ShoesLiveData == null)
-            ShoesLiveData = new MutableLiveData<>();
-        return ShoesLiveData;
-    }
-
     LiveData<List<BaseShoes>> getAllBaseShoes() {return allBaseShoes;}
 
-
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora
+     * aby wykonała sie nawigacja do danego fragmentu
+     */
     public void eventNavToHome(){ homeNav.setValue(true);
     }
+
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na false w celu poinformowania obserwatora
+     * że nawigacja do danego fragmentu się zakończyła
+     */
     public void eventNavToHomeFinished(){
         homeNav.setValue(false);
     }
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora
+     * aby wykonała sie nawigacja do danego fragmentu
+     */
     public void eventNavToInfo(){infoNav.setValue(true);}
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na false w celu poinformowania obserwatora
+     * że nawigacja do danego fragmentu się zakończyła
+     */
     public void eventNavToInfoFinished(){infoNav.setValue(false);}
-    public void eventBaseSet(ArrayList<String> base_info){BaseLiveData.setValue(base_info);}
 
+    /**
+     * Metoda która usuwa bazę która zawiera danego buta oraz dany rozmiar
+     * @param shoe obiekt buta który znajduje się w bazie
+     * @param size rozmiar buta który znajduje się w bazie
+     */
     public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){
         String model_name = shoe.modelName;
         for (int i = 0; i < allBaseShoes.getValue().size(); i++){

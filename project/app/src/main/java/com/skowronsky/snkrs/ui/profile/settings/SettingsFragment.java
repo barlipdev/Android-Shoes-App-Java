@@ -60,6 +60,11 @@ public class SettingsFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+    /**
+     * Metoda odpowiadająca za nawigację do odpowiedniego fragmentu,
+     * w tym przypadku do fragmentu profilu uźytkownika
+     */
     private void navigateToProfile(){
         NavHostFragment.findNavController(this).navigate(R.id.action_settingsFragment_to_navigation_profile);
     }

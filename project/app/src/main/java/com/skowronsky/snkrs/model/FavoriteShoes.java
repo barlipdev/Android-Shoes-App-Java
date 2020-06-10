@@ -2,6 +2,9 @@ package com.skowronsky.snkrs.model;
 
 import java.io.Serializable;
 
+/**
+ * Klasa odpowiedzialnia za przechowywanie ulubionego buta
+ */
 public class FavoriteShoes implements Serializable {
     int idFavorite;
     int idBase;

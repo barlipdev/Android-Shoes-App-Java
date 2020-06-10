@@ -40,9 +40,17 @@ public class ProfileViewModel extends AndroidViewModel {
         return repository.getBaseShoes(idBase);
     }
 
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora
+     * aby wykonała sie nawigacja do danego fragmentu
+     */
     public void eventNavToSettings(){
         settingsNav.setValue(true);
     }
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na false w celu poinformowania obserwatora
+     * że nawigacja do danego fragmentu się zakończyła
+     */
     public void eventNavToSettingsFinished(){
         settingsNav.setValue(false);
     }

@@ -62,6 +62,10 @@ public class BrandListFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Metoda odpowiadająca za nawigację do odpowiedniego fragmentu,
+     * w tym przypadku do listy butów danej marki
+     */
     private void navigateToShoes(){
         NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_shoesFragment22);
     }

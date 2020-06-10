@@ -33,7 +33,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     private List<OnSwipeButton> buttonList;
     private GestureDetector gestureDetector;
     private int swipePosition = -1;
-    private float swipeThreshold = 0.5f;
+    private float swipeThreshold = 5.0f;
     private Map<Integer,List<OnSwipeButton>> buttonBuffer;
     private Queue<Integer> removerQueue;
 
@@ -232,11 +232,11 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 else{
                     buffer = buttonBuffer.get(pos);
                 }
-                translationX = dX*buffer.size()*buttonWidth / itemView.getWidth();
+                translationX = dX*buffer.size()*buttonWidth/ itemView.getWidth();
                 drawButton(c,itemView,buffer,pos,translationX);
             }
         }
-        super.onChildDraw(c,recyclerView,viewHolder,translationX,dY,actionState,isCurrentlyActive);
+        super.onChildDraw(c,recyclerView,viewHolder,translationX*5,dY,actionState,isCurrentlyActive);
     }
 
     private void drawButton(Canvas c, View itemView, List<OnSwipeButton> buffer, int pos, float translationX) {

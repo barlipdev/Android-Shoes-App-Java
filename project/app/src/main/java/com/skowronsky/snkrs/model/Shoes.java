@@ -2,6 +2,9 @@ package com.skowronsky.snkrs.model;
 
 import java.io.Serializable;
 
+/**
+ * Klasa odpowiedzialna za przechowywanie buta
+ */
 public class Shoes implements Serializable {
     private int id;
     private String brandName;

@@ -45,6 +45,10 @@ public class FavoriteShoesAdapter extends RecyclerView.Adapter<FavoriteShoesAdap
         return favoriteShoesList.size();
     }
 
+    /**
+     * Metoda odpowiadająca za ustawienie listy ulubionych butów przekazanej przez parametr dla recyclerView
+     * @param favoriteShoesList lista ulubionych butów
+     */
     public void setFavoriteShoesList(List<FavoriteShoes> favoriteShoesList){
         this.favoriteShoesList = favoriteShoesList;
         notifyDataSetChanged();

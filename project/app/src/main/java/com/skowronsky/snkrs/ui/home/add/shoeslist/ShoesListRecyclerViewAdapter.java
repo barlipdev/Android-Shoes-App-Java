@@ -65,6 +65,10 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         return shoesList.size();
     }
 
+    /**
+     * Metoda ustawiająca listę butów dla recyclerView
+     * @param shoesList lista butów
+     */
     public void setShoesList(List<Shoes> shoesList){
         for(int i=0;i<shoesList.size();i++){
             if (shoesList.get(i).brand_name.equals(navigationStorage.getBrand())){

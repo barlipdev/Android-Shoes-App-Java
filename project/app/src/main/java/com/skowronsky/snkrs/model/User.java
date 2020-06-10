@@ -3,6 +3,9 @@ package com.skowronsky.snkrs.model;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Klasa odpowiedzialna za przechowywanie informacji o uźytkowniku
+ */
 public class User implements Serializable {
     private String email;
     private String name;
