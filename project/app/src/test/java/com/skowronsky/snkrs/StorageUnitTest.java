@@ -2,9 +2,11 @@ package com.skowronsky.snkrs;
 
 import android.content.Context;
 
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.model.Brand;
 import com.skowronsky.snkrs.model.Shoes;
 import com.skowronsky.snkrs.model.User;
+import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.skowronsky.snkrs.storage.Storage;
 
 import org.junit.Test;
@@ -21,6 +23,8 @@ import static org.junit.Assert.*;
 public class StorageUnitTest {
 
     Storage storage = Storage.getInstance();
+
+    NavigationStorage navigationStorage = NavigationStorage.getInstance();
 
     @Test
     public void storageBrandList(){
@@ -46,4 +50,21 @@ public class StorageUnitTest {
         storage.setUser(user);
         assertEquals("Storage user email check","email",storage.getUser().getEmail());
     }
+
+    @Test
+    public void navigationStorageShoe(){
+        com.skowronsky.snkrs.database.Shoes shoe = new com.skowronsky.snkrs.database.Shoes();
+        navigationStorage.setShoe(shoe);
+        assertEquals("Shoes NavigationStorage",shoe,navigationStorage.getShoe());
+    }
+
+    @Test
+    public void navigationStorageBaseShoes(){
+        navigationStorage = NavigationStorage.getInstance();
+        BaseShoes baseShoes = new BaseShoes();
+        navigationStorage.setBaseShoe(baseShoes);
+        assertEquals("BaseShoes NavigationStorage",baseShoes,navigationStorage.getBaseShoe());
+
+    }
+
 }
