@@ -2,6 +2,9 @@ package com.skowronsky.snkrs.model;
 
 import java.io.Serializable;
 
+/**
+ * Klasa odpowiadająca za przechowywanie marek butów
+ */
 public class Brand implements Serializable {
     private int id;
     private String name;

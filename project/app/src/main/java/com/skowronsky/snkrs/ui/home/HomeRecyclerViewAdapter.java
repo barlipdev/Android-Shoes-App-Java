@@ -22,9 +22,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter RecyclerView prezentujący listę posiadanych baz
+ */
 public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     Acitivity context;
-    ArrayList<String> baseInfo;
     HomeViewModel shoesViewModel;
     List<BaseShoes> baseShoesList;
     NavigationStorage navigationStorage;
@@ -33,11 +35,8 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
         this.context = context;
         this.shoesViewModel = homeViewModel;
         baseShoesList = new ArrayList<>();
-        this.baseInfo = new ArrayList<String>();
         this.navigationStorage = NavigationStorage.getInstance();
     }
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,8 +51,7 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
         viewHolder.shoe_company.setText(shoes.brand_name);
         viewHolder.shoe_model.setText(shoes.modelName);
-       // baseShoes = shoesViewModel.getAllBaseShoes().getValue();
-        viewHolder.base_size.setText("Base size: "+String.valueOf(baseShoesList.get(position).base.size));
+        viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));
         if (shoes.image!=null){
             Picasso.with((Context) context).load(shoes.image).into(
                     viewHolder.imageView);
@@ -62,12 +60,6 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
             @Override
             public void onClick(View view) {
                 navigationStorage.setBaseShoe(baseShoesList.get(position));
-                baseInfo.add(String.valueOf(shoes.brand_name));
-                baseInfo.add(String.valueOf(shoes.modelName));
-                baseInfo.add(String.valueOf(baseShoesList.get(position).base.size));
-                baseInfo.add(String.valueOf(shoes.image));
-                baseInfo.add(String.valueOf(baseShoesList.get(position).base.id_base));
-                shoesViewModel.eventBaseSet(baseInfo);
                 shoesViewModel.eventNavToInfo();
             }
         });
@@ -78,10 +70,18 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
         return baseShoesList.size();
     }
 
+    /**
+     * Metoda odpowiadająca za ustawienie listy dla recyclerview
+     * @param baseShoesList lista baz butów
+     */
     public void setBaseShoes(List<BaseShoes> baseShoesList){
         this.baseShoesList = baseShoesList;
         notifyDataSetChanged();
     }
+    /**
+     * Metoda która usuwa element z listy baz butów, na którym w danej chwili operujemy
+     * @param pos zmienna wskazująca dany element na którym pracujemy, index elementu
+     */
     public void delete(int pos){
         shoesViewModel.deleteBaseShoes(baseShoesList.get(pos).shoes,baseShoesList.get(pos).base.size);
         notifyDataSetChanged();

@@ -62,6 +62,10 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         return brandList.size();
     }
 
+    /**
+     * Metoda ustawiająca listę marek które ma wyświetlić recyclerView
+     * @param brandList lista marek butów
+     */
     public void setBrandList(List<com.skowronsky.snkrs.database.Brand> brandList) {
         this.brandList = brandList;
         notifyDataSetChanged();

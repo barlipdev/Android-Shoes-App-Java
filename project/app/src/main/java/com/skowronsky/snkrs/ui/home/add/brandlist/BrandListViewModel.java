@@ -33,10 +33,17 @@ public class BrandListViewModel extends AndroidViewModel {
             ShoesNav = new MutableLiveData<Boolean>();
         return ShoesNav;
     }
-
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora
+     * aby wykonała sie nawigacja do danego fragmentu
+     */
     public void eventNavToShoes(){
         ShoesNav.setValue(true);
     }
+    /**
+     * Metoda zwana eventem która ustawia wartość LiveData na false w celu poinformowania obserwatora
+     * że nawigacja do danego fragmentu się zakończyła
+     */
     public void eventNavToShoesFinished(){
         ShoesNav.setValue(false);
     }

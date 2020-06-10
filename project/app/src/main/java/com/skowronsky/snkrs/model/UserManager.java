@@ -1,5 +1,8 @@
 package com.skowronsky.snkrs.model;
 
+/**
+ * Klasa odpowiedzialna za wykonywanie działań tyczących się uźytkownika
+ */
 public class UserManager{
     private User user;
     public UserManager(User user){

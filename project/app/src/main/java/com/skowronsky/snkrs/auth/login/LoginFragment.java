@@ -67,6 +67,10 @@ public class LoginFragment extends Fragment {
 
         return binding.getRoot();
     }
+    /**
+     * Metoda odpowiadająca za wykonanie nawigacji do odpowiedniego fragmentu,
+     * w tym przypadku do fragmentu zakladania konta
+     */
     private void navigateToSignup(){
         NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_signupFragment);
     }

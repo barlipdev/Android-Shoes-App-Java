@@ -73,6 +73,10 @@ public class ShoesListFragment extends Fragment {
         return shoesListFragmentBinding.getRoot();
     }
 
+    /**
+     * Metoda odpowiedzialna za wykoanie nawigacji do danego fragmentu,
+     * w tym przypadku do fragmentu z dokladnymi informacjami o bucie
+     */
     private void navigateToShoesInfo(){
         NavHostFragment.findNavController(this).navigate(R.id.action_shoesListFragment_to_shoeInfoFragment);
     }

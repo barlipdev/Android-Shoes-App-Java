@@ -38,11 +38,17 @@ public class SettingsViewModel extends AndroidViewModel {
         password.setValue(storage.getUser().getPassword());
     }
 
+    /**
+     * Metoda odpowiadająca za usunięcie z bazy lokalnej ulubionych butów i baz butów podczas wylogowywania
+     */
     public void logout(){
         repository.deleteAllFavorites();
         repository.deleteAllBase();
     }
 
+    /**
+     * Metoda odpowiadająca za udpate informacji o użytkowniku
+     */
     public void updateUserData(){
         if(password.getValue().length() > 0 && username.getValue().length() > 0){
             snkrsClient.updateUser(email.getValue(),password.getValue(),username.getValue());

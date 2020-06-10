@@ -29,7 +29,8 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_dashboard_to_homeBase"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_scale_animation" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -67,7 +68,8 @@
         android:label="ShoesInformationFragment" >
         <action
             android:id="@+id/action_shoesInformationFragment2_to_homeBase"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_scale_animation" />
         <argument
             android:name="Shoeinfo"
             app:argType="string" />

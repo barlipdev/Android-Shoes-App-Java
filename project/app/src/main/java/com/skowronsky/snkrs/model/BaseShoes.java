@@ -2,6 +2,9 @@ package com.skowronsky.snkrs.model;
 
 import java.io.Serializable;
 
+/**
+ * Klasa odpowiadająca za przechowayanie bazy buta
+ */
 public class BaseShoes implements Serializable {
     int id_shoes;
     double size;
