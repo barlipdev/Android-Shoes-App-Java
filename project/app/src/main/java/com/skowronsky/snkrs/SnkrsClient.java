@@ -49,7 +49,6 @@ public class SnkrsClient {
     }
 
     private static volatile SnkrsClient INSTANCE;
-
     /**
      * Metoda odpowiadająca za nawiązanie połączenia z serwerem,
      * pobranie podstawowych danych z serwera
