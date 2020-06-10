@@ -34,7 +34,7 @@ public class SnkrsClient {
     Thread updateThread = null;
 
     String SERVER_IP = "192.168.1.12";
-    int SERVER_PORT = 59895;
+    int SERVER_PORT = 59896;
 
     private Repository repo;
     private Storage storage;
