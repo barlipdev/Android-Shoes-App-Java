@@ -13,29 +13,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.skowronsky.snkrs.MyApplication;
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.SnkrsClient;
-import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
-
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Random;
 
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel viewModel;
     private FragmentDashboardBinding binding;
 
-    SnkrsClient client;
-    private MyApplication appState;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        appState = ((MyApplication)this.getActivity().getApplication());
-        client = appState.snkrsClient;
 
         viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
@@ -50,7 +38,6 @@ public class DashboardFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     Log.i("myTag", "This is my message");
-                    connectToDataServer();
                     viewModel.connectFinished();
                 }
             }
@@ -70,9 +57,6 @@ public class DashboardFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void connectToDataServer(){
-        client.connect();
-    }
 
     private void disconnectFromDataServer(){
 //        viewModel.deleteAllBrand();

@@ -1,23 +1,15 @@
 package com.skowronsky.snkrs.ui.profile.settings;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.SnkrsClient;
-import com.skowronsky.snkrs.model.User;
-import com.skowronsky.snkrs.model.UserManager;
 import com.skowronsky.snkrs.repository.Repository;
-import com.skowronsky.snkrs.storage.Storage;
 
 public class SettingsViewModel extends AndroidViewModel {
 
-    private Storage storage = Storage.getInstance();
-    private SnkrsClient snkrsClient;
 
     private Repository repository;
 
@@ -32,27 +24,29 @@ public class SettingsViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
 
-        snkrsClient = SnkrsClient.getInstance(storage,application);
-        email.setValue(storage.getUser().getEmail());
-        username.setValue(storage.getUser().getName());
-        password.setValue(storage.getUser().getPassword());
+        email.setValue("1");
+        username.setValue("2");
+        password.setValue("3");
     }
 
     /**
      * Metoda odpowiadająca za usunięcie z bazy lokalnej ulubionych butów i baz butów podczas wylogowywania
      */
+    //TODO logout method
     public void logout(){
-        repository.deleteAllFavorites();
-        repository.deleteAllBase();
+//        repository.deleteAllFavorites();
+//        repository.deleteAllBase();
     }
 
     /**
      * Metoda odpowiadająca za udpate informacji o użytkowniku
      */
+
+    //TODO update user data
     public void updateUserData(){
         if(password.getValue().length() > 0 && username.getValue().length() > 0){
-            snkrsClient.updateUser(email.getValue(),password.getValue(),username.getValue());
-            storage.setUser(new User(email.getValue(),username.getValue(),password.getValue(),"photo"));
+//            snkrsClient.updateUser(email.getValue(),password.getValue(),username.getValue());
+//            storage.setUser(new User(email.getValue(),username.getValue(),password.getValue(),"photo"));
         }
     }
 

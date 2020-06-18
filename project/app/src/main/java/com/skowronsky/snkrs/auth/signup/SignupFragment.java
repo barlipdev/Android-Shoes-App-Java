@@ -10,24 +10,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.skowronsky.snkrs.MainActivity;
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.databinding.FragmentSignupBinding;
-import com.skowronsky.snkrs.storage.Storage;
 
 
 public class SignupFragment extends Fragment {
 
     private SignupViewModel viewModel;
     private FragmentSignupBinding binding;
-    private Storage storage;
-    private SnkrsClient snkrsClient;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,8 +32,6 @@ public class SignupFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_signup,container,false);
         binding.setSignupViewModel(viewModel);
         binding.setLifecycleOwner(this);
-
-        storage = Storage.getInstance();
 
         final LiveData<Boolean> loginNavigation = viewModel.getNavToLogin();
         loginNavigation.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -56,12 +50,10 @@ public class SignupFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     viewModel.signup();
-                    SystemClock.sleep(1000);
-                    if(storage.getUser() != null){
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
