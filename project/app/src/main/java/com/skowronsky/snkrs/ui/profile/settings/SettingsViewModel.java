@@ -6,12 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.skowronsky.snkrs.repository.Repository;
 
 public class SettingsViewModel extends AndroidViewModel {
 
 
     private Repository repository;
+
+    private FirebaseAuth mAuth;
 
     private MutableLiveData<Boolean> eventLogout;
     private MutableLiveData<Boolean> eventSave;
@@ -24,9 +27,11 @@ public class SettingsViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
 
-        email.setValue("1");
+        mAuth = FirebaseAuth.getInstance();
+
+        email.setValue(mAuth.getCurrentUser().getEmail());
         username.setValue("2");
-        password.setValue("3");
+        password.setValue("password");
     }
 
     /**
@@ -34,8 +39,7 @@ public class SettingsViewModel extends AndroidViewModel {
      */
     //TODO logout method
     public void logout(){
-//        repository.deleteAllFavorites();
-//        repository.deleteAllBase();
+        mAuth.signOut();
     }
 
     /**
