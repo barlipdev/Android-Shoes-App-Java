@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ShoesListViewModel extends AndroidViewModel {
 
-    private LiveData<List<Shoes>> allShoes;
+//    private LiveData<List<Shoes>> allShoes;
     private Repository repository;
     private MutableLiveData<Boolean> InfoNav;
 
@@ -22,11 +22,10 @@ public class ShoesListViewModel extends AndroidViewModel {
     public ShoesListViewModel(Application application) {
         super(application);
         repository = new Repository(application);
-        this.allShoes = repository.getAllShoes();
     }
 
     public LiveData<List<Shoes>> getAllShoes(){
-        return allShoes;
+        return  repository.getAllShoes();
     }
 
     public MutableLiveData<Boolean> getInfoNav(){

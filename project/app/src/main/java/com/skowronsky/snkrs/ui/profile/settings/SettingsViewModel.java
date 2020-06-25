@@ -18,6 +18,7 @@ public class SettingsViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> eventLogout;
     private MutableLiveData<Boolean> eventSave;
+
     public MutableLiveData<String> email = new MutableLiveData<>();
     public MutableLiveData<String> username = new MutableLiveData<>();
     public MutableLiveData<String> password = new MutableLiveData<>();

@@ -38,6 +38,8 @@ public class DashboardFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     Log.i("myTag", "This is my message");
+                    viewModel.connect();
+                    viewModel.text.setValue(viewModel.text.getValue() + "\na no nic");
                     viewModel.connectFinished();
                 }
             }
@@ -48,6 +50,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
+                    viewModel.text.setValue("");
                     viewModel.disconnectFinished();
                     disconnectFromDataServer();
                 }
@@ -66,7 +69,7 @@ public class DashboardFragment extends Fragment {
         shoesLiveData.observe(getViewLifecycleOwner(), new Observer<Shoes>() {
             @Override
             public void onChanged(Shoes shoes) {
-                Log.i("ROOM123", "\n"+shoes.modelName);
+                Log.i("Snkrs", "\n"+shoes.modelName);
 
             }
         });
