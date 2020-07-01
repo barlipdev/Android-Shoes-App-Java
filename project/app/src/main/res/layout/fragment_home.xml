@@ -22,7 +22,8 @@
             android:layout_marginBottom="60dp"
             android:layout_gravity="bottom|right"
             app:elevation="6dp"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"
+            app:fabSize="mini"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/baselist"

@@ -2,6 +2,7 @@ package com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,27 +11,45 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SizesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Acitivity context;
     private List<Size> sizes;
-    private EurSizesViewModel eurSizesViewModel;
     private NavigationStorage navigationStorage;
+    private EurSizesViewModel eurSizesViewModel;
     private int index;
     private String type_of_sizes;
+    private Size size;
+    public HashMap<Integer, RecyclerView.ViewHolder> holderlist;
+
 
     public SizesRecyclerViewAdapter(Acitivity context){
         this.context = context;
         this.navigationStorage = NavigationStorage.getInstance();
         this.sizes = new ArrayList<>();
+        this.size = new Size(-1,-1,-1);
+        holderlist = new HashMap<>();
+    }
+    public SizesRecyclerViewAdapter(Acitivity context, EurSizesViewModel eurSizesViewModel){
+        this.context = context;
+        this.navigationStorage = NavigationStorage.getInstance();
+        this.eurSizesViewModel = eurSizesViewModel;
+        this.sizes = new ArrayList<>();
+        this.size = new Size(-1,-1,-1);
+        holderlist = new HashMap<>();
     }
 
     @NonNull
@@ -43,6 +62,7 @@ public class SizesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
         final SizesRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (SizesRecyclerViewAdapter.RecyclerViewViewHolder) holder;
 
         if (type_of_sizes.equals("EU")){
@@ -55,22 +75,35 @@ public class SizesRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Re
             viewHolder.size.setText(String.valueOf(sizes.get(position).getUk()));
         }
 
+        if(!holderlist.containsKey(position)){
+            holderlist.put(position,holder);
+        }
+
+
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index = position;
+                //index = position;
                 navigationStorage.setSizes(sizes.get(position));
-                notifyDataSetChanged();
+                eurSizesViewModel.eventSetPos(position);
+                navigationStorage.setSize_pos(position);
+                //notifyDataSetChanged();
                 viewHolder.size.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
             }
         });
-        if (index == position) {
-            viewHolder.linearLayout.setBackgroundResource(R.drawable.sizes_border_light);
-            viewHolder.size.setTextColor(Color.parseColor("#ffffff"));
-        } else {
-            viewHolder.linearLayout.setBackgroundResource(R.drawable.sizes_border);
-            viewHolder.size.setTextColor(Color.parseColor("#9c9c9c"));
-        }
+        //if (index == position) {
+       //     viewHolder.linearLayout.setBackgroundResource(R.drawable.sizes_border_light);
+        //    viewHolder.size.setTextColor(Color.parseColor("#ffffff"));
+        //}
+    }
+
+    public RecyclerView.ViewHolder getViewByPosition(int pos){
+        return holderlist.get(pos);
+    }
+
+    public Size getSizeByPosition(int pos){
+        return sizes.get(pos);
     }
 
     @Override

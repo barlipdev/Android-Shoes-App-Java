@@ -2,6 +2,8 @@ package com.skowronsky.snkrs.ui.home.search.shoeslist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,24 @@ public class ShoesListFragment extends Fragment {
                 recyclerViewAdapter.setAllShoes(shoes);
             }
         });
+
+        shoesListFragmentBinding.searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    recyclerViewAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         final LiveData<Boolean> navInfo = mViewModel.getInfoNav();
         navInfo.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override

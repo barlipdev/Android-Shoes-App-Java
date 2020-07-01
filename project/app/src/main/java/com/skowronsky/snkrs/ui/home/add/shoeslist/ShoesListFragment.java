@@ -15,9 +15,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Shoes;
@@ -32,6 +36,7 @@ public class ShoesListFragment extends Fragment {
     private FragmentBaseselectorShoesListBinding shoesFragmentBinding;
     private RecyclerView recyclerView;
     private ShoesListRecyclerViewAdapter<Context> recyclerViewAdapter;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,6 +57,23 @@ public class ShoesListFragment extends Fragment {
             @Override
             public void onChanged(List<Shoes> shoes) {
                 recyclerViewAdapter.setShoesList(shoes);
+            }
+        });
+
+        shoesFragmentBinding.searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    recyclerViewAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

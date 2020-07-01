@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,9 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         com.skowronsky.snkrs.database.Brand brand = brands.get(position);
         final BrandListRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (BrandListRecyclerViewAdapter.RecyclerViewViewHolder) holder;
+
+        viewHolder.itemView.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
+
         Picasso.with((Context) context).load(brand.image).into(
                 viewHolder.company_photo);
         viewHolder.shoe_company.setVisibility(View.INVISIBLE);

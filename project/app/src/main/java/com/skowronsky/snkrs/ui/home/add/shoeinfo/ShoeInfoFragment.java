@@ -69,7 +69,7 @@ public class ShoeInfoFragment extends Fragment implements EurSizesFragment.OnFra
         shoesInformationFragmentBinding.addBaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoeInfoViewModel.addShoeToBase(navigationStorage.getSizes().getUs());
+                shoeInfoViewModel.addShoeToBase(navigationStorage.getSizes().getValue().getUs());
                 navigateToBase();
             }
         });
