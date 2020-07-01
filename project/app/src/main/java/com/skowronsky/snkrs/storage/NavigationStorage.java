@@ -1,5 +1,7 @@
 package com.skowronsky.snkrs.storage;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages.Size;
@@ -14,8 +16,9 @@ public class NavigationStorage {
     private Shoes shoe;
     private BaseShoes base_shoe;
     private String brand;
+    private int size_pos;
     private List<BaseShoes> baseShoes;
-    private Size sizes;
+    private MutableLiveData<Size> sizes = new MutableLiveData<Size>();
 
     private NavigationStorage(){}
 
@@ -36,6 +39,14 @@ public class NavigationStorage {
      */
     public void setShoe(Shoes shoe){
         this.shoe = shoe;
+    }
+
+    public void setSize_pos(int size_pos) {
+        this.size_pos = size_pos;
+    }
+
+    public int getSize_pos() {
+        return size_pos;
     }
 
     /**
@@ -82,11 +93,11 @@ public class NavigationStorage {
      * Metoda która ustawia obiekt klasy Size na ten przekazany przez parametr
      * @param sizes obiekt klasy Size, przechowujący w sobie rozmiary US, UK, EU
      */
-    public void setSizes(Size sizes){this.sizes = sizes;}
+    public void setSizes(Size sizes){this.sizes.setValue(sizes);}
 
     /**
      * Metoda która zwraca obiekt klasy Size, która przechowuje rozmiary buta
      * @return obiekt klasy Size
      */
-    public Size getSizes(){return sizes;}
+    public MutableLiveData<Size> getSizes(){return sizes;}
 }

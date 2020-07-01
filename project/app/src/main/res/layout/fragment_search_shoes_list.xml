@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@drawable/border">
+        android:background="@drawable/border"
+        android:layout_margin="5dp">
 
         <ImageView
             android:id="@+id/shoe_icon"
@@ -71,17 +72,22 @@
 
         </LinearLayout>
     </LinearLayout>
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_bar"
+            android:drawablePadding="8dp"
+            android:drawableLeft="@drawable/ic_search_bar"
+            android:textColor="@color/greyText"
+            android:hint="Search a shoe..."
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Choose a shoe"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/Company_view"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/Shoes_view"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/search_input_style"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

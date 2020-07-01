@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
     Acitivity context;
     private List<Shoes> shoesList;
+    private List<Shoes> shoesListFiltered;
     private ShoesListViewModel shoesListViewModel;
     private NavigationStorage navigationStorage;
 
@@ -30,6 +34,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         this.context = context;
         this.shoesListViewModel = shoesListViewModel;
         this.shoesList = new ArrayList<>();
+        this.shoesListFiltered = new ArrayList<>();
         this.navigationStorage = NavigationStorage.getInstance();
     }
 
@@ -43,8 +48,13 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        Shoes shoes = shoesList.get(position);
+        Shoes shoes = shoesListFiltered.get(position);
         final RecyclerViewViewHolder viewHolder = (RecyclerViewViewHolder) holder;
+
+        viewHolder.imageView.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_transition_animation));
+        viewHolder.shoe_company.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
+        viewHolder.shoe_model.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
+
         viewHolder.shoe_company.setText(shoes.brand_name);
         viewHolder.shoe_model.setText(shoes.modelName);
         if (shoes.image!=null){
@@ -54,7 +64,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigationStorage.setShoe(shoesList.get(position));
+                navigationStorage.setShoe(shoesListFiltered.get(position));
                 shoesListViewModel.eventNavToInfo();
             }
         });
@@ -62,7 +72,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
 
     @Override
     public int getItemCount() {
-        return shoesList.size();
+        return shoesListFiltered.size();
     }
 
     /**
@@ -75,7 +85,39 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
                 this.shoesList.add(shoesList.get(i));
             }
         }
+        shoesListFiltered = this.shoesList;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String key = constraint.toString();
+                if (key.isEmpty()){
+                    shoesListFiltered = shoesList;
+                }else{
+                    List<Shoes> listFiltered = new ArrayList<>();
+                    for (Shoes row : shoesList){
+                        if (row.modelName.toLowerCase().contains(key.toLowerCase())){
+                            listFiltered.add(row);
+                        }
+                    }
+                    shoesListFiltered = listFiltered;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = shoesListFiltered;
+                return  filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                shoesListFiltered = (List<Shoes>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
