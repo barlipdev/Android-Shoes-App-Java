@@ -6,14 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.skowronsky.snkrs.SnkrsClient;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.NavigationStorage;
-import com.skowronsky.snkrs.storage.Storage;
 
 import java.util.List;
 
@@ -27,9 +25,6 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     private NavigationStorage navigationStorage;
     private Favorite favorite;
 
-    private Storage storage;
-    private SnkrsClient snkrsClient;
-
     public ShoeInfoViewModel(@NonNull Application application) {
         super(application);
         this.repository = new Repository(application);
@@ -38,9 +33,6 @@ public class ShoeInfoViewModel extends AndroidViewModel {
         shoe = navigationStorage.getShoe();
         baseShoe = navigationStorage.getBaseShoe();
         prefer_size = shoe.factor + baseShoe.base.size;
-
-        storage = Storage.getInstance();
-        snkrsClient = SnkrsClient.getInstance(storage,application);
     }
 
     LiveData<List<FavoriteShoes>> getFavoriteShoesLiveData(){
@@ -86,8 +78,9 @@ public class ShoeInfoViewModel extends AndroidViewModel {
      * Metoda która aktualizuje liste ulubionych butów
      * @param favoriteShoesList lista ulubionych butów
      */
+    //TODO update favorite in shoes
     public void updateFavorite(List<FavoriteShoes> favoriteShoesList){
-        snkrsClient.updateFavorite(storage.getUser().getEmail(),favoriteShoesList);
+        //snkrsClient.updateFavorite(storage.getUser().getEmail(),favoriteShoesList);
     }
 
 

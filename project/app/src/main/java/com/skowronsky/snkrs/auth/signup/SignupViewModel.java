@@ -1,20 +1,27 @@
 package com.skowronsky.snkrs.auth.signup;
 
 import android.app.Application;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.skowronsky.snkrs.SnkrsClient;
-import com.skowronsky.snkrs.storage.Storage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.skowronsky.snkrs.MainActivity;
+
+import java.util.concurrent.Executor;
 
 public class SignupViewModel extends AndroidViewModel {
     public String title = "Signup Fragment";
 
-    private Storage storage;
-    private SnkrsClient snkrsClient;
+    private FirebaseAuth mAuth;
 
     private MutableLiveData<Boolean> eventSignup;
     private MutableLiveData<Boolean> eventNavToLogin;
@@ -24,8 +31,7 @@ public class SignupViewModel extends AndroidViewModel {
 
     public SignupViewModel(@NonNull Application application) {
         super(application);
-        storage = Storage.getInstance();
-        snkrsClient = SnkrsClient.getInstance(storage,application);
+        mAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -39,8 +45,32 @@ public class SignupViewModel extends AndroidViewModel {
      * Metoda odpowiadająca za przeprowadzenie rejestracji konta uzytkownika
      */
     public void signup(){
-        if(email.getValue().length() > 0 && password.getValue().length()>0 && username.getValue().length() > 0)
-            snkrsClient.auth(email.getValue(),password.getValue(),username.getValue());
+        if (email.getValue() != null && email.getValue().length() > 0 && password.getValue() != null
+                && password.getValue().length() > 0 && username.getValue() != null && username.getValue().length() > 0) {
+            mAuth.createUserWithEmailAndPassword(email.getValue(), password.getValue())
+                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("Firebase", "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                Intent intent = new Intent(getApplication(), MainActivity.class);
+                                getApplication().startActivity(intent);
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                               // Log.w(Firebase, "createUserWithEmail:failure", task.getException());
+                                email.setValue("");
+                                password.setValue("");
+                                username.setValue("");
+                            }
+
+
+                        }
+                    });
+        }
         signupFinished();
     }
     public void setSignup(){

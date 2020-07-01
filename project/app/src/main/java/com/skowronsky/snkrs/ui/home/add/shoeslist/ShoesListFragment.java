@@ -68,7 +68,7 @@ public class ShoesListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    recyclerViewAdapter.getFilter().filter(s);
+                    //recyclerViewAdapter.getFilter().filter(s);
             }
 
             @Override

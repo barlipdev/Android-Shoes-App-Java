@@ -1,11 +1,9 @@
 package com.skowronsky.snkrs.ui.home;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.BaseShoes;
-import com.skowronsky.snkrs.model.Shoes;
-import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
 

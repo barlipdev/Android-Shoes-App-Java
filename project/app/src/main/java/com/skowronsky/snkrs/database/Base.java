@@ -11,6 +11,7 @@ public class Base {
     public double size;
     //factor of base + selected size
     public double hiddenSize;
+    
 
     public Base(){};
     public Base(Shoes shoes, double size){
