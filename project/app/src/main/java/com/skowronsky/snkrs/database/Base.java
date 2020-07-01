@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -14,6 +15,8 @@ public class Base {
     
 
     public Base(){};
+
+    @Ignore
     public Base(Shoes shoes, double size){
         this.id_shoes = shoes.id_shoes;
         this.hiddenSize = shoes.factor + this.size;

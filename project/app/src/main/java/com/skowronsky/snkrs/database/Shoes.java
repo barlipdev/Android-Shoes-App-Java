@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -72,6 +73,7 @@ public class Shoes {
     public Shoes() {
     }
 
+    @Ignore
     public Shoes(int id_shoes, String brand_name, String modelName, double factor, String image) {
         this.id_shoes = id_shoes;
         this.brand_name = brand_name;
