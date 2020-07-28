@@ -14,7 +14,7 @@ public class Shoes {
     @Expose
     public int id_shoes;
 
-    @SerializedName("idBrand")
+    @SerializedName("brandName")
     @Expose
     public String brand_name;
 
