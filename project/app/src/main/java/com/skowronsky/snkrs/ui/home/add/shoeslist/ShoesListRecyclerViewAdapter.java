@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.storage.NavigationStorage;
+import com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages.Size;
 import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,6 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         this.context = context;
         this.shoesListViewModel = shoesListViewModel;
         this.shoesList = new ArrayList<>();
-        this.shoesListFiltered = new ArrayList<>();
         this.navigationStorage = NavigationStorage.getInstance();
     }
 
