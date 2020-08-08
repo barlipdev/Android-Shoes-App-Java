@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -12,6 +13,8 @@ public class Favorite {
     public double size;
 
     public Favorite(){};
+
+    @Ignore
     public Favorite(Shoes shoes, double size, int id_base){
         this.id_shoes = shoes.id_shoes;
         this.size = size;
