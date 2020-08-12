@@ -17,6 +17,8 @@ import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.FavoriteShoesDao;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.ShoesDao;
+import com.skowronsky.snkrs.database.SizeChart;
+import com.skowronsky.snkrs.database.SizeChartDao;
 import com.skowronsky.snkrs.database.SneakersDatabase;
 
 import java.util.List;
@@ -27,6 +29,9 @@ import java.util.List;
 public class Repository {
     private BrandDao mBrandDao;
     private LiveData<List<Brand>> mAllBrands;
+
+    private SizeChartDao mSizeChartDao;
+    private LiveData<List<SizeChart>> mAllSizeChart;
 
     private ShoesDao mShoesDao;
     private LiveData<List<Shoes>> mAllShoes;
@@ -51,6 +56,9 @@ public class Repository {
         mBrandDao = db.brandDao();
         mAllBrands = mBrandDao.getAll();
 
+        mSizeChartDao = db.sizeChartDao();
+        mAllSizeChart = mSizeChartDao.getAll();
+
         mShoesDao = db.shoesDao();
         mAllShoes = mShoesDao.getAll();
 
@@ -67,6 +75,20 @@ public class Repository {
         mAllFavoriteShoes = mFavoriteShoesDao.getAllFavoriteShoes();
 
         shoe = new MutableLiveData<>();
+    }
+    public LiveData<List<SizeChart>> getAllSizeChart(){
+        return mAllSizeChart;
+    }
+
+
+    public void insertAllSizeChart(List<SizeChart> sizeCharts){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            for (SizeChart item :
+                    sizeCharts) {
+                item.setBrandName(item.getBrand().brandName);
+            }
+            mSizeChartDao.insertAll(sizeCharts);
+        });
     }
 
     public LiveData<List<FavoriteShoes>> getAllFavoriteShoes(){
@@ -195,6 +217,7 @@ public class Repository {
                     shoes) {
                 item.setBrandName(item.brand.getBrandName());
             }
+            //TODO insertAllShoes
             mShoesDao.insertAll(shoes);
         });
     }
