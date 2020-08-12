@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
@@ -55,7 +56,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.shoe_company.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
         viewHolder.shoe_model.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
 
-        viewHolder.shoe_company.setText(shoes.brand_name);
+        viewHolder.shoe_company.setText(navigationStorage.getBrand().brand_name);
         viewHolder.shoe_model.setText(shoes.modelName);
         if (shoes.image!=null){
             Picasso.with((Context) context).load(shoes.image).into(
@@ -80,12 +81,8 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
      * @param shoesList lista butów
      */
     public void setShoesList(List<Shoes> shoesList){
-        for(int i=0;i<shoesList.size();i++){
-            if (shoesList.get(i).brand_name.equals(navigationStorage.getBrand())){
-                this.shoesList.add(shoesList.get(i));
-            }
-        }
-        shoesListFiltered = this.shoesList;
+        this.shoesList = shoesList;
+        shoesListFiltered = shoesList;
         notifyDataSetChanged();
     }
 

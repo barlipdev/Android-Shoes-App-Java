@@ -45,7 +45,7 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         com.skowronsky.snkrs.database.Shoes shoes = baseShoesList.get(position).shoes;
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
-        viewHolder.shoe_company.setText(shoes.brand_name);
+        viewHolder.shoe_company.setText(String.valueOf(shoes.brand_id));
         viewHolder.shoe_model.setText(shoes.modelName);
         viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));
         if (shoes.image!=null){

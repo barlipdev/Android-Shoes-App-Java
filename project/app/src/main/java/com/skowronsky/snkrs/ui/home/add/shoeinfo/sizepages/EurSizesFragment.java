@@ -102,8 +102,6 @@ public class EurSizesFragment extends Fragment {
 //            }
 //        });
 
-
-
         mViewModel.getPos().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {

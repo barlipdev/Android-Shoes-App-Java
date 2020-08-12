@@ -58,7 +58,7 @@
                 android:id="@+id/shoe_comp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{shoesListViewModel.baseShoe.shoes.brand_name}"
+                android:text="@{shoesListViewModel.baseShoe.shoes.brand_id}"
                 android:textSize="18sp" />
             <TextView
                 android:id="@+id/shoe_size"

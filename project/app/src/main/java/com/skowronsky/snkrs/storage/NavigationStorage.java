@@ -3,6 +3,7 @@ package com.skowronsky.snkrs.storage;
 import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages.Size;
 
@@ -15,7 +16,7 @@ public class NavigationStorage {
 
     private Shoes shoe;
     private BaseShoes base_shoe;
-    private String brand;
+    private Brand brand;
     private int size_pos;
     private List<BaseShoes> baseShoes;
     private MutableLiveData<Size> sizes = new MutableLiveData<Size>();
@@ -77,7 +78,7 @@ public class NavigationStorage {
      * Metoda która ustawia markę buta na tą przekazaną przez parametr
      * @param brand zmienna typu String przechowująca markę buta
      */
-    public void setBrand(String brand){
+    public void setBrand(Brand brand){
         this.brand = brand;
     }
 
@@ -85,7 +86,7 @@ public class NavigationStorage {
      * Metoda która zwraca markę buta, która jest aktualnie przechowywana w NavigationStorage
      * @return zwraca markę buta
      */
-    public String getBrand(){
+    public Brand getBrand(){
         return brand;
     }
 

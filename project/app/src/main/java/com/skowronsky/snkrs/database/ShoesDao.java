@@ -17,6 +17,9 @@ public interface ShoesDao {
     @Query("select * from shoes where id_shoes=:idShoes")
     LiveData<Shoes> getShoes(int idShoes);
 
+    @Query("select * from shoes where brand_id=:brandId")
+    LiveData<List<Shoes>> getShoesByBrandId(int brandId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Shoes> shoes);
 

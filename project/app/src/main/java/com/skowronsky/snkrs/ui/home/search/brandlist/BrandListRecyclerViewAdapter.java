@@ -54,7 +54,7 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigationStorage.setBrand(viewHolder.shoe_company.getText().toString());
+                navigationStorage.setBrand(brand);
                 viewModel.eventNavToShoes();
             }
         });
