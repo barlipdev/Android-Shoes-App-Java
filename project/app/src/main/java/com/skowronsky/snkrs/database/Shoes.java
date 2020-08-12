@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -13,9 +14,9 @@ public class Shoes {
     @Expose
     public int id_shoes;
 
-    @SerializedName("idBrand")
+    @SerializedName("brandName")
     @Expose
-    public int brand_id;
+    public String brand_name;
 
     @SerializedName("modelName")
     @Expose
@@ -33,10 +34,12 @@ public class Shoes {
         this.id_shoes = id_shoes;
     }
 
-    public int getBrand_id() { return brand_id; }
+    public String getBrand_name() {
+        return brand_name;
+    }
 
-    public void setBrand_id(int brand_id) {
-        this.brand_id = brand_id;
+    public void setBrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
     public String getModelName() {
@@ -70,9 +73,10 @@ public class Shoes {
     public Shoes() {
     }
 
-    public Shoes(int id_shoes, int brand_id, String modelName, double factor, String image) {
+    @Ignore
+    public Shoes(int id_shoes, String brand_name, String modelName, double factor, String image) {
         this.id_shoes = id_shoes;
-        this.brand_id = brand_id;
+        this.brand_name = brand_name;
         this.modelName = modelName;
         this.factor = factor;
         this.image = image;

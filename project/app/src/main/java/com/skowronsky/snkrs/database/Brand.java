@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -47,6 +48,7 @@ public class Brand {
 
     public Brand(){}
 
+    @Ignore
     public Brand(int id_brand, String brand_name, String image){
         this.id_brand = id_brand;
         this.brand_name = brand_name;
