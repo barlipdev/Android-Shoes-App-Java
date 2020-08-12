@@ -62,13 +62,13 @@
                         android:text="@{brandListViewModel.baseShoe.shoes.modelName}"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/shoe_comp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{brandListViewModel.getBrandById(brandListViewModel.baseShoe.shoes.brand_id)}"
-                        android:textSize="18sp" />
+<!--TODO 1.0-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/shoe_comp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@{brandListViewModel.baseShoe.shoes.setBrandName}"-->
+<!--                        android:textSize="18sp" />-->
                     <TextView
                         android:id="@+id/shoe_size"
                         android:layout_width="wrap_content"

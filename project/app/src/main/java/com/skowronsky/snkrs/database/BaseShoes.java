@@ -9,7 +9,7 @@ public class BaseShoes {
     @Embedded
     public Base base;
     @Relation(
-            parentColumn = "id_shoes",
-            entityColumn ="id_shoes")
+            parentColumn = "idShoes",
+            entityColumn ="idShoes")
     public Shoes shoes;
 }

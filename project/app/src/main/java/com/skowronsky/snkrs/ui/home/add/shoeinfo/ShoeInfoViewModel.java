@@ -18,14 +18,14 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     private Base base;
     private MutableLiveData<Size> size;
     public String shoe_model;
-    public int brand_id;
+    public String shoe_brand;
 
     public ShoeInfoViewModel(Application application){
         super(application);
         repository = new Repository(application);
         this.navigationStorage = NavigationStorage.getInstance();
         shoe_model = navigationStorage.getShoe().modelName;
-        brand_id = navigationStorage.getShoe().brand_id;
+        shoe_brand = navigationStorage.getShoe().brandName;
     }
 
 

@@ -9,13 +9,13 @@ public class FavoriteShoes {
     @Embedded
     public Favorite favorite;
     @Relation(
-            parentColumn = "id_shoes",
-            entityColumn = "id_shoes")
+            parentColumn = "idShoes",
+            entityColumn = "idShoes")
     public Shoes shoes;
 
     @Relation(
-            parentColumn = "id_base",
-            entityColumn = "id_base")
+            parentColumn = "idBase",
+            entityColumn = "idBase")
     public Base base;
 
 }
