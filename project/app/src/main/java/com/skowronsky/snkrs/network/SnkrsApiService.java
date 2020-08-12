@@ -1,8 +1,8 @@
 package com.skowronsky.snkrs.network;
 
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
-import com.skowronsky.snkrs.database.User;
 
 import java.util.List;
 

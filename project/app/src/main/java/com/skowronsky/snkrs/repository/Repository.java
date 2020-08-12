@@ -191,6 +191,10 @@ public class Repository {
      */
     public void insertAllShoes(List<Shoes> shoes){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            for (Shoes item :
+                    shoes) {
+                item.setBrandName(item.brand.getBrandName());
+            }
             mShoesDao.insertAll(shoes);
         });
     }

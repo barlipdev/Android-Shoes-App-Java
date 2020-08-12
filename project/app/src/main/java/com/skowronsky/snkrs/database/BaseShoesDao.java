@@ -14,6 +14,6 @@ public interface BaseShoesDao {
     LiveData<List<BaseShoes>> getAllBaseShoes();
 
     @Transaction
-    @Query("SELECT * FROM base where id_base = :idBase")
+    @Query("SELECT * FROM base where idBase = :idBase")
     LiveData<BaseShoes> getBaseShoes(int idBase);
 }

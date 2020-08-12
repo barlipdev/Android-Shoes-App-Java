@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.network.ApiClient;
 import com.skowronsky.snkrs.network.SnkrsApiService;
@@ -92,13 +93,11 @@ public class DashboardViewModel extends AndroidViewModel {
 
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Shoes> shoes) {
-                      insertAllShoes(shoes);
-
+                        insertAllShoes(shoes);
                     }
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Log.i("Snkrs","err");
 
                     }
 
