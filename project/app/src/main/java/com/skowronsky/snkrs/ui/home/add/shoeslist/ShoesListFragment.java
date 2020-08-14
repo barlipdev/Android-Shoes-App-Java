@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
+import com.skowronsky.snkrs.MainActivity;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.databinding.FragmentBaseselectorShoesListBinding;
@@ -68,7 +70,7 @@ public class ShoesListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    recyclerViewAdapter.getFilter().filter(s);
+                recyclerViewAdapter.getFilter().filter(s);
             }
 
             @Override

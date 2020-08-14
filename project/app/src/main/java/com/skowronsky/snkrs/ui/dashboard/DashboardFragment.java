@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Shoes;
+import com.skowronsky.snkrs.database.SizeChart;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
+
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -54,6 +57,16 @@ public class DashboardFragment extends Fragment {
                     viewModel.disconnectFinished();
                     disconnectFromDataServer();
                 }
+            }
+        });
+
+        final LiveData<List<SizeChart>> sizeChartLiveData = viewModel.getAllSizeChart();
+        sizeChartLiveData.observe(getViewLifecycleOwner(), sizeCharts -> {
+            for (SizeChart item :
+                    sizeCharts) {
+
+                Log.i("Snkrs", item.getBrandName());
+                Log.i("Snkrs", String.valueOf(item.getUs()));
             }
         });
 

@@ -1,8 +1,9 @@
 package com.skowronsky.snkrs.network;
 
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
-import com.skowronsky.snkrs.database.User;
+import com.skowronsky.snkrs.database.SizeChart;
 
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface SnkrsApiService {
 
     @GET("shoes")
     Flowable<List<Shoes>> getShoes();
+
+    @GET("sizechart")
+    Flowable<List<SizeChart>> getSizeChart();
 
 }

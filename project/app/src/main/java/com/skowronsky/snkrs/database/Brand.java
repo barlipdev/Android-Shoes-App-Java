@@ -12,30 +12,30 @@ public class Brand {
     @PrimaryKey
     @SerializedName("idBrand")
     @Expose
-    public int id_brand;
+    public int idBrand;
 
     @SerializedName("name")
     @Expose
-    public String brand_name;
+    public String brandName;
 
     @SerializedName("image")
     @Expose
     public String image;
 
-    public int getId_brand() {
-        return id_brand;
+    public int getIdBrand() {
+        return idBrand;
     }
 
-    public void setId_brand(int id_brand) {
-        this.id_brand = id_brand;
+    public void setIdBrand(int idBrand) {
+        this.idBrand = idBrand;
     }
 
-    public String getBrand_name() {
-        return brand_name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrand_name(String brand_name) {
-        this.brand_name = brand_name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getImage() {
@@ -49,9 +49,9 @@ public class Brand {
     public Brand(){}
 
     @Ignore
-    public Brand(int id_brand, String brand_name, String image){
-        this.id_brand = id_brand;
-        this.brand_name = brand_name;
+    public Brand(int idBrand, String brandName, String image){
+        this.idBrand = idBrand;
+        this.brandName = brandName;
         this.image = image;
     }
 }

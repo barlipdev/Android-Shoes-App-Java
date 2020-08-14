@@ -4,20 +4,22 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Favorite {
     @PrimaryKey(autoGenerate = true)
-    public int id_favorite_shoes;
-    public int id_shoes;
-    public int id_base;
+    public int idFavoriteShoes;
+    public int idShoes;
+    public int idBase;
     public double size;
 
     public Favorite(){};
 
     @Ignore
-    public Favorite(Shoes shoes, double size, int id_base){
-        this.id_shoes = shoes.id_shoes;
+    public Favorite(Shoes shoes, double size, int idBase){
+        this.idShoes = shoes.idShoes;
         this.size = size;
-        this.id_base = id_base;
+        this.idBase = idBase;
     }
 }

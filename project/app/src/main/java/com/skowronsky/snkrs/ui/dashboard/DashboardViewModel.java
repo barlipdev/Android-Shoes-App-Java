@@ -10,7 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
+import com.skowronsky.snkrs.database.SizeChart;
 import com.skowronsky.snkrs.network.ApiClient;
 import com.skowronsky.snkrs.network.SnkrsApiService;
 import com.skowronsky.snkrs.repository.Repository;
@@ -31,6 +33,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private Repository repository;
     private LiveData<List<Shoes>> allShoes;
     private LiveData<List<Base>> allBases;
+    private LiveData<List<SizeChart>> allSizeChart;
 
     public MutableLiveData<String> text = new MutableLiveData<>();
 
@@ -45,7 +48,7 @@ public class DashboardViewModel extends AndroidViewModel {
         repository = new Repository(application);
         allShoes = repository.getAllShoes();
         allBases = repository.getAllBase();
-
+        allSizeChart = repository.getAllSizeChart();
 
         Retrofit apiClient = ApiClient.getInstance();
         snkrsApiService = apiClient.create(SnkrsApiService.class);
@@ -55,6 +58,32 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public void connect(){
+
+        snkrsApiService.getSizeChart()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<SizeChart>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<SizeChart> sizeCharts) {
+                        insertAllSizeChart(sizeCharts);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
         snkrsApiService.getBrands()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -92,13 +121,11 @@ public class DashboardViewModel extends AndroidViewModel {
 
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Shoes> shoes) {
-                      insertAllShoes(shoes);
-
+                        insertAllShoes(shoes);
                     }
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Log.i("Snkrs","err");
 
                     }
 
@@ -129,6 +156,9 @@ public class DashboardViewModel extends AndroidViewModel {
     public LiveData<List<Base>> getAllBases(){
         return allBases;
     }
+    public LiveData<List<SizeChart>> getAllSizeChart(){
+        return allSizeChart;
+    }
 
     public MutableLiveData<Boolean> getEventDisconnect() {
         if(eventDisconnect == null)
@@ -146,6 +176,9 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void insertAllBrands(List<Brand> brands){
         repository.insertAllBrands(brands);
+    }
+    public void insertAllSizeChart(List<SizeChart> sizeChart){
+        repository.insertAllSizeChart(sizeChart);
     }
 
     public void insertAllShoes(List<Shoes> shoes){

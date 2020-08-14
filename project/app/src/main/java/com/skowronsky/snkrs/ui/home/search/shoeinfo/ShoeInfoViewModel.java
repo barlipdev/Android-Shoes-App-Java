@@ -43,9 +43,9 @@ public class ShoeInfoViewModel extends AndroidViewModel {
      * Metoda usuwająca buta z ulubionych, danego buta zaciąga z instancji NavigationStorage
      */
     public void deleteFavoriteShoe(){
-        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.idBase);
         for (int i=0;i<favoriteShoesLiveData.getValue().size();i++){
-            if (favoriteShoesLiveData.getValue().get(i).shoes.id_shoes == favorite.id_shoes && favoriteShoesLiveData.getValue().get(i).favorite.size == favorite.size){
+            if (favoriteShoesLiveData.getValue().get(i).shoes.idShoes == favorite.idShoes && favoriteShoesLiveData.getValue().get(i).favorite.size == favorite.size){
                 repository.deleteFavorite(favoriteShoesLiveData.getValue().get(i).favorite);
             }
         }
@@ -55,7 +55,7 @@ public class ShoeInfoViewModel extends AndroidViewModel {
      * Metoda dodająca buta do ulubionych, danego buta zaciąga z instancji NavigationStorage
      */
     public void addFavoriteShoe(){
-        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.idBase);
         repository.insertFavorite(favorite);
     }
 
@@ -65,9 +65,9 @@ public class ShoeInfoViewModel extends AndroidViewModel {
      * @return zwraca true jeśli dany but jest w ulubionych, w innym przypadku zwróci false
      */
     public boolean checkShoe(List<FavoriteShoes> favoriteShoes){
-        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.id_base);
+        favorite = new Favorite(this.shoe,prefer_size,navigationStorage.getBaseShoe().base.idBase);
         for(int j=0;j<favoriteShoes.size();j++){
-            if (favoriteShoes.get(j).shoes.id_shoes == favorite.id_shoes && favoriteShoes.get(j).favorite.size == favorite.size){
+            if (favoriteShoes.get(j).shoes.idShoes == favorite.idShoes && favoriteShoes.get(j).favorite.size == favorite.size){
                 return true;
             }
         }

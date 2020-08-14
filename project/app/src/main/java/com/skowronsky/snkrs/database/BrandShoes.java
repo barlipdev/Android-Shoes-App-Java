@@ -1,22 +1,22 @@
 package com.skowronsky.snkrs.database;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
+
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity()
-public class Shoes {
+import java.io.Serializable;
+
+public class BrandShoes implements Serializable {
     @PrimaryKey
     @SerializedName("idShoes")
     @Expose
     public int idShoes;
 
-    @SerializedName("brandName")
+    @SerializedName("brand")
     @Expose
-    public String brandName;
+    public Brand brand;
 
     @SerializedName("modelName")
     @Expose
@@ -30,10 +30,7 @@ public class Shoes {
     @Expose
     public String image;
 
-    @SerializedName("brand")
-    @Expose
-    @Ignore
-    public Brand brand;
+
 
 
     public int getIdShoes() {
@@ -44,12 +41,12 @@ public class Shoes {
         this.idShoes = idShoes;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public String getModelName() {
@@ -76,23 +73,5 @@ public class Shoes {
         this.image = image;
     }
 
-    public Shoes() {
-    }
 
-    @Ignore
-    public Shoes(int idShoes, String brandName, String modelName, double factor, String image) {
-        this.idShoes = idShoes;
-        this.brandName = brandName;
-        this.modelName = modelName;
-        this.factor = factor;
-        this.image = image;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
 }

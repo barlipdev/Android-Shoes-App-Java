@@ -10,22 +10,23 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface BrandDao {
-    @Query("select * from brand")
-    LiveData<List<Brand>> getAll();
+public interface SizeChartDao {
 
-    @Query("select brand_name from brand where id_brand=:brandId")
-    LiveData<String> getBrandById(int brandId);
+    @Query("select * from size_chart")
+    LiveData<List<SizeChart>> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Brand> brands);
+    @Query("select * from size_chart where idSize=:idSize")
+    LiveData<SizeChart> getSizeChart(int idSize);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Brand brand);
+    void insertAll(List<SizeChart> sizechart);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(SizeChart sizechart);
 
     @Delete
-    void delete(Brand brand);
+    void delete(SizeChart sizechart);
 
-    @Query("DELETE FROM brand")
+    @Query("DELETE FROM size_chart")
     void deleteAll();
 }

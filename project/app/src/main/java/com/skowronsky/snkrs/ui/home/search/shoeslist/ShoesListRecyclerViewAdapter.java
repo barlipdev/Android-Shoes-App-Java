@@ -54,7 +54,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.shoe_company.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
         viewHolder.shoe_model.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
 
-        viewHolder.shoe_company.setText(shoes.brand_name);
+        viewHolder.shoe_company.setText(shoes.brandName);
         viewHolder.shoe_model.setText(shoes.modelName);
         if (shoes.image!=null){
             Picasso.with((Context) context).load(shoes.image).into(
@@ -80,7 +80,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
      */
     public void setAllShoes(List<com.skowronsky.snkrs.database.Shoes> shoes){
         for(int i=0;i<shoes.size();i++){
-        if (shoes.get(i).brand_name.equals(navigationStorage.getBrand())){
+        if (shoes.get(i).brandName.equals(navigationStorage.getBrand())){
            shoesList.add(shoes.get(i));
          }
         }

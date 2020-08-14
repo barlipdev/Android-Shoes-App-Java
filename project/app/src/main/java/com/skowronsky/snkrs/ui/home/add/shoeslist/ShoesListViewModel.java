@@ -6,8 +6,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.repository.Repository;
+import com.skowronsky.snkrs.storage.NavigationStorage;
 
 import java.util.List;
 
@@ -15,17 +17,23 @@ public class ShoesListViewModel extends AndroidViewModel {
 
 //    private LiveData<List<Shoes>> allShoes;
     private Repository repository;
+    private NavigationStorage navigationStorage;
     private MutableLiveData<Boolean> InfoNav;
 
 
 
     public ShoesListViewModel(Application application) {
         super(application);
+        navigationStorage = NavigationStorage.getInstance();
         repository = new Repository(application);
     }
 
     public LiveData<List<Shoes>> getAllShoes(){
-        return  repository.getAllShoes();
+        return  repository.getShoesByBrandId(navigationStorage.getBrand().id_brand);
+    }
+
+    public LiveData<String> getBrandById(int brandId){
+        return repository.getBrandById(brandId);
     }
 
     public MutableLiveData<Boolean> getInfoNav(){

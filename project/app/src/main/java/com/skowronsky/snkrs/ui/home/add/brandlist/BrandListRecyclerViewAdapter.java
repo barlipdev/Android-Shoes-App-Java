@@ -52,11 +52,11 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         Picasso.with((Context) context).load(brand.image).into(
                 viewHolder.company_photo);
         viewHolder.shoe_company.setVisibility(View.INVISIBLE);
-        viewHolder.shoe_company.setText(brand.brand_name);
+        viewHolder.shoe_company.setText(brand.brandName);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigationStorage.setBrand(brandList.get(position).brand_name);
+                navigationStorage.setBrand(brandList.get(position).brandName);
                 brandListViewModel.eventNavToShoes();
             }
         });
