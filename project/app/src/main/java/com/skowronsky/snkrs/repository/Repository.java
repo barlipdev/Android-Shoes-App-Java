@@ -274,9 +274,9 @@ public class Repository {
         });
     }
 
-    public LiveData<List<Shoes>> getShoesByBrandId(int brandId){
-            return mShoesDao.getShoesByBrandId(brandId);
-    }
+//    public LiveData<List<Shoes>> getShoesByBrandId(int brandId){
+//            return mShoesDao.getShoesByBrandId(brandId);
+//    }
 
     public LiveData<String> getBrandById(int brandId){
         return mBrandDao.getBrandById(brandId);
