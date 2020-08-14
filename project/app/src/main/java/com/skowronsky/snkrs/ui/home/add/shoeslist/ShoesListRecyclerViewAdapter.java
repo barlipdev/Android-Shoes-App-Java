@@ -35,6 +35,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
     public ShoesListRecyclerViewAdapter(Acitivity context, ShoesListViewModel shoesListViewModel){
         this.context = context;
         this.shoesListViewModel = shoesListViewModel;
+        this.shoesListFiltered = new ArrayList<>();
         this.shoesList = new ArrayList<>();
         this.navigationStorage = NavigationStorage.getInstance();
     }
@@ -82,9 +83,9 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
      */
     public void setShoesList(List<Shoes> shoesList){
         for(int i=0;i<shoesList.size();i++){
-            if (shoesList.get(i).brand_name.equals(navigationStorage.getBrand())){
-                this.shoesList.add(shoesList.get(i));
-            }
+            //if (shoesList.get(i).brand_name.equals(navigationStorage.getBrand())){
+                shoesListFiltered.add(shoesList.get(i));
+            //}
         }
         shoesListFiltered = this.shoesList;
         notifyDataSetChanged();
