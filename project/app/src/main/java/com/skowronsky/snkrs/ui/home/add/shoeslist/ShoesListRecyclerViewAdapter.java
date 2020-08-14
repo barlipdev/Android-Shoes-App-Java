@@ -80,12 +80,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
      * @param shoesList lista butów
      */
     public void setShoesList(List<Shoes> shoesList){
-        for(int i=0;i<shoesList.size();i++){
-            if (shoesList.get(i).brandName.equals(navigationStorage.getBrand())){
-                this.shoesList.add(shoesList.get(i));
-            }
-        }
-        shoesListFiltered = this.shoesList;
+        shoesListFiltered = shoesList;
         notifyDataSetChanged();
     }
 

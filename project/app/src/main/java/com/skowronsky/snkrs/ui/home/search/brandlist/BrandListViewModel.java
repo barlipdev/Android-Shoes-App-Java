@@ -51,8 +51,8 @@ public class BrandListViewModel extends AndroidViewModel {
         ShoesNav.setValue(false);
     }
 
-    public String getBrandById(int id){
-        return repository.getBrandById(id).getValue();
+    public String getBrandById(String brandName){
+        return repository.getBrandByName(brandName).getValue();
     }
 
 
