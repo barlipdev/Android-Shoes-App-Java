@@ -8,7 +8,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
@@ -42,6 +44,7 @@ public class DashboardViewModel extends AndroidViewModel {
     public String siema = "siema";
 
     SnkrsApiService snkrsApiService;
+    FirebaseAuth mAuth;
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -51,6 +54,7 @@ public class DashboardViewModel extends AndroidViewModel {
         allSizeChart = repository.getAllSizeChart();
 
         Retrofit apiClient = ApiClient.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         snkrsApiService = apiClient.create(SnkrsApiService.class);
 
       //Log.i("Snkrs","works");
@@ -58,6 +62,31 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public void connect(){
+
+        snkrsApiService.getBase(mAuth.getUid())
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Base>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Base> bases) {
+                        insertAllBases(bases);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         snkrsApiService.getSizeChart()
                 .toObservable()
@@ -160,6 +189,8 @@ public class DashboardViewModel extends AndroidViewModel {
         return allSizeChart;
     }
 
+
+
     public MutableLiveData<Boolean> getEventDisconnect() {
         if(eventDisconnect == null)
             eventDisconnect = new MutableLiveData<Boolean>();
@@ -172,6 +203,10 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void insert(Base base){
         repository.insertBase(base);
+    }
+
+    public void insertAllBases(List<Base> bases) {
+        repository.insertAllBases(bases);
     }
 
     public void insertAllBrands(List<Brand> brands){

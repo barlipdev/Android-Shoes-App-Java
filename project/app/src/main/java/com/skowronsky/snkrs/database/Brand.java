@@ -12,7 +12,7 @@ public class Brand {
     @PrimaryKey
     @SerializedName("idBrand")
     @Expose
-    public int idBrand;
+    public long idBrand;
 
     @SerializedName("name")
     @Expose
@@ -22,11 +22,11 @@ public class Brand {
     @Expose
     public String image;
 
-    public int getIdBrand() {
+    public long getIdBrand() {
         return idBrand;
     }
 
-    public void setIdBrand(int idBrand) {
+    public void setIdBrand(long idBrand) {
         this.idBrand = idBrand;
     }
 

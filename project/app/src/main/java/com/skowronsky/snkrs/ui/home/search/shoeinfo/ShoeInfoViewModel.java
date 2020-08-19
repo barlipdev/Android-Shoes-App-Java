@@ -32,7 +32,8 @@ public class ShoeInfoViewModel extends AndroidViewModel {
         this.navigationStorage = NavigationStorage.getInstance();
         shoe = navigationStorage.getShoe();
         baseShoe = navigationStorage.getBaseShoe();
-        prefer_size = shoe.factor + baseShoe.base.size;
+        //TODO BaseShoes 1.7
+        //prefer_size = shoe.factor + baseShoe.base.size;
     }
 
     LiveData<List<FavoriteShoes>> getFavoriteShoesLiveData(){

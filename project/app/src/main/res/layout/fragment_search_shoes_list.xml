@@ -60,14 +60,16 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="@{shoesListViewModel.baseShoe.shoes.setBrandName}"-->
 <!--                android:textSize="18sp" />-->
-            <TextView
-                android:id="@+id/shoe_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(shoesListViewModel.baseShoe.base.size)}"
-                android:layout_marginLeft="30sp"
-                android:textStyle="bold"
-                android:textSize="20sp" />
+
+<!--TODO BaseShoes 1.2         -->
+<!--            <TextView-->
+<!--                android:id="@+id/shoe_size"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@{String.valueOf(shoesListViewModel.baseShoe.base.size)}"-->
+<!--                android:layout_marginLeft="30sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20sp" />-->
 
 
         </LinearLayout>

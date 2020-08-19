@@ -12,7 +12,7 @@ public class Shoes {
     @PrimaryKey
     @SerializedName("idShoes")
     @Expose
-    public int idShoes;
+    public long idShoes;
 
     @SerializedName("brandName")
     @Expose
@@ -36,11 +36,11 @@ public class Shoes {
     public Brand brand;
 
 
-    public int getIdShoes() {
+    public long getIdShoes() {
         return idShoes;
     }
 
-    public void setIdShoes(int idShoes) {
+    public void setIdShoes(long idShoes) {
         this.idShoes = idShoes;
     }
 

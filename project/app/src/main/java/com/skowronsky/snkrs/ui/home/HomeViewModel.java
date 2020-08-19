@@ -81,14 +81,16 @@ public class HomeViewModel extends AndroidViewModel {
      * @param shoe obiekt buta który znajduje się w bazie
      * @param size rozmiar buta który znajduje się w bazie
      */
-    public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){
-        String model_name = shoe.modelName;
-        for (int i = 0; i < allBaseShoes.getValue().size(); i++){
-                        if (model_name.equals(allBaseShoes.getValue().get(i).shoes.modelName) && size == allBaseShoes.getValue().get(i).base.size){
-                                repository.delete(allBaseShoes.getValue().get(i).base);
 
-                }
-        }
-    }
+//    TODO BaseShoes 1.4
+//    public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){
+//        String model_name = shoe.modelName;
+//        for (int i = 0; i < allBaseShoes.getValue().size(); i++){
+//                        if (model_name.equals(allBaseShoes.getValue().get(i).shoes.modelName) && size == allBaseShoes.getValue().get(i).base.size){
+//                                repository.delete(allBaseShoes.getValue().get(i).base);
+//
+//                }
+//        }
+//    }
 
 }

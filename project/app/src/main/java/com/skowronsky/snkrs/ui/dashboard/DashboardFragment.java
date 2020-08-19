@@ -13,7 +13,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.skowronsky.snkrs.R;
+import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.SizeChart;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
@@ -68,6 +70,16 @@ public class DashboardFragment extends Fragment {
                 Log.i("Snkrs", item.getBrandName());
                 Log.i("Snkrs", String.valueOf(item.getUs()));
             }
+        });
+
+        final LiveData<List<Base>> baseLiveData = viewModel.getAllBases();
+        baseLiveData.observe(getViewLifecycleOwner(), bases -> {
+            for(Base item : bases){
+                Log.i("Snkrs", String.valueOf(item.getIdBase()));
+                Log.i("Snkrs", String.valueOf(item.getIdSize()));
+                Log.i("Snkrs", String.valueOf(item.getIdHiddenSize()));
+            }
+
         });
 
         return binding.getRoot();

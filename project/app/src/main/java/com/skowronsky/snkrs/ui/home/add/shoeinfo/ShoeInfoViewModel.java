@@ -40,10 +40,12 @@ public class ShoeInfoViewModel extends AndroidViewModel {
      * Metoda dodająca nową bazę buta o danym rozmiarze
      * @param size rozmiar bazy buta
      */
-    public void addShoeToBase(double size){
-        base = new Base(navigationStorage.getShoe(),size);
-        repository.insertBase(base);
-    }
+
+    //TODO TODO BaseShoes 1.3
+//    public void addShoeToBase(double size){
+//        base = new Base(navigationStorage.getShoe(),size);
+//        repository.insertBase(base);
+//    }
 
     /**
      * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora

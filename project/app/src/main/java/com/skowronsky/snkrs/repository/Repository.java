@@ -222,6 +222,20 @@ public class Repository {
         });
     }
 
+    public void insertAllBases(List<Base> bases){
+        SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            for (Base item :
+                    bases) {
+                item.setIdShoes(item.getShoes().getIdShoes());
+                item.setIdSize(item.getSize().getIdSize());
+                item.setIdHiddenSize(item.getHiddenSize().getIdSize());
+            }
+            //TODO insertAllBaseShoes
+            mBaseDao.insertAll(bases);
+        });
+    }
+
+
     /**
      * Metoda odpowiadająca za usuniecie z bazy danych buta przekazanego przez parametr
      * @param shoes but który ma zostać usunięty

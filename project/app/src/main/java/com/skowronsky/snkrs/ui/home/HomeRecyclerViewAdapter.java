@@ -47,7 +47,8 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
         viewHolder.shoe_company.setText(shoes.brandName);
         viewHolder.shoe_model.setText(shoes.modelName);
-        viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));
+        //TODO BaseShoes 1.5
+        //viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));
         if (shoes.image!=null){
             Picasso.with((Context) context).load(shoes.image).into(
                     viewHolder.imageView);
@@ -79,7 +80,8 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
      * @param pos zmienna wskazująca dany element na którym pracujemy, index elementu
      */
     public void delete(int pos){
-        shoesViewModel.deleteBaseShoes(baseShoesList.get(pos).shoes,baseShoesList.get(pos).base.size);
+//        TODO BaseShoes 1.6
+        //shoesViewModel.deleteBaseShoes(baseShoesList.get(pos).shoes,baseShoesList.get(pos).base.size);
         notifyDataSetChanged();
     }
 

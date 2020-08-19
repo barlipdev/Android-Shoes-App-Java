@@ -18,6 +18,9 @@ public interface BaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Base base);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Base> bases);
+
     @Delete
     void delete(Base base);
 
