@@ -94,7 +94,7 @@ public class DashboardFragment extends Fragment {
         shoesLiveData.observe(getViewLifecycleOwner(), new Observer<Shoes>() {
             @Override
             public void onChanged(Shoes shoes) {
-                Log.i("Snkrs", "\n"+shoes.modelName);
+                Log.i("Snkrs", "\n"+shoes.getModelName());
 
             }
         });

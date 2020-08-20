@@ -51,7 +51,7 @@ public class BrandListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().shoes.image).into(
+        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().shoes.getImage()).into(
                 binding.shoeIcon);
 
         mViewModel.getAllBrands().observe(getViewLifecycleOwner(), new Observer<List<com.skowronsky.snkrs.database.Brand>>() {

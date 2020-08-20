@@ -16,24 +16,24 @@ public class Shoes {
 
     @SerializedName("brandName")
     @Expose
-    public String brandName;
+    private String brandName;
 
     @SerializedName("modelName")
     @Expose
-    public String modelName;
+    private String modelName;
 
     @SerializedName("factor")
     @Expose
-    public double factor;
+    private double factor;
 
     @SerializedName("image")
     @Expose
-    public String image;
+    private String image;
 
     @SerializedName("brand")
     @Expose
     @Ignore
-    public Brand brand;
+    private Brand brand;
 
 
     public long getIdShoes() {

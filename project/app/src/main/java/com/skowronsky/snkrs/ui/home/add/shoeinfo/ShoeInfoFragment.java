@@ -52,7 +52,7 @@ public class ShoeInfoFragment extends Fragment implements EurSizesFragment.OnFra
         NestedScrollView scrollView = shoesInformationFragmentBinding.scrollview;
         scrollView.setFillViewport(true);
 
-        Picasso.with(getContext()).load(navigationStorage.getShoe().image).into(
+        Picasso.with(getContext()).load(navigationStorage.getShoe().getImage()).into(
                 shoesInformationFragmentBinding.imageView);
 
         final LiveData<Boolean> navInfo = shoeInfoViewModel.getNavToBase();

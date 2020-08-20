@@ -55,10 +55,10 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.shoe_company.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
         viewHolder.shoe_model.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
 
-        viewHolder.shoe_company.setText(shoes.brandName);
-        viewHolder.shoe_model.setText(shoes.modelName);
-        if (shoes.image!=null){
-            Picasso.with((Context) context).load(shoes.image).into(
+        viewHolder.shoe_company.setText(shoes.getBrandName());
+        viewHolder.shoe_model.setText(shoes.getModelName());
+        if (shoes.getImage()!=null){
+            Picasso.with((Context) context).load(shoes.getImage()).into(
                     viewHolder.imageView);
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +95,7 @@ public class ShoesListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
                 }else{
                     List<Shoes> listFiltered = new ArrayList<>();
                     for (Shoes row : shoesList){
-                        if (row.modelName.toLowerCase().contains(key.toLowerCase())){
+                        if (row.getModelName().toLowerCase().contains(key.toLowerCase())){
                             listFiltered.add(row);
                         }
                     }

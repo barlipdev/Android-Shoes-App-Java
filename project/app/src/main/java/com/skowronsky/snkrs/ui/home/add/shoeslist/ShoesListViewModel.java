@@ -29,7 +29,7 @@ public class ShoesListViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Shoes>> getAllShoes(){
-        return  repository.getShoesByBrandName(navigationStorage.getBrand().brandName);
+        return  repository.getShoesByBrandName(navigationStorage.getBrand().getBrandName());
     }
 
     public LiveData<String> getBrandById(String brandName){

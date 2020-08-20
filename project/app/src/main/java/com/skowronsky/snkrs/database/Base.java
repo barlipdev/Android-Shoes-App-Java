@@ -10,10 +10,10 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Base {
     @PrimaryKey(autoGenerate = true)
-    public long idBase;
-    public long idShoes;
-    public long idSize;
-    public long idHiddenSize;
+    private long idBase;
+    private long idShoes;
+    private long idSize;
+    private long idHiddenSize;
 
     @SerializedName("shoes")
     @Expose

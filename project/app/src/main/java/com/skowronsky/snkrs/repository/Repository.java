@@ -85,7 +85,7 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             for (SizeChart item :
                     sizeCharts) {
-                item.setBrandName(item.getBrand().brandName);
+                item.setBrandName(item.getBrand().getBrandName());
             }
             mSizeChartDao.insertAll(sizeCharts);
         });
@@ -215,7 +215,7 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             for (Shoes item :
                     shoes) {
-                item.setBrandName(item.brand.getBrandName());
+                item.setBrandName(item.getBrand().getBrandName());
             }
             //TODO insertAllShoes
             mShoesDao.insertAll(shoes);

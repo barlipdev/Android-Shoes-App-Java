@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Favorite {
     @PrimaryKey(autoGenerate = true)
-    public long idFavoriteShoes;
-    public long idShoes;
-    public long idBase;
-    public double size;
+    private long idFavoriteShoes;
+    private long idShoes;
+    private long idBase;
+    private double size;
 
     public Favorite(){};
 
@@ -21,5 +21,37 @@ public class Favorite {
         this.idShoes = shoes.idShoes;
         this.size = size;
         this.idBase = idBase;
+    }
+
+    public long getIdFavoriteShoes() {
+        return idFavoriteShoes;
+    }
+
+    public void setIdFavoriteShoes(long idFavoriteShoes) {
+        this.idFavoriteShoes = idFavoriteShoes;
+    }
+
+    public long getIdShoes() {
+        return idShoes;
+    }
+
+    public void setIdShoes(long idShoes) {
+        this.idShoes = idShoes;
+    }
+
+    public long getIdBase() {
+        return idBase;
+    }
+
+    public void setIdBase(long idBase) {
+        this.idBase = idBase;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
     }
 }

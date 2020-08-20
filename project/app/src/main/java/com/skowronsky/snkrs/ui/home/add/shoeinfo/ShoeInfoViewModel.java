@@ -24,8 +24,8 @@ public class ShoeInfoViewModel extends AndroidViewModel {
         super(application);
         repository = new Repository(application);
         this.navigationStorage = NavigationStorage.getInstance();
-        shoe_model = navigationStorage.getShoe().modelName;
-        shoe_brand = navigationStorage.getShoe().brandName;
+        shoe_model = navigationStorage.getShoe().getModelName();
+        shoe_brand = navigationStorage.getShoe().getBrandName();
     }
 
 

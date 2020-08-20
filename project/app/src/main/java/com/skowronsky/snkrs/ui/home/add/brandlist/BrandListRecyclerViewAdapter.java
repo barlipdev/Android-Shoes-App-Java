@@ -49,10 +49,10 @@ public class BrandListRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapte
         viewHolder.company_photo.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_transition_animation));
         viewHolder.itemView.setAnimation(AnimationUtils.loadAnimation((Context) context,R.anim.fade_scale_animation));
 
-        Picasso.with((Context) context).load(brand.image).into(
+        Picasso.with((Context) context).load(brand.getImage()).into(
                 viewHolder.company_photo);
         viewHolder.shoe_company.setVisibility(View.INVISIBLE);
-        viewHolder.shoe_company.setText(brand.brandName);
+        viewHolder.shoe_company.setText(brand.getBrandName());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

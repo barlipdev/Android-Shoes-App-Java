@@ -38,8 +38,8 @@ public class ShoeInfoFragment extends Fragment {
         shoeInfoFragmentBinding.setShoesInfoViewModel(mViewModel);
         shoeInfoFragmentBinding.setLifecycleOwner(this);
 
-        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().shoes.image).into(shoeInfoFragmentBinding.shoeIcon);
-        Picasso.with(getContext()).load(navigationStorage.getShoe().image).into(shoeInfoFragmentBinding.imageView);
+        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().shoes.getImage()).into(shoeInfoFragmentBinding.shoeIcon);
+        Picasso.with(getContext()).load(navigationStorage.getShoe().getImage()).into(shoeInfoFragmentBinding.imageView);
 
         mViewModel.getFavoriteShoesLiveData().observe(getViewLifecycleOwner(), new Observer<List<FavoriteShoes>>() {
             @Override

@@ -12,15 +12,15 @@ public class Brand {
     @PrimaryKey
     @SerializedName("idBrand")
     @Expose
-    public long idBrand;
+    private long idBrand;
 
     @SerializedName("name")
     @Expose
-    public String brandName;
+    private String brandName;
 
     @SerializedName("image")
     @Expose
-    public String image;
+    private String image;
 
     public long getIdBrand() {
         return idBrand;
