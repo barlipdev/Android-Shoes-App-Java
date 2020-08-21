@@ -12,11 +12,9 @@ public class Shoes {
     @PrimaryKey
     @SerializedName("idShoes")
     @Expose
-    public long idShoes;
+    private long idShoes;
 
-    @SerializedName("brandName")
-    @Expose
-    private String brandName;
+    private long idBrand;
 
     @SerializedName("modelName")
     @Expose
@@ -35,6 +33,18 @@ public class Shoes {
     @Ignore
     private Brand brand;
 
+    @Ignore
+    public Shoes(long idShoes, long idBrand, String modelName, double factor, String image) {
+        this.idShoes = idShoes;
+        this.idBrand = idBrand;
+        this.modelName = modelName;
+        this.factor = factor;
+        this.image = image;
+    }
+
+    public void assignValues(){
+        idBrand = brand.getIdBrand();
+    }
 
     public long getIdShoes() {
         return idShoes;
@@ -44,12 +54,12 @@ public class Shoes {
         this.idShoes = idShoes;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public long getIdBrand() {
+        return idBrand;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setIdBrand(long idBrand) {
+        this.idBrand = idBrand;
     }
 
     public String getModelName() {
@@ -77,15 +87,6 @@ public class Shoes {
     }
 
     public Shoes() {
-    }
-
-    @Ignore
-    public Shoes(int idShoes, String brandName, String modelName, double factor, String image) {
-        this.idShoes = idShoes;
-        this.brandName = brandName;
-        this.modelName = modelName;
-        this.factor = factor;
-        this.image = image;
     }
 
     public Brand getBrand() {

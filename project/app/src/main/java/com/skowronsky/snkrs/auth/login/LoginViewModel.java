@@ -23,8 +23,8 @@ public class LoginViewModel extends AndroidViewModel {
      * Metoda odpowiadająca za wykonanie logowania
      */
     public void login(){
+//TODO login
 //        if(email.getValue().length()>0 && password.getValue().length() > 0){
-//            //TODO login
 //        }
         loginFinished();
     }

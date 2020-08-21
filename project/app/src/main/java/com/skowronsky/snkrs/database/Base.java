@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class Base {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @SerializedName("idBase")
+    @Expose
     private long idBase;
     private long idShoes;
     private long idSize;
@@ -41,6 +43,11 @@ public class Base {
         this.shoes = shoes;
         this.size = size;
         this.hiddenSize = hiddenSize;
+    }
+    public void assignValues(){
+        idShoes = shoes.getIdShoes();
+        idSize = size.getIdSize();
+        idHiddenSize = hiddenSize.getIdSize();
     }
 
     public long getIdBase() {

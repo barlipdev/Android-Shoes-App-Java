@@ -17,8 +17,8 @@ public interface ShoesDao {
     @Query("select * from shoes where idShoes=:idShoes")
     LiveData<Shoes> getShoes(int idShoes);
 
-    @Query("select * from shoes where brandName=:brandName")
-    LiveData<List<Shoes>> getShoesByBrandName(String brandName);
+//    @Query("select * from shoes where brandName=:brandName")
+//    LiveData<List<Shoes>> getShoesByBrandName(String brandName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Shoes> shoes);

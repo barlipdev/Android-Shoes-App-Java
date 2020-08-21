@@ -34,8 +34,9 @@ public class FavoriteShoesAdapter extends RecyclerView.Adapter<FavoriteShoesAdap
     public void onBindViewHolder(@NonNull FavoriteShoesHolder holder, int position) {
         FavoriteShoes favoriteShoes = favoriteShoesList.get(position);
         holder.textViewShoesModel.setText(favoriteShoes.shoes.getModelName());
-        holder.textViewShoesBrand.setText(favoriteShoes.shoes.getBrandName());
-        holder.textViewShoesSize.setText(String.valueOf(favoriteShoes.favorite.getSize()));
+        //TODO get brandName
+        //holder.textViewShoesBrand.setText(favoriteShoes.shoes.getBrandName());
+        holder.textViewShoesSize.setText(String.valueOf(favoriteShoes.favorite.getIdSize()));
         Picasso.with(context).load(favoriteShoes.shoes.getImage()).into(
                 holder.imageViewShoesIcon);
     }

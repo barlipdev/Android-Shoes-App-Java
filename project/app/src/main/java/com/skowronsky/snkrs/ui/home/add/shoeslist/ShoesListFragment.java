@@ -55,12 +55,14 @@ public class ShoesListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        shoesListViewModel.getAllShoes().observe(getViewLifecycleOwner(), new Observer<List<Shoes>>() {
-            @Override
-            public void onChanged(List<Shoes> shoes) {
-                recyclerViewAdapter.setShoesList(shoes);
-            }
-        });
+
+        //TODO get brandName
+//        shoesListViewModel.getAllShoes().observe(getViewLifecycleOwner(), new Observer<List<Shoes>>() {
+//            @Override
+//            public void onChanged(List<Shoes> shoes) {
+//                recyclerViewAdapter.setShoesList(shoes);
+//            }
+//        });
 
         shoesFragmentBinding.searchBar.addTextChangedListener(new TextWatcher() {
             @Override

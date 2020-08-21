@@ -13,6 +13,8 @@ import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandShoes;
+import com.skowronsky.snkrs.database.Favorite;
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.SizeChart;
 import com.skowronsky.snkrs.network.ApiClient;
@@ -22,7 +24,6 @@ import com.skowronsky.snkrs.repository.Repository;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -36,6 +37,9 @@ public class DashboardViewModel extends AndroidViewModel {
     private LiveData<List<Shoes>> allShoes;
     private LiveData<List<Base>> allBases;
     private LiveData<List<SizeChart>> allSizeChart;
+    private LiveData<List<BaseShoes>> allBaseShoes;
+    private LiveData<List<FavoriteShoes>> allFavoriteShoes;
+    private LiveData<List<BrandShoes>> allBrandShoes;
 
     public MutableLiveData<String> text = new MutableLiveData<>();
 
@@ -52,6 +56,9 @@ public class DashboardViewModel extends AndroidViewModel {
         allShoes = repository.getAllShoes();
         allBases = repository.getAllBase();
         allSizeChart = repository.getAllSizeChart();
+        allBaseShoes = repository.getAllBaseShoes();
+        allFavoriteShoes = repository.getAllFavoriteShoes();
+        allBrandShoes = repository.getAllBrandShoes();
 
         Retrofit apiClient = ApiClient.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -63,22 +70,27 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void connect(){
 
-        snkrsApiService.getBase(mAuth.getUid())
+
+
+
+
+        snkrsApiService.getBrands()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Base>>() {
+                .subscribe(new Observer<List<Brand>>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Base> bases) {
-                        insertAllBases(bases);
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Brand> brands) {
+                        insertAllBrands(brands);
                     }
 
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Log.i("Snkrs","err");
 
                     }
 
@@ -113,32 +125,6 @@ public class DashboardViewModel extends AndroidViewModel {
                     }
                 });
 
-        snkrsApiService.getBrands()
-                .toObservable()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Brand>>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Brand> brands) {
-                        insertAllBrands(brands);
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Log.i("Snkrs","err");
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
         snkrsApiService.getShoes()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -164,12 +150,66 @@ public class DashboardViewModel extends AndroidViewModel {
                     }
                 });
 
+        snkrsApiService.getBase(mAuth.getUid())
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Base>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Base> bases) {
+                        insertAllBases(bases);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        snkrsApiService.getFavorite(mAuth.getUid())
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Favorite>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Favorite> favorites) {
+                        repository.insertAllFavorite(favorites);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     public MutableLiveData<Boolean> getEventConnect(){
         if(eventConnect == null)
             eventConnect = new MutableLiveData<Boolean>();
         return eventConnect;
+    }
+
+    void deleteAllBase(){
+        repository.deleteAllBase();
     }
 
     public void setEventConnect(){
@@ -188,6 +228,18 @@ public class DashboardViewModel extends AndroidViewModel {
     public LiveData<List<SizeChart>> getAllSizeChart(){
         return allSizeChart;
     }
+
+    public LiveData<List<BaseShoes>> getAllBaseShoes(){
+        return allBaseShoes;
+    }
+    public LiveData<List<FavoriteShoes>> getAllFavoriteShoes(){
+        return allFavoriteShoes;
+    }
+
+    public LiveData<List<BrandShoes>> getAllBrandShoes(){
+        return allBrandShoes;
+    }
+
 
 
 

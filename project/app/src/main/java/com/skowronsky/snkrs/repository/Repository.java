@@ -11,6 +11,8 @@ import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.BaseShoesDao;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandDao;
+import com.skowronsky.snkrs.database.BrandShoes;
+import com.skowronsky.snkrs.database.BrandShoesDao;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.database.FavoriteDao;
 import com.skowronsky.snkrs.database.FavoriteShoes;
@@ -48,6 +50,9 @@ public class Repository {
     private FavoriteShoesDao mFavoriteShoesDao;
     private LiveData<List<FavoriteShoes>> mAllFavoriteShoes;
 
+    private BrandShoesDao mBrandShoesDao;
+    private LiveData<List<BrandShoes>> mAllBrandShoes;
+
     private MutableLiveData<Shoes> shoe;
 
 
@@ -73,6 +78,9 @@ public class Repository {
 
         mFavoriteShoesDao = db.favoriteShoesDao();
         mAllFavoriteShoes = mFavoriteShoesDao.getAllFavoriteShoes();
+
+        mBrandShoesDao = db.brandShoesDao();
+        mAllBrandShoes = mBrandShoesDao.getAllBrandShoes();
 
         shoe = new MutableLiveData<>();
     }
@@ -115,6 +123,10 @@ public class Repository {
      */
     public void insertAllFavorite(List<Favorite> favorite){
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
+            for (Favorite item :
+                    favorite) {
+                item.assignValues();
+            }
             mFavoriteDao.insertAll(favorite);
         });
     }
@@ -138,8 +150,14 @@ public class Repository {
         });
     }
 
+
+
     public LiveData<List<BaseShoes>> getAllBaseShoes(){
         return mAllBaseShoes;
+    }
+
+    public LiveData<List<BrandShoes>> getAllBrandShoes(){
+        return mAllBrandShoes;
     }
 
     public LiveData<BaseShoes> getBaseShoes(int idBase){
@@ -215,9 +233,8 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             for (Shoes item :
                     shoes) {
-                item.setBrandName(item.getBrand().getBrandName());
+                item.assignValues();
             }
-            //TODO insertAllShoes
             mShoesDao.insertAll(shoes);
         });
     }
@@ -226,9 +243,7 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             for (Base item :
                     bases) {
-                item.setIdShoes(item.getShoes().getIdShoes());
-                item.setIdSize(item.getSize().getIdSize());
-                item.setIdHiddenSize(item.getHiddenSize().getIdSize());
+                item.assignValues();
             }
             //TODO insertAllBaseShoes
             mBaseDao.insertAll(bases);
@@ -288,9 +303,10 @@ public class Repository {
         });
     }
 
-    public LiveData<List<Shoes>> getShoesByBrandName(String brandName){
-            return mShoesDao.getShoesByBrandName(brandName);
-    }
+//TODO get brandName
+//    public LiveData<List<Shoes>> getShoesByBrandName(String brandName){
+//            return mShoesDao.getShoesByBrandName(brandName);
+//    }
 
     public LiveData<String> getBrandByName(String brandName){
         return mBrandDao.getBrandByName(brandName);

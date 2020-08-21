@@ -147,7 +147,7 @@
                         android:id="@+id/size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(shoesInfoViewModel.prefer_size)}"
+                        android:text="@{String.valueOf(shoesInfoViewModel.preferSize)}"
                         android:textAlignment="center"
                         android:textSize="30sp" />
 

@@ -23,6 +23,7 @@ public abstract class SneakersDatabase extends RoomDatabase {
     // relation tables
     public abstract BaseShoesDao baseShoesDao();
     public abstract FavoriteShoesDao favoriteShoesDao();
+    public abstract BrandShoesDao brandShoesDao();
 
     private static volatile SneakersDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

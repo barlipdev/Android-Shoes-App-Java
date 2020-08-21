@@ -16,6 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.BrandShoes;
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.SizeChart;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
@@ -62,24 +65,54 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        final LiveData<List<SizeChart>> sizeChartLiveData = viewModel.getAllSizeChart();
-        sizeChartLiveData.observe(getViewLifecycleOwner(), sizeCharts -> {
-            for (SizeChart item :
-                    sizeCharts) {
+//        final LiveData<List<SizeChart>> sizeChartLiveData = viewModel.getAllSizeChart();
+//        sizeChartLiveData.observe(getViewLifecycleOwner(), sizeCharts -> {
+//            for (SizeChart item :
+//                    sizeCharts) {
+//
+//                Log.i("Snkrs", item.getBrandName());
+//                Log.i("Snkrs", String.valueOf(item.getUs()));
+//            }
+//        });
+//
+//        final LiveData<List<Base>> baseLiveData = viewModel.getAllBases();
+//        baseLiveData.observe(getViewLifecycleOwner(), bases -> {
+//            for(Base item : bases){
+//                Log.i("Snkrs", String.valueOf(item.getIdBase()));
+//                Log.i("Snkrs", String.valueOf(item.getIdSize()));
+//                Log.i("Snkrs", String.valueOf(item.getIdHiddenSize()));
+//            }
+//
+//        });
 
-                Log.i("Snkrs", item.getBrandName());
-                Log.i("Snkrs", String.valueOf(item.getUs()));
+//        final LiveData<List<BaseShoes>> baseShoesLiveData = viewModel.getAllBaseShoes();
+//        baseShoesLiveData.observe(getViewLifecycleOwner(), baseShoes -> {
+//            for(BaseShoes item : baseShoes){
+//                Log.i("Snkrs", String.valueOf(item.shoes.getBrandName()));
+//                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
+//                Log.i("Snkrs", String.valueOf(item.base.getIdSize()));
+//            }
+//        });
+
+//        final LiveData<List<FavoriteShoes>> favoriteShoesLiveData = viewModel.getAllFavoriteShoes();
+//        favoriteShoesLiveData.observe(getViewLifecycleOwner(), favoriteShoes -> {
+//            for (FavoriteShoes item :
+//                    favoriteShoes) {
+//                Log.i("Snkrs", String.valueOf(item.favorite.getIdFavoriteShoes()));
+//                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
+//                Log.i("Snkrs", String.valueOf(item.baseShoes.base.getIdSize()));
+//                Log.i("Snkrs", String.valueOf(item.baseShoes.shoes.getModelName()));
+//            }
+//        });
+
+        final LiveData<List<BrandShoes>> brandShoesLiveData = viewModel.getAllBrandShoes();
+        brandShoesLiveData.observe(getViewLifecycleOwner(), brandShoes -> {
+            for (BrandShoes item :
+                    brandShoes) {
+                Log.i("Snkrs", String.valueOf(item.brand.getBrandName()));
+                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
+
             }
-        });
-
-        final LiveData<List<Base>> baseLiveData = viewModel.getAllBases();
-        baseLiveData.observe(getViewLifecycleOwner(), bases -> {
-            for(Base item : bases){
-                Log.i("Snkrs", String.valueOf(item.getIdBase()));
-                Log.i("Snkrs", String.valueOf(item.getIdSize()));
-                Log.i("Snkrs", String.valueOf(item.getIdHiddenSize()));
-            }
-
         });
 
         return binding.getRoot();
@@ -87,17 +120,19 @@ public class DashboardFragment extends Fragment {
 
 
     private void disconnectFromDataServer(){
+            viewModel.deleteAllBase();
+
 //        viewModel.deleteAllBrand();
 //        viewModel.deleteAllShoes();
 
-        final LiveData<Shoes> shoesLiveData = viewModel.getShoes(1);
-        shoesLiveData.observe(getViewLifecycleOwner(), new Observer<Shoes>() {
-            @Override
-            public void onChanged(Shoes shoes) {
-                Log.i("Snkrs", "\n"+shoes.getModelName());
-
-            }
-        });
+//        final LiveData<Shoes> shoesLiveData = viewModel.getShoes(1);
+//        shoesLiveData.observe(getViewLifecycleOwner(), new Observer<Shoes>() {
+//            @Override
+//            public void onChanged(Shoes shoes) {
+//                Log.i("Snkrs", "\n"+shoes.getModelName());
+//
+//            }
+//        });
 
     }
 }

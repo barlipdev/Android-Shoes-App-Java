@@ -45,7 +45,8 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         com.skowronsky.snkrs.database.Shoes shoes = baseShoesList.get(position).shoes;
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
-        viewHolder.shoe_company.setText(shoes.getBrandName());
+        //TODO get brandName
+        //viewHolder.shoe_company.setText(shoes.getBrandName());
         viewHolder.shoe_model.setText(shoes.getModelName());
         //TODO BaseShoes 1.5
         //viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));

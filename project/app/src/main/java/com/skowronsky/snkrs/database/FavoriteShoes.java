@@ -14,8 +14,9 @@ public class FavoriteShoes {
     public Shoes shoes;
 
     @Relation(
+            entity = Base.class,
             parentColumn = "idBase",
             entityColumn = "idBase")
-    public Base base;
+    public BaseShoes baseShoes;
 
 }

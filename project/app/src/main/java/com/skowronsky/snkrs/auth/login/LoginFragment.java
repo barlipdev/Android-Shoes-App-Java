@@ -59,11 +59,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
-                    String email = viewModel.email.getValue();
-                    String password = viewModel.password.getValue();
+// TODO change in prod
+//                    String email = viewModel.email.getValue();
+//                    String password = viewModel.password.getValue();
+                    String email = "root@root.com";
+                    String password = "root123";
 
-                    if(email != null && email.length() > 0 && password != null && password.length() > 0)
-                    {
+//                    if(email != null && email.length() > 0 && password != null && password.length() > 0)
+//                    {
                         mAuth.signInWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -87,7 +90,7 @@ public class LoginFragment extends Fragment {
 
                                     }
                                 });
-                    }
+                    //}
                 }
             }
         });
