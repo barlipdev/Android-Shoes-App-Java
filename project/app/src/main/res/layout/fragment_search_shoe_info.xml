@@ -53,7 +53,7 @@
                 android:id="@+id/shoe_model"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{shoesInfoViewModel.baseShoe.shoes.modelName}"
+                android:text="@{shoesInfoViewModel.baseShoe.brandShoes.shoes.modelName}"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 <!--TODO 1.1-->

@@ -9,14 +9,20 @@ public class FavoriteShoes {
     @Embedded
     public Favorite favorite;
     @Relation(
+            entity = Shoes.class,
             parentColumn = "idShoes",
             entityColumn = "idShoes")
-    public Shoes shoes;
+    public BrandShoes brandShoes;
 
     @Relation(
             entity = Base.class,
             parentColumn = "idBase",
             entityColumn = "idBase")
     public BaseShoes baseShoes;
+
+    @Relation(
+            parentColumn = "idSize",
+            entityColumn ="idSize")
+    public SizeChart size;
 
 }

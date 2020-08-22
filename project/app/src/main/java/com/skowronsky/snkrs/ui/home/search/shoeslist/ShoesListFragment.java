@@ -46,7 +46,7 @@ public class ShoesListFragment extends Fragment {
         shoesListFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_shoes_list, container, false);
         shoesListFragmentBinding.setShoesListViewModel(mViewModel);
         shoesListFragmentBinding.setLifecycleOwner(this);
-        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().shoes.getImage()).into(
+        Picasso.with(getContext()).load(navigationStorage.getBaseShoe().brandShoes.shoes.getImage()).into(
                 shoesListFragmentBinding.shoeIcon);
 
         recyclerView = new RecyclerView(Objects.requireNonNull(getActivity()));

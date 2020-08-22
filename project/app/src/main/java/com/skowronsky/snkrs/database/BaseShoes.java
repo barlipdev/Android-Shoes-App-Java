@@ -9,7 +9,18 @@ public class BaseShoes {
     @Embedded
     public Base base;
     @Relation(
+            entity = Shoes.class,
             parentColumn = "idShoes",
             entityColumn ="idShoes")
-    public Shoes shoes;
+    public BrandShoes brandShoes;
+
+    @Relation(
+            parentColumn = "idSize",
+            entityColumn ="idSize")
+    public SizeChart size;
+
+    @Relation(
+            parentColumn = "idHiddenSize",
+            entityColumn ="idSize")
+    public SizeChart hiddenSize;
 }

@@ -85,14 +85,15 @@ public class DashboardFragment extends Fragment {
 //
 //        });
 
-//        final LiveData<List<BaseShoes>> baseShoesLiveData = viewModel.getAllBaseShoes();
-//        baseShoesLiveData.observe(getViewLifecycleOwner(), baseShoes -> {
-//            for(BaseShoes item : baseShoes){
-//                Log.i("Snkrs", String.valueOf(item.shoes.getBrandName()));
-//                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
-//                Log.i("Snkrs", String.valueOf(item.base.getIdSize()));
-//            }
-//        });
+        final LiveData<List<BaseShoes>> baseShoesLiveData = viewModel.getAllBaseShoes();
+        baseShoesLiveData.observe(getViewLifecycleOwner(), baseShoes -> {
+            for(BaseShoes item : baseShoes){
+                Log.i("Snkrs", String.valueOf(item.brandShoes.shoes.getModelName()));
+                Log.i("Snkrs", String.valueOf(item.brandShoes.brand.getBrandName()));
+                Log.i("Snkrs", String.valueOf(item.size.getUs()));
+                Log.i("Snkrs", String.valueOf(item.hiddenSize.getUs()));
+            }
+        });
 
 //        final LiveData<List<FavoriteShoes>> favoriteShoesLiveData = viewModel.getAllFavoriteShoes();
 //        favoriteShoesLiveData.observe(getViewLifecycleOwner(), favoriteShoes -> {
@@ -105,15 +106,15 @@ public class DashboardFragment extends Fragment {
 //            }
 //        });
 
-        final LiveData<List<BrandShoes>> brandShoesLiveData = viewModel.getAllBrandShoes();
-        brandShoesLiveData.observe(getViewLifecycleOwner(), brandShoes -> {
-            for (BrandShoes item :
-                    brandShoes) {
-                Log.i("Snkrs", String.valueOf(item.brand.getBrandName()));
-                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
-
-            }
-        });
+//        final LiveData<List<BrandShoes>> brandShoesLiveData = viewModel.getAllBrandShoes();
+//        brandShoesLiveData.observe(getViewLifecycleOwner(), brandShoes -> {
+//            for (BrandShoes item :
+//                    brandShoes) {
+//                Log.i("Snkrs", String.valueOf(item.brand.getBrandName()));
+//                Log.i("Snkrs", String.valueOf(item.shoes.getModelName()));
+//
+//            }
+//        });
 
         return binding.getRoot();
     }

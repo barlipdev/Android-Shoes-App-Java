@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,7 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        com.skowronsky.snkrs.database.Shoes shoes = baseShoesList.get(position).shoes;
+        Shoes shoes = baseShoesList.get(position).brandShoes.shoes;
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
         //TODO get brandName
         //viewHolder.shoe_company.setText(shoes.getBrandName());

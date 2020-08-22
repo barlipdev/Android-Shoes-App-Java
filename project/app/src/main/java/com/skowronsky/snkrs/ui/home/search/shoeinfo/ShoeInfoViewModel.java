@@ -47,7 +47,7 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     public void deleteFavoriteShoe(){
         favorite = new Favorite(this.shoe, preferSize,navigationStorage.getBaseShoe().base.getIdBase());
         for (int i=0;i<favoriteShoesLiveData.getValue().size();i++){
-            if (favoriteShoesLiveData.getValue().get(i).shoes.getIdShoes() == favorite.getIdShoes() && favoriteShoesLiveData.getValue().get(i).favorite.getIdSize() == favorite.getIdSize()){
+            if (favoriteShoesLiveData.getValue().get(i).brandShoes.shoes.getIdShoes() == favorite.getIdShoes() && favoriteShoesLiveData.getValue().get(i).favorite.getIdSize() == favorite.getIdSize()){
                 repository.deleteFavorite(favoriteShoesLiveData.getValue().get(i).favorite);
             }
         }
@@ -69,7 +69,7 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     public boolean checkShoe(List<FavoriteShoes> favoriteShoes){
         favorite = new Favorite(this.shoe, preferSize,navigationStorage.getBaseShoe().base.getIdBase());
         for(int j=0;j<favoriteShoes.size();j++){
-            if (favoriteShoes.get(j).shoes.getIdShoes() == favorite.getIdShoes() && favoriteShoes.get(j).favorite.getIdSize() == favorite.getIdSize()){
+            if (favoriteShoes.get(j).brandShoes.shoes.getIdShoes() == favorite.getIdShoes() && favoriteShoes.get(j).favorite.getIdSize() == favorite.getIdSize()){
                 return true;
             }
         }
