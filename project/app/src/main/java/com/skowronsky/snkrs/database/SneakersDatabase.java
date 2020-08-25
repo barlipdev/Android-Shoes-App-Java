@@ -24,6 +24,7 @@ public abstract class SneakersDatabase extends RoomDatabase {
     public abstract BaseShoesDao baseShoesDao();
     public abstract FavoriteShoesDao favoriteShoesDao();
     public abstract BrandShoesDao brandShoesDao();
+    public abstract BrandSizeChartDao brandSizeChartDao();
 
     private static volatile SneakersDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

@@ -13,6 +13,8 @@ import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandDao;
 import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.BrandShoesDao;
+import com.skowronsky.snkrs.database.BrandSizeChart;
+import com.skowronsky.snkrs.database.BrandSizeChartDao;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.database.FavoriteDao;
 import com.skowronsky.snkrs.database.FavoriteShoes;
@@ -53,6 +55,9 @@ public class Repository {
     private BrandShoesDao mBrandShoesDao;
     private LiveData<List<BrandShoes>> mAllBrandShoes;
 
+    private BrandSizeChartDao mBrandSizeChartDao;
+    private LiveData<List<BrandSizeChart>> mAllBrandSizeChart;
+
     private MutableLiveData<Shoes> shoe;
 
 
@@ -82,6 +87,9 @@ public class Repository {
         mBrandShoesDao = db.brandShoesDao();
         mAllBrandShoes = mBrandShoesDao.getAllBrandShoes();
 
+        mBrandSizeChartDao = db.brandSizeChartDao();
+        mAllBrandSizeChart = mBrandSizeChartDao.getAllBrandSizeChart();
+
         shoe = new MutableLiveData<>();
     }
     public LiveData<List<SizeChart>> getAllSizeChart(){
@@ -93,7 +101,7 @@ public class Repository {
         SneakersDatabase.databaseWriteExecutor.execute(() -> {
             for (SizeChart item :
                     sizeCharts) {
-                item.setBrandName(item.getBrand().getBrandName());
+                item.assignValue();
             }
             mSizeChartDao.insertAll(sizeCharts);
         });
@@ -154,6 +162,10 @@ public class Repository {
 
     public LiveData<List<BaseShoes>> getAllBaseShoes(){
         return mAllBaseShoes;
+    }
+
+    public LiveData<List<BrandSizeChart>> getAllBrandSizeChart(){
+        return mAllBrandSizeChart;
     }
 
     public LiveData<List<BrandShoes>> getAllBrandShoes(){

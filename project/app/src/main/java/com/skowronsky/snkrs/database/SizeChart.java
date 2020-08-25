@@ -28,7 +28,7 @@ public class SizeChart {
     @Expose
     private char type;
 
-    private String brandName;
+    private long idBrand;
 
     @SerializedName("brands")
     @Expose
@@ -37,12 +37,8 @@ public class SizeChart {
 
     public SizeChart(){}
 
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void assignValue(){
+        idBrand = brand.getIdBrand();
     }
 
     public Long getIdSize() {
@@ -51,6 +47,14 @@ public class SizeChart {
 
     public void setIdSize(Long idSize) {
         this.idSize = idSize;
+    }
+
+    public long getIdBrand() {
+        return idBrand;
+    }
+
+    public void setIdBrand(long idBrand) {
+        this.idBrand = idBrand;
     }
 
     public double getUs() {

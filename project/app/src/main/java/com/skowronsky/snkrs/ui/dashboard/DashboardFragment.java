@@ -18,6 +18,7 @@ import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.BrandShoes;
+import com.skowronsky.snkrs.database.BrandSizeChart;
 import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.database.SizeChart;
@@ -85,13 +86,23 @@ public class DashboardFragment extends Fragment {
 //
 //        });
 
-        final LiveData<List<BaseShoes>> baseShoesLiveData = viewModel.getAllBaseShoes();
-        baseShoesLiveData.observe(getViewLifecycleOwner(), baseShoes -> {
-            for(BaseShoes item : baseShoes){
-                Log.i("Snkrs", String.valueOf(item.brandShoes.shoes.getModelName()));
-                Log.i("Snkrs", String.valueOf(item.brandShoes.brand.getBrandName()));
-                Log.i("Snkrs", String.valueOf(item.size.getUs()));
-                Log.i("Snkrs", String.valueOf(item.hiddenSize.getUs()));
+//        final LiveData<List<BaseShoes>> baseShoesLiveData = viewModel.getAllBaseShoes();
+//        baseShoesLiveData.observe(getViewLifecycleOwner(), baseShoes -> {
+//            for(BaseShoes item : baseShoes){
+//                Log.i("Snkrs", String.valueOf(item.brandShoes.shoes.getModelName()));
+//                Log.i("Snkrs", String.valueOf(item.brandShoes.brand.getBrandName()));
+//                Log.i("Snkrs", String.valueOf(item.size.getUs()));
+//                Log.i("Snkrs", String.valueOf(item.hiddenSize.getUs()));
+//            }
+//        });
+
+        final LiveData<List<BrandSizeChart>> brandSizeChartLiveData = viewModel.getAllBrandSizeChart();
+        brandSizeChartLiveData.observe(getViewLifecycleOwner(), brandSizeCharts -> {
+            for (BrandSizeChart item :
+                    brandSizeCharts) {
+                Log.i("Snkrs", String.valueOf(item.sizeChart.getIdBrand()));
+                Log.i("Snkrs", String.valueOf(item.sizeChart.getUs()));
+                Log.i("Snkrs", String.valueOf(item.brand.getBrandName()));
             }
         });
 
