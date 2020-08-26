@@ -21,8 +21,9 @@ public class FavoriteShoes {
     public BaseShoes baseShoes;
 
     @Relation(
+            entity = SizeChart.class,
             parentColumn = "idSize",
             entityColumn ="idSize")
-    public SizeChart size;
+    public BrandSize brandSize;
 
 }

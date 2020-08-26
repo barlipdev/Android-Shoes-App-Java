@@ -15,12 +15,14 @@ public class BaseShoes {
     public BrandShoes brandShoes;
 
     @Relation(
+            entity = SizeChart.class,
             parentColumn = "idSize",
             entityColumn ="idSize")
-    public SizeChart size;
+    public BrandSize brandSize;
 
     @Relation(
+            entity = SizeChart.class,
             parentColumn = "idHiddenSize",
             entityColumn ="idSize")
-    public SizeChart hiddenSize;
+    public BrandSize hiddenBrandSize;
 }
