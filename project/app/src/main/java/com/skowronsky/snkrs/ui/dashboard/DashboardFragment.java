@@ -13,15 +13,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.skowronsky.snkrs.R;
-import com.skowronsky.snkrs.database.Base;
-import com.skowronsky.snkrs.database.BaseShoes;
-import com.skowronsky.snkrs.database.BrandShoes;
-import com.skowronsky.snkrs.database.BrandSizeChart;
-import com.skowronsky.snkrs.database.FavoriteShoes;
-import com.skowronsky.snkrs.database.Shoes;
-import com.skowronsky.snkrs.database.SizeChart;
+import com.skowronsky.snkrs.database.BrandSize;
 import com.skowronsky.snkrs.databinding.FragmentDashboardBinding;
 
 import java.util.List;
@@ -96,9 +89,9 @@ public class DashboardFragment extends Fragment {
 //            }
 //        });
 
-        final LiveData<List<BrandSizeChart>> brandSizeChartLiveData = viewModel.getAllBrandSizeChart();
+        final LiveData<List<BrandSize>> brandSizeChartLiveData = viewModel.getAllBrandSizeChart();
         brandSizeChartLiveData.observe(getViewLifecycleOwner(), brandSizeCharts -> {
-            for (BrandSizeChart item :
+            for (BrandSize item :
                     brandSizeCharts) {
                 Log.i("Snkrs", String.valueOf(item.sizeChart.getIdBrand()));
                 Log.i("Snkrs", String.valueOf(item.sizeChart.getUs()));

@@ -3,7 +3,7 @@ package com.skowronsky.snkrs.database;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-public class BrandSizeChart {
+public class BrandSize {
 
     @Embedded
     public SizeChart sizeChart;

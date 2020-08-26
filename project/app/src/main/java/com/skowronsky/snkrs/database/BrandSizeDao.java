@@ -8,9 +8,9 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface BrandSizeChartDao {
+public interface BrandSizeDao {
     @Transaction
     @Query("SELECT * FROM size_chart")
-    LiveData<List<BrandSizeChart>> getAllBrandSizeChart();
+    LiveData<List<BrandSize>> getAllBrandSizeChart();
 
 }

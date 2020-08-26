@@ -13,7 +13,7 @@ import com.skowronsky.snkrs.database.Base;
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.database.BrandShoes;
-import com.skowronsky.snkrs.database.BrandSizeChart;
+import com.skowronsky.snkrs.database.BrandSize;
 import com.skowronsky.snkrs.database.Favorite;
 import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
@@ -41,7 +41,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private LiveData<List<BaseShoes>> allBaseShoes;
     private LiveData<List<FavoriteShoes>> allFavoriteShoes;
     private LiveData<List<BrandShoes>> allBrandShoes;
-    private LiveData<List<BrandSizeChart>> allBrandSizeChart;
+    private LiveData<List<BrandSize>> allBrandSizeChart;
 
     public MutableLiveData<String> text = new MutableLiveData<>();
 
@@ -242,7 +242,7 @@ public class DashboardViewModel extends AndroidViewModel {
     public LiveData<List<BrandShoes>> getAllBrandShoes(){
         return allBrandShoes;
     }
-    public LiveData<List<BrandSizeChart>> getAllBrandSizeChart(){
+    public LiveData<List<BrandSize>> getAllBrandSizeChart(){
         return allBrandSizeChart;
     }
 
