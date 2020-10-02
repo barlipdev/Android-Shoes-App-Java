@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.BaseShoes;
 import com.skowronsky.snkrs.database.Brand;
+import com.skowronsky.snkrs.database.FavoriteShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages.Size;
 
@@ -17,6 +18,7 @@ public class NavigationStorage {
     private Shoes shoe;
     private BaseShoes base_shoe;
     private Brand brand;
+    private FavoriteShoes favoriteShoes;
     private int size_pos;
     private List<BaseShoes> baseShoes;
     private MutableLiveData<Size> sizes = new MutableLiveData<Size>();
@@ -101,4 +103,9 @@ public class NavigationStorage {
      * @return obiekt klasy Size
      */
     public MutableLiveData<Size> getSizes(){return sizes;}
+
+    public void setFavoriteShoes(FavoriteShoes favoriteShoes) {
+        base_shoe = favoriteShoes.baseShoes;
+        shoe = favoriteShoes.brandShoes.shoes;
+    }
 }

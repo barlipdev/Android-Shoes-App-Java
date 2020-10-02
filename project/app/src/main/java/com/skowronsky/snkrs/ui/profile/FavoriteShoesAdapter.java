@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.FavoriteShoes;
+import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,6 +21,13 @@ import java.util.List;
 public class FavoriteShoesAdapter extends RecyclerView.Adapter<FavoriteShoesAdapter.FavoriteShoesHolder> {
     List<FavoriteShoes> favoriteShoesList = new ArrayList<>();
     private Context context;
+    private NavigationStorage navigationStorage;
+    private ProfileViewModel profileViewModel;
+
+    public FavoriteShoesAdapter(ProfileViewModel profileViewModel){
+        navigationStorage = NavigationStorage.getInstance();
+        this.profileViewModel = profileViewModel;
+    }
 
     @NonNull
     @Override
@@ -38,6 +46,14 @@ public class FavoriteShoesAdapter extends RecyclerView.Adapter<FavoriteShoesAdap
         holder.textViewShoesSize.setText(String.valueOf(favoriteShoes.brandSize.sizeChart.getUs()));
         Picasso.with(context).load(favoriteShoes.brandShoes.shoes.getImage()).into(
                 holder.imageViewShoesIcon);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationStorage.setFavoriteShoes(favoriteShoes);
+                profileViewModel.eventNavToInfo();
+            }
+        });
     }
 
     @Override

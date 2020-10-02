@@ -20,6 +20,7 @@ public class ProfileViewModel extends AndroidViewModel {
 
 
     private MutableLiveData<Boolean> settingsNav;
+    private MutableLiveData<Boolean> infoNav;
     public MutableLiveData<String> title = new MutableLiveData<String>("PROFILE") ;
 
     public ProfileViewModel(Application application){
@@ -35,6 +36,12 @@ public class ProfileViewModel extends AndroidViewModel {
         if(settingsNav == null)
             settingsNav = new MutableLiveData<Boolean>();
         return settingsNav;
+    }
+
+    public MutableLiveData<Boolean> getEventInfoNav(){
+        if(infoNav == null)
+            infoNav = new MutableLiveData<Boolean>();
+        return infoNav;
     }
 
     public LiveData<BaseShoes> getBaseShoes(int idBase){
@@ -54,6 +61,14 @@ public class ProfileViewModel extends AndroidViewModel {
      */
     public void eventNavToSettingsFinished(){
         settingsNav.setValue(false);
+    }
+
+    public void eventNavToInfo(){
+        infoNav.setValue(true);
+    }
+
+    public void eventNavToInfoFinished(){
+        infoNav.setValue(false);
     }
 
     public void deleteFavorite(Favorite favorite){
