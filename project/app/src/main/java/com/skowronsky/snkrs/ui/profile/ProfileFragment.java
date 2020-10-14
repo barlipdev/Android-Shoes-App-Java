@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment{
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        FavoriteShoesAdapter favoriteShoesAdapter = new FavoriteShoesAdapter();
+        FavoriteShoesAdapter favoriteShoesAdapter = new FavoriteShoesAdapter(viewModel);
         recyclerView.setAdapter(favoriteShoesAdapter);
 
 //        ItemTouchHelperAdapter itemTouchHelperCallback = new ItemTouchHelperAdapter(0, ItemTouchHelper.START | ItemTouchHelper.END);
@@ -87,15 +87,21 @@ public class ProfileFragment extends Fragment{
         });
 
         final LiveData<Boolean> natToSettings = viewModel.getEventSettingsNav();
-        natToSettings.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
-                    navigateToSettings();
-                    viewModel.eventNavToSettingsFinished();
-                }
+        natToSettings.observe(getViewLifecycleOwner(), aBoolean -> {
+            if(aBoolean){
+                navigateToSettings();
+                viewModel.eventNavToSettingsFinished();
             }
         });
+
+        final LiveData<Boolean> navToInfo = viewModel.getEventInfoNav();
+        navToInfo.observe(getViewLifecycleOwner(), aBoolean -> {
+            if(aBoolean){
+                navigateToFavInfo();
+                viewModel.eventNavToInfoFinished();
+            }
+        });
+
 
         return binding.getRoot();
     }
@@ -108,6 +114,10 @@ public class ProfileFragment extends Fragment{
         NavHostFragment.findNavController(this).navigate(R.id.action_navigation_profile_to_settingsFragment);
     }
 
+    private void navigateToFavInfo(){
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_profile_to_search_Shoe_Info);
+
+    }
 
 
 }
