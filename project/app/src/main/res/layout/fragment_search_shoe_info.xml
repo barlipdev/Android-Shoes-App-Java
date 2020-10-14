@@ -56,23 +56,22 @@
                 android:text="@{shoesInfoViewModel.baseShoe.brandShoes.shoes.modelName}"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-<!--TODO 1.1-->
-<!--            <TextView-->
-<!--                android:id="@+id/shoe_comp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{shoesInfoViewModel.baseShoe.shoes.setBrandName}"-->
-<!--                android:textSize="18sp" />-->
 
-<!--TODO BaseShoes 1.1-->
-<!--            <TextView-->
-<!--                android:id="@+id/shoe_size"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{String.valueOf(shoesInfoViewModel.baseShoe.base.size)}"-->
-<!--                android:layout_marginLeft="30sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="20sp" />-->
+            <TextView
+                android:id="@+id/shoe_comp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{shoesInfoViewModel.baseShoe.base.shoes.brand.brandName}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/shoe_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(shoesInfoViewModel.baseShoe.base.size)}"
+                android:layout_marginLeft="30sp"
+                android:textStyle="bold"
+                android:textSize="20sp" />
 
 
         </LinearLayout>
