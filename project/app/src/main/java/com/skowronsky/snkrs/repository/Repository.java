@@ -315,13 +315,13 @@ public class Repository {
         });
     }
 
-//TODO get brandName
-//    public LiveData<List<Shoes>> getShoesByBrandName(String brandName){
-//            return mShoesDao.getShoesByBrandName(brandName);
-//    }
 
-    public LiveData<String> getBrandByName(String brandName){
-        return mBrandDao.getBrandByName(brandName);
+    public LiveData<List<Shoes>> getShoesByIdBrand(long idBrand){
+            return mShoesDao.getShoesByIdBrand(idBrand);
+    }
+
+    public LiveData<Brand> getBrandById(long idBrand){
+        return mBrandDao.getBrandById(idBrand);
     }
 
     public void setShoe(MutableLiveData<Shoes> shoe){

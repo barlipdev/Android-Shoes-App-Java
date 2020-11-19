@@ -46,19 +46,19 @@
             android:layout_marginLeft="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/shoe_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{shoesListViewModel.baseShoe.brandShoes.shoes.modelName}"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/shoe_model"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@{shoesListViewModel.baseShoe.brandShoes.shoes.brand.brandName}"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
 <!--TODO 1.3-->
 <!--            <TextView-->
 <!--                android:id="@+id/shoe_comp"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{shoesListViewModel.baseShoe.shoes.setBrandName}"-->
+<!--                android:text="@{shoesListViewModel.baseShoe.base.shoes.brand.getBrandName()}"-->
 <!--                android:textSize="18sp" />-->
 
 <!--TODO BaseShoes 1.2         -->
@@ -66,7 +66,7 @@
 <!--                android:id="@+id/shoe_size"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{String.valueOf(shoesListViewModel.baseShoe.base.size)}"-->
+<!--                android:text="@{String.valueOf(shoesListViewModel.baseShoe.base.size.getUs())}"-->
 <!--                android:layout_marginLeft="30sp"-->
 <!--                android:textStyle="bold"-->
 <!--                android:textSize="20sp" />-->

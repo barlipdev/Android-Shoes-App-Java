@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.repository.Repository;
 
 import java.util.List;
@@ -81,6 +82,10 @@ public class HomeViewModel extends AndroidViewModel {
      * @param shoe obiekt buta który znajduje się w bazie
      * @param size rozmiar buta który znajduje się w bazie
      */
+
+    public Brand getBrandById(long id){
+        return repository.getBrandById(id).getValue();
+    }
 
 //    TODO BaseShoes 1.4
 //    public void deleteBaseShoes(com.skowronsky.snkrs.database.Shoes shoe, double size){

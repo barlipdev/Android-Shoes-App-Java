@@ -1,6 +1,7 @@
 package com.skowronsky.snkrs.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skowronsky.snkrs.R;
 import com.skowronsky.snkrs.database.BaseShoes;
+import com.skowronsky.snkrs.database.BrandShoes;
 import com.skowronsky.snkrs.database.Shoes;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.squareup.picasso.Picasso;
@@ -44,15 +46,15 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        Shoes shoes = baseShoesList.get(position).brandShoes.shoes;
+        BrandShoes brandShoes = baseShoesList.get(position).brandShoes;
         final HomeRecyclerViewAdapter.RecyclerViewViewHolder viewHolder = (HomeRecyclerViewAdapter.RecyclerViewViewHolder) holder;
         //TODO get brandName
-        //viewHolder.shoe_company.setText(shoes.getBrandName());
-        viewHolder.shoe_model.setText(shoes.getModelName());
+        viewHolder.shoe_company.setText(String.valueOf(brandShoes.brand.getBrandName()));
+        viewHolder.shoe_model.setText(brandShoes.shoes.getModelName());
         //TODO BaseShoes 1.5
-        //viewHolder.base_size.setText("Base size: "+ String.valueOf(baseShoesList.get(position).base.size));
-        if (shoes.getImage()!=null){
-            Picasso.with((Context) context).load(shoes.getImage()).into(
+        viewHolder.base_sizeUs.setText("US: "+ String.valueOf(baseShoesList.get(position).brandSize.sizeChart.getUs()));
+        if (brandShoes.shoes.getImage()!=null){
+            Picasso.with((Context) context).load(brandShoes.shoes.getImage()).into(
                     viewHolder.imageView);
         }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +92,7 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
     class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
         TextView shoe_company;
         TextView shoe_model;
-        TextView base_size;
+        TextView base_sizeUs;
         ImageView imageView;
 
         public RecyclerViewViewHolder(@NonNull View itemView) {
@@ -98,7 +100,8 @@ public class HomeRecyclerViewAdapter<Acitivity> extends RecyclerView.Adapter<Rec
             shoe_company = itemView.findViewById(R.id.shoe_comp);
             shoe_model = itemView.findViewById(R.id.shoe_model);
             imageView = itemView.findViewById(R.id.shoe_icon);
-            base_size = itemView.findViewById(R.id.size);
+            base_sizeUs = itemView.findViewById(R.id.size);
+
         }
     }
 }

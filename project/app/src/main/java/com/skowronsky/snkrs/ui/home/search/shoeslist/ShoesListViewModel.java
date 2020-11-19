@@ -35,7 +35,7 @@ public class ShoesListViewModel extends AndroidViewModel {
         return InfoNav;
     }
 
-    public LiveData<List<com.skowronsky.snkrs.database.Shoes>> getAllShoes(){return allShoes;}
+    public LiveData<List<com.skowronsky.snkrs.database.Shoes>> getAllShoes(){return repository.getShoesByIdBrand(navigationStorage.getBrand().getIdBrand());}
 
     /**
      * Metoda zwana eventem która ustawia wartość LiveData na true w celu poinformowania obserwatora

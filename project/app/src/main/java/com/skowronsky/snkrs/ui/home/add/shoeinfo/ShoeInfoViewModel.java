@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.skowronsky.snkrs.database.Base;
+import com.skowronsky.snkrs.database.Brand;
 import com.skowronsky.snkrs.repository.Repository;
 import com.skowronsky.snkrs.storage.NavigationStorage;
 import com.skowronsky.snkrs.ui.home.add.shoeinfo.sizepages.Size;
@@ -17,8 +18,8 @@ public class ShoeInfoViewModel extends AndroidViewModel {
     private NavigationStorage navigationStorage;
     private Base base;
     private MutableLiveData<Size> size;
-    public String shoe_model;
-    public String shoe_brand;
+    private String shoe_model;
+    private Brand brand;
 
     public ShoeInfoViewModel(Application application){
         super(application);
@@ -26,7 +27,7 @@ public class ShoeInfoViewModel extends AndroidViewModel {
         this.navigationStorage = NavigationStorage.getInstance();
         shoe_model = navigationStorage.getShoe().getModelName();
         //TODO get brandName
-        //shoe_brand = navigationStorage.getShoe().getBrandName();
+        brand = navigationStorage.getBrand();
     }
 
 

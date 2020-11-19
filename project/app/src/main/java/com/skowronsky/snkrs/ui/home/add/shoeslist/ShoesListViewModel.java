@@ -29,12 +29,8 @@ public class ShoesListViewModel extends AndroidViewModel {
     }
 
     //TODO get brandName
-//    public LiveData<List<Shoes>> getAllShoes(){
-//        return  repository.getShoesByBrandName(navigationStorage.getBrand().getBrandName());
-//    }
-
-    public LiveData<String> getBrandById(String brandName){
-        return repository.getBrandByName(brandName);
+    public LiveData<List<Shoes>> getAllShoes(){
+        return  repository.getShoesByIdBrand(navigationStorage.getBrand().getIdBrand());
     }
 
     public MutableLiveData<Boolean> getInfoNav(){

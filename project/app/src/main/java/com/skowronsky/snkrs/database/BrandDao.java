@@ -14,8 +14,8 @@ public interface BrandDao {
     @Query("select * from brand")
     LiveData<List<Brand>> getAll();
 
-    @Query("select brandName from brand where brandName=:brandName")
-    LiveData<String> getBrandByName(String brandName);
+    @Query("select * from brand where idBrand=:idBrand")
+    LiveData<Brand> getBrandById(long idBrand);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Brand> brands);
